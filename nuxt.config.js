@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import { ko } from 'vuetify/src/locale'
 
 export default {
   /*
@@ -32,12 +33,11 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['material-design-icons-iconfont/dist/material-design-icons.css'],
   /*
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -57,9 +57,10 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    // '@nuxtjs/axios',
     '@nuxtjs/pwa',
   ],
+  plugins: ['~/plugins/composition-api'],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -75,7 +76,7 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: colors.blue.darken2,
+          primary: '#71b9c1',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
@@ -83,6 +84,10 @@ export default {
           error: colors.deepOrange.accent4,
           success: colors.green.accent3,
         },
+      },
+      lang: {
+        locales: { ko },
+        current: 'ko',
       },
     },
   },
@@ -92,6 +97,6 @@ export default {
    */
   build: {},
   env: {
-    GOOGLE_API_KEY: process.env.API_BASE_URL,
+    API_BASE_URL: process.env.API_BASE_URL,
   },
 }
