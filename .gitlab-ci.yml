@@ -1,0 +1,26 @@
+stages:
+  - Build
+  - Deploy
+
+Build:
+  stage: Build
+  image: docker:latest
+  before_script:
+    - cd /volume1/docker/Commute-Server
+    - git pull origin master
+  script:
+    - docker build --tag commute/server .
+  only:
+    - tags
+
+Deploy:
+  stage: Deploy
+  image: docker:latest
+  before_script:
+    - cd /volume1/docker/Commute-Server
+  script:
+    - docker stop Commute-Server
+    - docker rm Commute-Server
+    - docker run -d --name=Commute-Server --restart=always -p 32809:7764 commute/server:latest
+  only:
+    - tags
