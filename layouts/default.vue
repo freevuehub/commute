@@ -21,16 +21,19 @@
       <nuxt />
     </v-main>
     <default-footer />
+    <snack-bar />
   </v-app>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive } from '@vue/composition-api'
+import { SnackBar } from '~/containers'
 import { DefaultFooter } from '~/components'
 
 export default defineComponent({
   components: {
     DefaultFooter,
+    SnackBar,
   },
   data() {
     return {
@@ -39,14 +42,14 @@ export default defineComponent({
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
+          icon: 'home',
+          title: '메인 페이지',
           to: '/',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          icon: 'timelapse',
+          title: '출퇴근 리스트',
+          to: '/commute',
         },
       ],
       miniVariant: false,

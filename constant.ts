@@ -1,34 +1,34 @@
 export const MainConstant = {
   $Set: {
-    MainData: 'MAIN/SET/DATA',
+    MainData: 'SET/DATA',
   },
   $Call: {
-    MainData: 'MAIN/CALL/DATA',
+    MainData: 'CALL/DATA',
   },
   $Get: {
-    MainData: 'MAIN/GET/DATA',
+    MainData: 'GET/DATA',
   },
 }
 
 export const SnackConstant = {
   $Set: {
-    SnackStatus: 'SNACK/SET/STATUS',
+    SnackStatus: 'SET/STATUS',
   },
   $Call: {
-    SnackStatus: 'SNACK/CALL/STATUS',
+    SnackStatus: 'CALL/STATUS',
   },
   $Get: {
-    SnackStatus: 'SNACK/GET/STATUS',
+    SnackStatus: 'GET/STATUS',
   },
 }
 
 export const CommuteConstant = {
   $Set: {
-    CommuteItem: 'COMMUTE/SET/ITEM',
+    CommuteItem: 'SET/ITEM',
   },
   $Call: {
-    CommutePost: 'COMMUTE/CALL/POST',
-    CommutePut: 'COMMUTE/CALL/PUT',
+    CommutePost: 'CALL/POST',
+    CommutePut: 'CALL/PUT',
   },
   $Get: {},
 }

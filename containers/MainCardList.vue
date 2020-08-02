@@ -19,11 +19,15 @@
 
 <script lang="ts">
 import { SetupContext, defineComponent } from '@vue/composition-api'
-import { useState, useComputed, useStartTimeSave, useEndTimeSave } from './index.fn'
+import { useState, useComputed, useStartTimeSave, useEndTimeSave } from './main-card-list.fn'
 import { DatePickerCard, TimePickerCard, TimeSaveCard } from '~/components'
 
 export default defineComponent({
-  components: { DatePickerCard, TimePickerCard, TimeSaveCard },
+  components: {
+    DatePickerCard,
+    TimePickerCard,
+    TimeSaveCard,
+  },
   setup(_: {}, { root }: SetupContext) {
     const state = useState()
     const computed = useComputed(root)
