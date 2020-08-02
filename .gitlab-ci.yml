@@ -21,6 +21,6 @@ Deploy:
   script:
     - docker stop Commute-Front
     - docker rm Commute-Front
-    - docker run -d --name=Commute-Front --restart=always -p 32809:7764 commute/front:latest
+    - docker run -d --name=Commute-Front --restart=always -p 19932:3000 commute/front:latest
   only:
     - tags
