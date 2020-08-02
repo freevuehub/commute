@@ -6,10 +6,10 @@ Build:
   stage: Build
   image: docker:latest
   before_script:
-    - cd /volume1/docker/Commute-Server
+    - cd /volume1/docker/Commute-Front
     - git pull origin master
   script:
-    - docker build --tag commute/server .
+    - docker build --tag commute/front .
   only:
     - tags
 
@@ -17,10 +17,10 @@ Deploy:
   stage: Deploy
   image: docker:latest
   before_script:
-    - cd /volume1/docker/Commute-Server
+    - cd /volume1/docker/Commute-Front
   script:
-    - docker stop Commute-Server
-    - docker rm Commute-Server
-    - docker run -d --name=Commute-Server --restart=always -p 32809:7764 commute/server:latest
+    - docker stop Commute-Front
+    - docker rm Commute-Front
+    - docker run -d --name=Commute-Front --restart=always -p 32809:7764 commute/front:latest
   only:
     - tags
