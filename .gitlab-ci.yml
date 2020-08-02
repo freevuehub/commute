@@ -2,7 +2,7 @@ stages:
   - Build
   - Deploy
 
-Build:
+Docker Image Build:
   stage: Build
   image: docker:latest
   before_script:
@@ -11,12 +11,19 @@ Build:
   script:
     - docker build --tag commute/front .
 
-Deploy:
-  stage: Deploy
+Docker Remove Container:
+  stage: Build
   image: docker:latest
   before_script:
     - cd /volume1/docker/Commute-Front
   script:
     - docker stop Commute-Front
     - docker rm Commute-Front
+
+Docker Run Container:
+  stage: Deploy
+  image: docker:latest
+  before_script:
+    - cd /volume1/docker/Commute-Front
+  script:
     - docker run -d --name=Commute-Front --restart=always -p 19932:3000 commute/front:latest
