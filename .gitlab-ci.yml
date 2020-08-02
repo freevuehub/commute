@@ -10,6 +10,8 @@ Docker Image Build:
     - git pull origin master
   script:
     - docker build --tag commute/front .
+  only:
+    - tags
 
 Docker Remove Container:
   stage: Build
@@ -17,9 +19,13 @@ Docker Remove Container:
   script:
     - docker stop Commute-Front
     - docker rm Commute-Front
+  only:
+    - tags
 
 Docker Run Container:
   stage: Deploy
   image: docker:latest
   script:
     - docker run -d --name=Commute-Front --restart=always -p 19932:3000 commute/front:latest
+  only:
+    - tags
