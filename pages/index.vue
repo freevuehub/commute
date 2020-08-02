@@ -85,11 +85,22 @@
 <script>
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import axios from 'axios'
 
 export default {
   components: {
     Logo,
     VuetifyLogo,
+  },
+  data() {
+    return {
+      tset: process.env.API_BASE_URL,
+    }
+  },
+  mounted() {
+    axios.get(`${this.tset}/main`).then((res) => {
+      console.log(res)
+    })
   },
 }
 </script>
