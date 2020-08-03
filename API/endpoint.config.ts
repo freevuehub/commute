@@ -1,4 +1,7 @@
-const SERVER = 'http://freevue.synology.me:32809'
+const PTOTOCOL = process.env.API_PROTOCOL
+const URL = process.env.API_URL
+const PORT = process.env.API_PORT
+const SERVER = `${PTOTOCOL}${URL}:${PORT}`
 
 interface IConfig {
   main: {
@@ -10,6 +13,7 @@ interface IConfig {
     request: {
       insert(): string
       update(id: number): string
+      getList(): string
     }
   }
 }
@@ -25,6 +29,7 @@ const config: IConfig = {
     request: {
       insert: () => `${SERVER}/commute`,
       update: (id: number) => `${SERVER}/commute/${id}`,
+      getList: () => `${SERVER}/commute`,
     },
   },
 }

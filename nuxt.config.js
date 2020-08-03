@@ -97,6 +97,8 @@ export default {
    */
   build: {},
   env: {
-    API_BASE_URL: process.env.API_BASE_URL,
+    API_PROTOCOL: process.env.API_PROTOCOL,
+    API_URL: process.env.API_URL,
+    API_PORT: process.env.API_PORT,
   },
 }

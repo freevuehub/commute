@@ -18,13 +18,16 @@ interface ICommuteUpdateResponse extends IApiSuccessCode {
   result: ICommuteItem
 }
 
+interface ICommuteGetListResponse extends IApiSuccessCode {
+  result: any
+  // result: ICommuteItem[]
+}
+
 export const getMainData = (): Promise<IMainDataResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
-        const response: AxiosResponse = await axios.get(
-          endpoint.main.request.data()
-        )
+        const response: AxiosResponse = await axios.get(endpoint.main.request.data())
 
         if (response.data.status === 2000) {
           resolve(response.data)
@@ -38,9 +41,7 @@ export const getMainData = (): Promise<IMainDataResponse> => {
   })
 }
 
-export const postCommute = (
-  payload: ICommutePostOrPutItem
-): Promise<ICommuteInsertResponse> => {
+export const postCommute = (payload: ICommutePostOrPutItem): Promise<ICommuteInsertResponse> => {
   const formData = new FormData()
 
   Object.entries(payload).forEach(([key, value]) => {
@@ -78,6 +79,28 @@ export const putCommute = (
           endpoint.commute.request.update(id),
           payload
         )
+
+        if (response.data.status === 2000) {
+          resolve(response.data)
+        } else {
+          reject(response)
+        }
+      } catch (err) {
+        reject(err)
+      }
+    })()
+  })
+}
+
+export const getCommuteList = (page: number, limit: number): Promise<ICommuteGetListResponse> => {
+  return new Promise((resolve, reject) => {
+    ;(async () => {
+      try {
+        const params = { page, limit }
+
+        const response: AxiosResponse = await axios.get(endpoint.commute.request.getList(), {
+          params,
+        })
 
         if (response.data.status === 2000) {
           resolve(response.data)

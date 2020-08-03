@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, defineComponent } from '@vue/composition-api'
-import { useState, useComputed, useStartTimeSave, useEndTimeSave } from './index.fn'
+import { SetupContext, defineComponent, onBeforeMount } from '@vue/composition-api'
+import { useState, useComputed, useStartTimeSave, useEndTimeSave, useBeforeMount } from './index.fn'
 import { DatePickerCard, TimePickerCard, TimeSaveCard } from '~/components'
 
 export default defineComponent({
@@ -29,6 +29,8 @@ export default defineComponent({
     const computed = useComputed(root)
     const onStartTimeSave = useStartTimeSave(root, state)
     const onEndTimeSave = useEndTimeSave(root, state)
+
+    onBeforeMount(useBeforeMount(root))
 
     return {
       state,

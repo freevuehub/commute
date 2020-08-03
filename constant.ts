@@ -25,10 +25,14 @@ export const SnackConstant = {
 export const CommuteConstant = {
   $Set: {
     CommuteItem: 'SET/ITEM',
+    CommuteList: 'SET/LIST',
   },
   $Call: {
     CommutePost: 'CALL/POST',
     CommutePut: 'CALL/PUT',
+    CommuteGetList: 'CALL/GET/LIST',
   },
-  $Get: {},
+  $Get: {
+    CommuteList: 'GET/LIST',
+  },
 }

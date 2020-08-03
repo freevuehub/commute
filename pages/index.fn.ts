@@ -54,3 +54,7 @@ export const useEndTimeSave = (root: any, state: IState) => async () => {
     type: 'success',
   })
 }
+
+export const useBeforeMount = (root: any) => () => {
+  root.$store.dispatch(`main/${MainConstant.$Call.MainData}`)
+}

@@ -24,21 +24,23 @@ export const state = () => ({
 })
 
 export const mutations = {
-  [MainConstant.$Set.MainData]: (state: IState, payload: ICommuteItem) => {
+  [MainConstant.$Set.MainData](state: IState, payload: ICommuteItem) {
     state.data = payload
   },
 }
 
 export const actions = {
-  [MainConstant.$Call.MainData]: async ({ commit }: any) => {
+  [MainConstant.$Call.MainData]: async (store: any) => {
     const { result } = await getMainData()
 
-    commit(MainConstant.$Set.MainData, {
+    console.log(store)
+
+    store.commit(MainConstant.$Set.MainData, {
       ...result,
       startDate: result.startDate && dayjs(result.startDate).format('YYYY-MM-DD'),
       endDate: result.endDate && dayjs(result.endDate).format('YYYY-MM-DD'),
     })
-    commit(CommuteConstant.$Set.CommuteItem, {
+    store.commit(`commute/${CommuteConstant.$Set.CommuteItem}`, {
       ...result,
       startDate: result.startDate && dayjs(result.startDate).format('YYYY-MM-DD'),
       endDate: result.endDate && dayjs(result.endDate).format('YYYY-MM-DD'),
@@ -47,7 +49,7 @@ export const actions = {
 }
 
 export const getters = {
-  [MainConstant.$Get.MainData]: (state: IState) => {
+  [MainConstant.$Get.MainData](state: IState) {
     return state.data
   },
 }
