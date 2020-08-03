@@ -31,8 +31,10 @@ export const CommuteConstant = {
     CommutePost: 'CALL/POST',
     CommutePut: 'CALL/PUT',
     CommuteGetList: 'CALL/GET/LIST',
+    CommuteGetItem: 'CALL/GET/ITEM',
   },
   $Get: {
     CommuteList: 'GET/LIST',
+    CommuteItem: 'GET/ITEM',
   },
 }

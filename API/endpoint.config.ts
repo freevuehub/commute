@@ -11,9 +11,8 @@ interface IConfig {
   }
   commute: {
     request: {
-      insert(): string
-      update(id: number): string
-      getList(): string
+      common(): string
+      hasId(id: number): string
     }
   }
 }
@@ -27,9 +26,8 @@ const config: IConfig = {
   },
   commute: {
     request: {
-      insert: () => `${SERVER}/commute`,
-      update: (id: number) => `${SERVER}/commute/${id}`,
-      getList: () => `${SERVER}/commute`,
+      common: () => `${SERVER}/commute`,
+      hasId: (id: number) => `${SERVER}/commute/${id}`,
     },
   },
 }
