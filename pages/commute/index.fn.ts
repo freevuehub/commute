@@ -5,11 +5,7 @@ import { ICommuteItem } from '~/types'
 
 export const useState = () =>
   reactive({
-    headers: [
-      { text: '일자', sortable: false, value: 'date' },
-      { text: '출근시간', sortable: false, value: 'startDate' },
-      { text: '퇴근시간', sortable: false, value: 'endDate' },
-    ],
+    headers: ['일자', '회사', '출근시간', '퇴근시간'],
   })
 
 export const useComputed = ({ root }: SetupContext) =>
@@ -31,4 +27,8 @@ export const useBeforeMounted = ({ root }: SetupContext) => async () => {
     page: 1,
     limit: 20,
   })
+}
+
+export const useCommuteItemClick = ({ root }: SetupContext) => (id: number) => {
+  root.$router.push(`/commute/${id}`)
 }
