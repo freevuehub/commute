@@ -5,13 +5,9 @@
       <v-card-subtitle>{{ dateTime }}</v-card-subtitle>
     </div>
     <v-card-actions class="ml-auto">
-      <v-btn
-        color="primary"
-        :disabled="computed.isDate"
-        :loading="loading"
-        @click="onStartClick"
-        v-text="textComputed.btnText"
-      />
+      <v-btn color="primary" :disabled="computed.isDate" :loading="loading" @click="onStartClick">
+        <span>{{ textComputed.btnText }}</span>
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>

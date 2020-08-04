@@ -33,14 +33,7 @@ export const actions = {
   [MainConstant.$Call.MainData]: async (store: any) => {
     const { result } = await getMainData()
 
-    console.log(store)
-
     store.commit(MainConstant.$Set.MainData, {
-      ...result,
-      startDate: result.startDate && dayjs(result.startDate).format('YYYY-MM-DD'),
-      endDate: result.endDate && dayjs(result.endDate).format('YYYY-MM-DD'),
-    })
-    store.commit('commute/SET/ITEM', {
       ...result,
       startDate: result.startDate && dayjs(result.startDate).format('YYYY-MM-DD'),
       endDate: result.endDate && dayjs(result.endDate).format('YYYY-MM-DD'),
