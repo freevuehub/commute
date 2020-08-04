@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import { MainConstant, CommuteConstant } from '~/constant'
+import { MainConstant } from '~/constant'
 import { getMainData } from '~/API'
 import { ICommuteItem } from '~/types'
 
