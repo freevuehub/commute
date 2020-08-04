@@ -1,8 +1,8 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" :clipped="clipped" fixed app>
+    <v-navigation-drawer v-model="state.drawer" fixed app>
       <v-list>
-        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router exact>
+        <v-list-item v-for="(item, i) in state.items" :key="i" :to="item.to" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -12,10 +12,10 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app color="primary">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+    <v-app-bar fixed app color="primary">
+      <v-app-bar-nav-icon @click.stop="state.drawer = !state.drawer" />
       <v-spacer />
-      <v-toolbar-title v-text="state.title" />
+      <v-toolbar-title v-text="title.str" />
     </v-app-bar>
     <v-main>
       <nuxt />
@@ -26,20 +26,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@vue/composition-api'
+import { defineComponent, reactive, computed, SetupContext } from '@vue/composition-api'
 import { SnackBar } from '~/containers'
 import { DefaultFooter } from '~/components'
+import { MainConstant } from '~/constant'
+import { ICommuteItem } from '~/types'
 
 export default defineComponent({
   components: {
     DefaultFooter,
     SnackBar,
   },
-  data() {
-    return {
-      clipped: false,
+  setup(_: {}, vm: SetupContext) {
+    const state = reactive({
+      title: '출근할 시간이야',
       drawer: false,
-      fixed: false,
       items: [
         {
           icon: 'home',
@@ -52,16 +53,18 @@ export default defineComponent({
           to: '/commute',
         },
       ],
-      miniVariant: false,
-    }
-  },
-  setup() {
-    const state = reactive({
-      title: '출근할 시간이야',
+    })
+    const title = reactive({
+      str: computed(() => {
+        const item: ICommuteItem = vm.root.$store.getters[`main/${MainConstant.$Get.MainData}`]
+
+        return `${item.startDate ? '퇴근' : '출근'}할 시간이야`
+      }),
     })
 
     return {
       state,
+      title,
     }
   },
 })

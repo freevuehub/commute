@@ -36,7 +36,7 @@ export const useStartTimeSave = (root: any, state: IState) => async () => {
 
   await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
     companyId: 1,
-    startDate: `${state.date} ${state.time}`,
+    startDate: `${state.date} ${state.time}:00`,
     endDate: null,
     comment: null,
     tags: null,
@@ -49,13 +49,15 @@ export const useStartTimeSave = (root: any, state: IState) => async () => {
   })
 
   state.startLoading = false
+
+  useBeforeMount(root)()
 }
 
 export const useEndTimeSave = (root: any, state: IState) => async () => {
   state.endLoading = true
 
   await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
-    endDate: `${state.date} ${state.time}`,
+    endDate: `${state.date} ${state.time}:00`,
   })
 
   root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {
@@ -65,6 +67,8 @@ export const useEndTimeSave = (root: any, state: IState) => async () => {
   })
 
   state.endLoading = false
+
+  useBeforeMount(root)()
 }
 
 export const useBeforeMount = (root: any) => () => {
