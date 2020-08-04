@@ -54,8 +54,6 @@ export const useBeforeMounted = (state: IState, { root }: SetupContext) => async
 
     setTimeout(() => {
       state.loading = false
-
-      console.log(state.loading)
     }, 300)
   } catch (err) {
     console.error(err)
