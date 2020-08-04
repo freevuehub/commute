@@ -33,6 +33,14 @@ export const actions = {
   [SnackConstant.$Call.SnackStatus]: ({ commit }: any, model: IPayload) => {
     commit(SnackConstant.$Set.SnackStatus, { ...model })
   },
+  [SnackConstant.$Call.Success]: ({ commit }: any, message: string) => {
+    commit(SnackConstant.$Set.SnackStatus, {
+      message,
+      timeout: 3000,
+      view: true,
+      type: 'success',
+    })
+  },
 }
 
 export const getters = {

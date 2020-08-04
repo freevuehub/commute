@@ -38,7 +38,7 @@ export const actions = {
     await postCommute(model)
   },
   [CommuteConstant.$Call.CommutePut]: async (store: any, model: ICommutePostOrPutItem) => {
-    await putCommute(store.state.commuteItem.commuteId, model)
+    await putCommute(store.state.commuteItem.id, model)
   },
   [CommuteConstant.$Call.CommuteGetList]: async (
     store: any,

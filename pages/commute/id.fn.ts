@@ -1,10 +1,11 @@
 import { reactive, computed, SetupContext, ComputedRef } from '@vue/composition-api'
 import dayjs from 'dayjs'
-import { CommuteConstant } from '~/constant'
+import { CommuteConstant, SnackConstant } from '~/constant'
 import { ICommuteItem } from '~/types'
 
 interface IState {
   modal: boolean
+  loading: boolean
   time: string
   type: string
 }
@@ -24,6 +25,7 @@ const now = dayjs()
 export const useState = () =>
   reactive<IState>({
     modal: false,
+    loading: true,
     time: now.format('HH:mm:00'),
     type: '',
   })
@@ -43,48 +45,64 @@ export const useComputed = ({ root }: SetupContext) =>
     }),
   })
 
-export const useBeforeMounted = ({ root }: SetupContext) => async () => {
+export const useBeforeMounted = (state: IState, { root }: SetupContext) => async () => {
   try {
     await root.$store.dispatch(
       `commute/${CommuteConstant.$Call.CommuteGetItem}`,
       Number(root.$route.params.id)
     )
+
+    setTimeout(() => {
+      state.loading = false
+
+      console.log(state.loading)
+    }, 300)
   } catch (err) {
     console.error(err)
+
+    state.loading = false
   }
 }
 
 export const useSaveClick = (
   state: IState,
   compute: { commuteItem: IComputedCommuteItem },
-  { root }: SetupContext
+  vm: SetupContext
 ) => async () => {
   const dateValue = () => {
     switch (state.type) {
       case '출근':
         return {
           startDate: `${compute.commuteItem.date} ${state.time}`,
-          endDate: compute.commuteItem.startDate,
         }
       case '퇴근':
         return {
-          startDate: compute.commuteItem.startDate,
           endDate: `${compute.commuteItem.date} ${state.time}`,
         }
     }
   }
 
-  await root.$store.dispatch(CommuteConstant.$Call.CommutePut, {
-    companyId: null,
-    comment: null,
-    tags: null,
+  await vm.root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
     ...dateValue(),
   })
 
   state.modal = false
+  state.loading = true
+
+  await useBeforeMounted(state, vm)()
+
+  vm.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '등록되었습니다.')
 }
 
-export const useRowClick = (state: IState) => (type: string) => {
+export const useRowClick = (state: IState, compute: { commuteItem: IComputedCommuteItem }) => (
+  type: string
+) => {
   state.type = type
   state.modal = true
+  state.time =
+    type === '출근'
+      ? dayjs(compute.commuteItem.startDate).format('HH:mm')
+      : compute.commuteItem.endDate
+      ? dayjs(compute.commuteItem.endDate).format('HH:mm')
+      : now.format('HH:mm:00')
 }

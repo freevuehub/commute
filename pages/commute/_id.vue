@@ -1,5 +1,11 @@
 <template>
-  <v-container fluid>
+  <v-container>
+    <v-dialog v-model="state.loading" persistent>
+      <div class="pa-3 text-center">
+        <v-progress-circular :size="50" indeterminate color="primary" />
+      </div>
+    </v-dialog>
+
     <v-dialog ref="dialog" v-model="state.modal">
       <v-time-picker v-if="state.modal" v-model="state.time" full-width color="primary">
         <v-spacer></v-spacer>
@@ -33,6 +39,11 @@
         <v-card-title>{{ computed.commuteItem.companyName }}</v-card-title>
       </v-img>
     </v-card>
+    <div class="d-flex mt-10">
+      <v-spacer></v-spacer>
+      <v-btn nuxt color="primary" @click="$router.go(-1)">돌아가기</v-btn>
+      <v-spacer></v-spacer>
+    </div>
   </v-container>
 </template>
 
@@ -49,9 +60,9 @@ export default defineComponent({
     const state = useState()
     const computed = useComputed(vm)
     const onSaveClick = useSaveClick(state, computed, vm)
-    const onRowClick = useRowClick(state)
+    const onRowClick = useRowClick(state, computed)
 
-    onBeforeMount(useBeforeMounted(vm))
+    onBeforeMount(useBeforeMounted(state, vm))
 
     return {
       state,
