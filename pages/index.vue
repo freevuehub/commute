@@ -6,12 +6,13 @@
       class="mb-5"
       type="start"
       :date-time="computed.mainData.startDate || 'N/A'"
+      :loading="state.startLoading"
       @click="onStartTimeSave"
     />
     <time-save-card
-      class="mb-5"
       type="end"
       :date-time="computed.mainData.endDate || 'N/A'"
+      :loading="state.endLoading"
       @click="onEndTimeSave"
     />
   </v-container>

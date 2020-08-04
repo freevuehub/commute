@@ -40,7 +40,7 @@ export const actions = {
       startDate: result.startDate && dayjs(result.startDate).format('YYYY-MM-DD'),
       endDate: result.endDate && dayjs(result.endDate).format('YYYY-MM-DD'),
     })
-    store.commit(`commute/${CommuteConstant.$Set.CommuteItem}`, {
+    store.commit('commute/SET/ITEM', {
       ...result,
       startDate: result.startDate && dayjs(result.startDate).format('YYYY-MM-DD'),
       endDate: result.endDate && dayjs(result.endDate).format('YYYY-MM-DD'),

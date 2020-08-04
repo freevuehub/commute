@@ -21,7 +21,7 @@
           v-on="on"
         ></v-text-field>
       </template>
-      <v-date-picker v-model="state.date" color="primary" scrollable>
+      <v-date-picker v-model="state.date" color="primary" locale="ko" scrollable>
         <v-spacer></v-spacer>
         <v-btn text color="primary" @click="state.modal = false">Cancel</v-btn>
         <v-btn text color="primary" @click="onDateDialogSave">OK</v-btn>

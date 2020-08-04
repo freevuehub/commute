@@ -14,3 +14,10 @@ export const useComputed = (props: IProps) =>
       return !!props.dateTime && props.dateTime !== 'N/A'
     }),
   })
+
+export const useTextComputed = (compute: { type: string; isDate: boolean }) =>
+  reactive({
+    btnText: computed(() => {
+      return `${compute.type} ${compute.isDate ? '완료' : ''}`
+    }),
+  })

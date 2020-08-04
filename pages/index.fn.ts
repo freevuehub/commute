@@ -6,6 +6,8 @@ import { MainConstant, SnackConstant, CommuteConstant } from '~/constant'
 export interface IState {
   time: string
   date: string
+  startLoading: boolean
+  endLoading: boolean
 }
 
 export interface IComputed {
@@ -18,6 +20,8 @@ export const useState = () =>
   reactive<IState>({
     time: now.format('HH:mm:00'),
     date: now.format('YYYY-MM-DD'),
+    startLoading: false,
+    endLoading: false,
   })
 
 export const useComputed = (root: any) =>
@@ -28,6 +32,8 @@ export const useComputed = (root: any) =>
   })
 
 export const useStartTimeSave = (root: any, state: IState) => async () => {
+  state.startLoading = true
+
   await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
     companyId: 1,
     startDate: `${state.date} ${state.time}`,
@@ -41,9 +47,13 @@ export const useStartTimeSave = (root: any, state: IState) => async () => {
     view: true,
     type: 'success',
   })
+
+  state.startLoading = false
 }
 
 export const useEndTimeSave = (root: any, state: IState) => async () => {
+  state.endLoading = true
+
   await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
     endDate: `${state.date} ${state.time}`,
   })
@@ -53,6 +63,8 @@ export const useEndTimeSave = (root: any, state: IState) => async () => {
     view: true,
     type: 'success',
   })
+
+  state.endLoading = false
 }
 
 export const useBeforeMount = (root: any) => () => {
