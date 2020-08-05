@@ -6,25 +6,34 @@
         <simple-table-body :list="computed.commuteList" @click="onCommuteItemClick" />
       </template>
     </v-simple-table>
-    <v-pagination />
+    <pagination v-model="state.page" :max="state.limit" :total="computed.total" />
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, SetupContext } from '@vue/composition-api'
-import { useState, useComputed, useBeforeMounted, useCommuteItemClick } from './index.fn'
-import { SimpleTableHeader, SimpleTableBody } from '~/components'
+import { defineComponent, onBeforeMount, SetupContext, watch } from '@vue/composition-api'
+import {
+  useState,
+  useComputed,
+  useBeforeMounted,
+  useCommuteItemClick,
+  usePageWatch,
+} from './index.fn'
+import { SimpleTableHeader, SimpleTableBody, Pagination } from '~/components'
 
 export default defineComponent({
   components: {
     SimpleTableHeader,
     SimpleTableBody,
+    Pagination,
   },
   setup(_: {}, vm: SetupContext) {
-    const state = useState()
+    const state = useState(vm)
     const computed = useComputed(vm)
 
-    onBeforeMount(useBeforeMounted(vm))
+    onBeforeMount(useBeforeMounted(vm, state))
+
+    watch(() => state.page, usePageWatch(vm, state))
 
     return {
       state,

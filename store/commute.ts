@@ -5,6 +5,7 @@ import { ICommuteItem, ICommutePostOrPutItem } from '~/types'
 interface IState {
   commuteItem: ICommuteItem
   commuteList: ICommuteItem[]
+  listTotal: number
 }
 
 export const state = () => ({
@@ -22,6 +23,7 @@ export const state = () => ({
     tags: null,
   },
   commuteList: [],
+  listTotal: 0,
 })
 
 export const mutations = {
@@ -30,6 +32,9 @@ export const mutations = {
   },
   [CommuteConstant.$Set.CommuteItem]: (state: IState, payload: ICommuteItem) => {
     state.commuteItem = payload
+  },
+  [CommuteConstant.$Set.CommuteListTotal]: (state: IState, payload: number) => {
+    state.listTotal = payload
   },
 }
 
@@ -44,9 +49,15 @@ export const actions = {
     store: any,
     { page, limit }: { page: number; limit: number }
   ) => {
-    const { result } = await getCommuteList(page, limit)
+    store.commit(CommuteConstant.$Set.CommuteList, [])
+    store.commit(CommuteConstant.$Set.CommuteListTotal, 0)
 
-    store.commit(CommuteConstant.$Set.CommuteList, result)
+    const { result, totalCount } = await getCommuteList(page, limit)
+
+    setTimeout(() => {
+      store.commit(CommuteConstant.$Set.CommuteList, result)
+      store.commit(CommuteConstant.$Set.CommuteListTotal, totalCount)
+    }, 300)
   },
   [CommuteConstant.$Call.CommuteGetItem]: async (store: any, id: number) => {
     const { result } = await getCommuteItem(id)
@@ -61,5 +72,8 @@ export const getters = {
   },
   [CommuteConstant.$Get.CommuteList](state: IState) {
     return state.commuteList
+  },
+  [CommuteConstant.$Get.CommuteListTotal](state: IState) {
+    return state.listTotal
   },
 }

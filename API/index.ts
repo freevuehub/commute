@@ -20,6 +20,7 @@ interface ICommuteUpdateResponse extends IApiSuccessCode {
 
 interface ICommuteGetListResponse extends IApiSuccessCode {
   result: ICommuteItem[]
+  totalCount: number
 }
 
 export const getMainData = (): Promise<IMainDataResponse> => {

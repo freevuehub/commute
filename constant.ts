@@ -27,6 +27,7 @@ export const CommuteConstant = {
   $Set: {
     CommuteItem: 'SET/ITEM',
     CommuteList: 'SET/LIST',
+    CommuteListTotal: 'SET/LIST/TOTAL',
   },
   $Call: {
     CommutePost: 'CALL/POST',
@@ -37,5 +38,6 @@ export const CommuteConstant = {
   $Get: {
     CommuteList: 'GET/LIST',
     CommuteItem: 'GET/ITEM',
+    CommuteListTotal: 'GET/LIST/TOTAL',
   },
 }

@@ -3,9 +3,21 @@ import { reactive, computed, SetupContext } from '@vue/composition-api'
 import { CommuteConstant } from '~/constant'
 import { ICommuteItem } from '~/types'
 
-export const useState = () =>
-  reactive({
+interface IState {
+  headers: string[]
+  page: number
+  limit: number
+}
+
+const loadCommuteList = async (root: any, page: number, limit: number) => {
+  await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommuteGetList}`, { page, limit })
+}
+
+export const useState = ({ root }: SetupContext) =>
+  reactive<IState>({
     headers: ['일자', '회사', '출근시간', '퇴근시간'],
+    page: Number(root.$route.query.page || 1),
+    limit: 20,
   })
 
 export const useComputed = ({ root }: SetupContext) =>
@@ -20,15 +32,21 @@ export const useComputed = ({ root }: SetupContext) =>
         endDate: item.endDate ? dayjs(item.endDate).format('HH:mm') : 'N/A',
       }))
     }),
+    total: computed(() => {
+      return root.$store.getters[`commute/${CommuteConstant.$Get.CommuteListTotal}`]
+    }),
   })
 
-export const useBeforeMounted = ({ root }: SetupContext) => async () => {
-  await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommuteGetList}`, {
-    page: 1,
-    limit: 20,
-  })
+export const useBeforeMounted = ({ root }: SetupContext, state: IState) => async () => {
+  await loadCommuteList(root, state.page, state.limit)
 }
 
 export const useCommuteItemClick = ({ root }: SetupContext) => (id: number) => {
   root.$router.push(`/commute/${id}`)
+}
+
+export const usePageWatch = ({ root }: SetupContext, state: IState) => async (page: number) => {
+  root.$router.push({ query: { page: `${page}` } })
+
+  await loadCommuteList(root, page, state.limit)
 }
