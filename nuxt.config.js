@@ -60,7 +60,7 @@ export default {
     // '@nuxtjs/axios',
     '@nuxtjs/pwa',
   ],
-  plugins: ['~/plugins/composition-api', '~/plugins/dayjs'],
+  plugins: ['~/plugins/composition-api'],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options

@@ -4,8 +4,6 @@ import { reactive, computed, SetupContext } from '@vue/composition-api'
 import { CommuteConstant } from '~/constant'
 import { ICommuteItem } from '~/types'
 
-console.log(dayjs.locale())
-
 interface IState {
   headers: string[]
   page: number

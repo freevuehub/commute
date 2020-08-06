@@ -1,8 +1,10 @@
 import { reactive, computed, SetupContext, ComputedRef } from '@vue/composition-api'
 import dayjs from 'dayjs'
+import 'dayjs/locale/ko'
 import { CommuteConstant, SnackConstant } from '~/constant'
 import { ICommuteItem } from '~/types'
 
+console.log(dayjs.locale())
 interface IState {
   modal: boolean
   loading: boolean
@@ -35,6 +37,12 @@ export const useComputed = ({ root }: SetupContext) =>
     commuteItem: computed(() => {
       const detailItem: ICommuteItem =
         root.$store.getters[`commute/${CommuteConstant.$Get.CommuteItem}`]
+
+      console.log(detailItem.startDate, dayjs(detailItem.startDate))
+      console.log(
+        dayjs(detailItem.startDate).format('HH:mm'),
+        dayjs(detailItem.startDate).locale('ko').format('HH:mm')
+      )
 
       return {
         ...detailItem,
