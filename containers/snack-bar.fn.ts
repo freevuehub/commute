@@ -9,5 +9,5 @@ export const useComputed = (root: any) =>
   })
 
 export const useSnackBarClose = (root: any) => () => {
-  root.$store.dispatch(SnackConstant.$Call.SnackStatus, { view: false })
+  root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, { view: false })
 }
