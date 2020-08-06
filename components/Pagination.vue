@@ -40,7 +40,6 @@
 </template>
 
 <script lang="ts">
-import 'vuetify/dist/vuetify.min.css'
 import { defineComponent, SetupContext } from '@vue/composition-api'
 import { useComputed, usePageComputed, IProps, usePageBtnClick } from './pagination.fn'
 

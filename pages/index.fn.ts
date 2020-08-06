@@ -53,11 +53,16 @@ export const useStartTimeSave = (root: any, state: IState) => async () => {
   useBeforeMount(root)()
 }
 
-export const useEndTimeSave = (root: any, state: IState) => async () => {
+export const useEndTimeSave = (
+  root: any,
+  state: IState,
+  computed: { mainData: ICommuteItem }
+) => async () => {
   state.endLoading = true
 
   await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
     endDate: `${state.date} ${state.time}:00`,
+    id: computed.mainData.commuteId,
   })
 
   root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {

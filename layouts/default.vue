@@ -26,6 +26,8 @@
 </template>
 
 <script lang="ts">
+import 'vuetify/dist/vuetify.min.css'
+
 import { defineComponent, reactive, computed, SetupContext } from '@vue/composition-api'
 import { SnackBar } from '~/containers'
 import { DefaultFooter } from '~/components'

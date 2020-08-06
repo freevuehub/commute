@@ -29,7 +29,7 @@ export default defineComponent({
     const state = useState()
     const computed = useComputed(root)
     const onStartTimeSave = useStartTimeSave(root, state)
-    const onEndTimeSave = useEndTimeSave(root, state)
+    const onEndTimeSave = useEndTimeSave(root, state, computed)
 
     onBeforeMount(useBeforeMount(root))
 
