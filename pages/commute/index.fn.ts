@@ -1,7 +1,10 @@
 import dayjs from 'dayjs'
+import 'dayjs/locale/ko'
 import { reactive, computed, SetupContext } from '@vue/composition-api'
 import { CommuteConstant } from '~/constant'
 import { ICommuteItem } from '~/types'
+
+console.log(dayjs.locale())
 
 interface IState {
   headers: string[]
@@ -27,9 +30,9 @@ export const useComputed = ({ root }: SetupContext) =>
 
       return storeList.map((item: ICommuteItem) => ({
         ...item,
-        date: dayjs(item.startDate).format('YYYY-MM-DD'),
-        startDate: dayjs(item.startDate).format('HH:mm'),
-        endDate: item.endDate ? dayjs(item.endDate).format('HH:mm') : 'N/A',
+        date: dayjs(item.startDate).locale('ko').format('YYYY-MM-DD'),
+        startDate: dayjs(item.startDate).locale('ko').format('HH:mm'),
+        endDate: item.endDate ? dayjs(item.endDate).locale('ko').format('HH:mm') : 'N/A',
       }))
     }),
     total: computed(() => {
