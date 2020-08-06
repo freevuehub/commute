@@ -49,15 +49,10 @@ export const actions = {
     store: any,
     { page, limit }: { page: number; limit: number }
   ) => {
-    store.commit(CommuteConstant.$Set.CommuteList, [])
-    store.commit(CommuteConstant.$Set.CommuteListTotal, 0)
-
     const { result, totalCount } = await getCommuteList(page, limit)
 
-    setTimeout(() => {
-      store.commit(CommuteConstant.$Set.CommuteList, result)
-      store.commit(CommuteConstant.$Set.CommuteListTotal, totalCount)
-    }, 300)
+    store.commit(CommuteConstant.$Set.CommuteList, result)
+    store.commit(CommuteConstant.$Set.CommuteListTotal, totalCount)
   },
   [CommuteConstant.$Call.CommuteGetItem]: async (store: any, id: number) => {
     const { result } = await getCommuteItem(id)
