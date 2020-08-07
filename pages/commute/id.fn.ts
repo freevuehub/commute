@@ -37,15 +37,6 @@ export const useComputed = ({ root }: SetupContext) =>
       const detailItem: ICommuteItem =
         root.$store.getters[`commute/${CommuteConstant.$Get.CommuteItem}`]
 
-      console.log('dayjs 시간대역', dayjs.locale())
-      console.log('API 순수 시간', detailItem.startDate)
-      console.log('dayjs에 입력', dayjs(detailItem.startDate))
-      console.log('dayjs에 포맷', dayjs(detailItem.startDate).format('HH:mm'))
-      console.log(
-        'dayjs에 지역 시간대 지정 후 포맷',
-        dayjs(detailItem.startDate).locale('ko').format('HH:mm')
-      )
-
       return {
         ...detailItem,
         date: dayjs(detailItem.startDate).format('YYYY-MM-DD'),
