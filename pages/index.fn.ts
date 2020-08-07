@@ -61,8 +61,10 @@ export const useEndTimeSave = (
   state.endLoading = true
 
   await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
-    endDate: `${state.date} ${state.time}:00`,
-    id: computed.mainData.commuteId,
+    payload: {
+      endDate: `${state.date} ${state.time}:00`,
+    },
+    id: computed.mainData.id,
   })
 
   root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {

@@ -1,6 +1,6 @@
 import { CommuteConstant } from '~/constant'
 import { postCommute, putCommute, getCommuteList, getCommuteItem } from '~/API'
-import { ICommuteItem, ICommutePostOrPutItem } from '~/types'
+import { ICommuteItem, ICommuteItemOfAPI, ICommuteOfPutAPI } from '~/types'
 
 interface IState {
   commuteItem: ICommuteItem
@@ -39,11 +39,14 @@ export const mutations = {
 }
 
 export const actions = {
-  [CommuteConstant.$Call.CommutePost]: async (_: any, model: ICommutePostOrPutItem) => {
+  [CommuteConstant.$Call.CommutePost]: async (_: any, model: ICommuteItemOfAPI) => {
     await postCommute(model)
   },
-  [CommuteConstant.$Call.CommutePut]: async (store: any, model: ICommutePostOrPutItem) => {
-    await putCommute(store.state.commuteItem.id, model)
+  [CommuteConstant.$Call.CommutePut]: async (
+    _: any,
+    { id, payload }: ICommuteOfPutAPI<ICommuteItemOfAPI>
+  ) => {
+    await putCommute(id, payload)
   },
   [CommuteConstant.$Call.CommuteGetList]: async (
     store: any,

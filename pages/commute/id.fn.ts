@@ -88,7 +88,10 @@ export const useSaveClick = (
   }
 
   await vm.root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
-    ...dateValue(),
+    id: vm.root.$route.params.id,
+    payload: {
+      ...dateValue(),
+    },
   })
 
   state.modal = false

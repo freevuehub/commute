@@ -6,16 +6,21 @@ export interface IMainData {
   startDate: string | null
 }
 
-export interface ICommutePostOrPutItem {
-  companyId: number | null
+export interface ICommuteOfPutAPI<T> {
+  id: number
+  payload: T
+}
+
+export interface ICommuteItemOfAPI {
+  companyId: number
   startDate: string
   endDate: string | null
   comment: string | null
   tags: string | null
 }
 
-export interface ICommuteItem extends ICommutePostOrPutItem {
-  commuteId: number | null
+export interface ICommuteItem extends ICommuteItemOfAPI {
+  id: number
   companyName: string
   companyAddress: string
   companyZipCode: number | null

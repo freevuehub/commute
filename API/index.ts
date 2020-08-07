@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import { ICommuteItem, ICommutePostOrPutItem } from '@/types'
+import { ICommuteItem, ICommuteItemOfAPI } from '@/types'
 import endpoint from './endpoint.config'
 
 interface IApiSuccessCode {
@@ -11,7 +11,7 @@ interface IMainDataResponse extends IApiSuccessCode {
 }
 
 interface ICommuteInsertResponse extends IApiSuccessCode {
-  result: ICommutePostOrPutItem
+  result: ICommuteItemOfAPI
 }
 
 interface ICommuteUpdateResponse extends IApiSuccessCode {
@@ -63,7 +63,7 @@ export const getCommuteList = (page: number, limit: number): Promise<ICommuteGet
   })
 }
 
-export const postCommute = (payload: ICommutePostOrPutItem): Promise<ICommuteInsertResponse> => {
+export const postCommute = (payload: ICommuteItemOfAPI): Promise<ICommuteInsertResponse> => {
   const formData = new FormData()
 
   Object.entries(payload).forEach(([key, value]) => {
@@ -110,7 +110,7 @@ export const getCommuteItem = (id: number): Promise<ICommuteUpdateResponse> => {
 
 export const putCommute = (
   id: number,
-  payload: ICommutePostOrPutItem
+  payload: ICommuteItemOfAPI
 ): Promise<ICommuteUpdateResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
