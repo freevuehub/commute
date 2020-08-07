@@ -15,6 +15,7 @@ interface IComputedCommuteItem extends ICommuteItem {
   date: string
   startTime: string
   endTime: string | null
+  workTime: string
 }
 
 interface IConputed {
@@ -42,6 +43,11 @@ export const useComputed = ({ root }: SetupContext) =>
         date: dayjs(detailItem.startDate).format('YYYY-MM-DD'),
         startTime: dayjs(detailItem.startDate).format('HH:mm'),
         endTime: detailItem.endDate ? dayjs(detailItem.endDate).format('HH:mm') : 'N/A',
+        workTime: detailItem.totalWorkTime
+          ? `${Math.floor(detailItem.totalWorkTime / 60) - 1}시간 ${
+              detailItem.totalWorkTime % 60
+            }분`
+          : 'N/A',
       }
     }),
   })

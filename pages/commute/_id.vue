@@ -27,7 +27,7 @@
           <span class="body-1 font-weight-bold">{{ computed.commuteItem.endTime }}</span>
         </row>
         <row title="총 근무시간">
-          <span class="body-1 font-weight-bold">{{ computed.commuteItem.totalWorkTime }}</span>
+          <span class="body-1 font-weight-bold">{{ computed.commuteItem.workTime }}</span>
         </row>
       </v-card-text>
     </v-card>
