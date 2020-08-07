@@ -1,6 +1,15 @@
 stages:
+  - Setting
   - Build
   - Deploy
+
+Docker Image Delete:
+  stage: Setting
+  image: docker:latest
+  script:
+    - docker rmi `docker images |  awk '$1 ~ /commute\/front/ {print $3}'`
+  only:
+    - tags
 
 Docker Image Build:
   stage: Build
