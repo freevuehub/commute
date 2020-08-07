@@ -16,7 +16,7 @@ const loadCommuteList = async (root: any, page: number, limit: number) => {
 
 export const useState = ({ root }: SetupContext) =>
   reactive<IState>({
-    headers: ['일자', '회사', '출근시간', '퇴근시간'],
+    headers: ['일자', '회사', '출근시간', '퇴근시간', '업무시간'],
     page: Number(root.$route.query.page || 1),
     limit: 20,
   })
@@ -31,6 +31,9 @@ export const useComputed = ({ root }: SetupContext) =>
         date: dayjs(item.startDate).locale('ko').format('YYYY-MM-DD'),
         startDate: dayjs(item.startDate).locale('ko').format('HH:mm'),
         endDate: item.endDate ? dayjs(item.endDate).locale('ko').format('HH:mm') : 'N/A',
+        totalWorkTime: item.totalWorkTime
+          ? `${Math.floor(item.totalWorkTime / 60) - 1}시간 ${item.totalWorkTime % 60}분`
+          : 'N/A',
       }))
     }),
     total: computed(() => {

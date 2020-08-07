@@ -23,8 +23,11 @@
         <row class="mb-3" title="출근시간" @click="onRowClick('출근')">
           <span class="body-1 font-weight-bold">{{ computed.commuteItem.startTime }}</span>
         </row>
-        <row title="퇴근시간" @click="onRowClick('퇴근')">
+        <row class="mb-3" title="퇴근시간" @click="onRowClick('퇴근')">
           <span class="body-1 font-weight-bold">{{ computed.commuteItem.endTime }}</span>
+        </row>
+        <row title="총 근무시간">
+          <span class="body-1 font-weight-bold">{{ computed.commuteItem.totalWorkTime }}</span>
         </row>
       </v-card-text>
     </v-card>

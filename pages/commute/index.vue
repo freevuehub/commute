@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-simple-table class="mb-5">
+    <v-simple-table class="mb-5 commute-list">
       <template v-slot:default>
         <simple-table-header :headers="state.headers" />
         <simple-table-body :list="computed.commuteList" @click="onCommuteItemClick" />
@@ -43,3 +43,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+.commute-list {
+  table {
+    width: max-content !important;
+  }
+}
+</style>

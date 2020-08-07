@@ -5,6 +5,7 @@
       <td>{{ item.companyName }}</td>
       <td>{{ item.startDate }}</td>
       <td>{{ item.endDate }}</td>
+      <td>{{ item.totalWorkTime }}</td>
     </tr>
   </tbody>
 </template>

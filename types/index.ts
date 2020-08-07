@@ -21,6 +21,7 @@ export interface ICommuteItem extends ICommutePostOrPutItem {
   companyZipCode: number | null
   latitude: number | null
   longitude: number | null
+  totalWorkTime: number
 }
 export interface IResponseData<T> {
   result: T
