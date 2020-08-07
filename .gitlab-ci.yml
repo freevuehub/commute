@@ -3,6 +3,15 @@ stages:
   - Build
   - Deploy
 
+Docker Remove Container:
+  stage: Setting
+  image: docker:latest
+  script:
+    - docker stop Commute-Front
+    - docker rm Commute-Front
+  only:
+    - tags
+
 Docker Image Delete:
   stage: Setting
   image: docker:latest
@@ -19,15 +28,6 @@ Docker Image Build:
     - git pull origin master
   script:
     - docker build --tag commute/front .
-  only:
-    - tags
-
-Docker Remove Container:
-  stage: Build
-  image: docker:latest
-  script:
-    - docker stop Commute-Front
-    - docker rm Commute-Front
   only:
     - tags
 
