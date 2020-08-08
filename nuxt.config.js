@@ -60,6 +60,23 @@ export default {
     // '@nuxtjs/axios',
     '@nuxtjs/pwa',
   ],
+  manifest: {
+    name: '출!사표',
+    short_name: '출!사표',
+    start_url: '/?utm_source=homescreen',
+    display: 'standalone',
+    background_color: '#71b91c',
+  },
+  workbox: {
+    offline: false,
+    runtimeCaching: [
+      {
+        urlPattern: '/*',
+        handler: 'networkFirst',
+        method: 'GET',
+      },
+    ],
+  },
   plugins: ['~/plugins/composition-api', '~/plugins/dayjs'],
   /*
    ** Axios module configuration
