@@ -1,7 +1,6 @@
 const PTOTOCOL = process.env.API_PROTOCOL
 const URL = process.env.API_URL
-const PORT = process.env.API_PORT
-const SERVER = `${PTOTOCOL}${URL}:${PORT}`
+const SERVER = `${PTOTOCOL}${URL}`
 
 interface IConfig {
   main: {
