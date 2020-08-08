@@ -2,18 +2,30 @@
   <div class="d-flex align-center">
     <span class="body-1 font-weight-light">{{ title }}</span>
     <v-spacer></v-spacer>
-    <button class="pa-0" @click.prevent="$emit('click')">
+    <button v-if="state.isClick" class="pa-0" @click.prevent="$emit('click')">
       <slot></slot>
     </button>
+    <slot v-else></slot>
   </div>
 </template>
 
-<script>
-import { defineComponent } from '@vue/composition-api'
+<script lang="ts">
+import { defineComponent, SetupContext, reactive, computed } from '@vue/composition-api'
 
 export default defineComponent({
   props: {
     title: String,
+  },
+  setup(_: {}, { listeners }: SetupContext) {
+    const state = reactive({
+      isClick: computed(() => {
+        return !!listeners.click
+      }),
+    })
+
+    return {
+      state,
+    }
   },
 })
 </script>

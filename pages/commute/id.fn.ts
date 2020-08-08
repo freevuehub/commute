@@ -19,7 +19,7 @@ interface IComputedCommuteItem extends ICommuteItem {
 }
 
 interface IConputed {
-  commuteItem: ComputedRef<IComputedCommuteItem>
+  item: ComputedRef<IComputedCommuteItem>
 }
 
 const now = dayjs()
@@ -34,7 +34,7 @@ export const useState = () =>
 
 export const useComputed = ({ root }: SetupContext) =>
   reactive<IConputed>({
-    commuteItem: computed(() => {
+    item: computed(() => {
       const detailItem: ICommuteItem =
         root.$store.getters[`commute/${CommuteConstant.$Get.CommuteItem}`]
 
@@ -71,18 +71,18 @@ export const useBeforeMounted = (state: IState, { root }: SetupContext) => async
 
 export const useSaveClick = (
   state: IState,
-  compute: { commuteItem: IComputedCommuteItem },
+  compute: { item: IComputedCommuteItem },
   vm: SetupContext
 ) => async () => {
   const dateValue = () => {
     switch (state.type) {
       case '출근':
         return {
-          startDate: `${compute.commuteItem.date} ${state.time}`,
+          startDate: `${compute.item.date} ${state.time}`,
         }
       case '퇴근':
         return {
-          endDate: `${compute.commuteItem.date} ${state.time}`,
+          endDate: `${compute.item.date} ${state.time}`,
         }
     }
   }
@@ -102,15 +102,15 @@ export const useSaveClick = (
   vm.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '등록되었습니다.')
 }
 
-export const useRowClick = (state: IState, compute: { commuteItem: IComputedCommuteItem }) => (
+export const useRowClick = (state: IState, compute: { item: IComputedCommuteItem }) => (
   type: string
 ) => {
   state.type = type
   state.modal = true
   state.time =
     type === '출근'
-      ? dayjs(compute.commuteItem.startDate).format('HH:mm')
-      : compute.commuteItem.endDate
-      ? dayjs(compute.commuteItem.endDate).format('HH:mm')
+      ? dayjs(compute.item.startDate).format('HH:mm')
+      : compute.item.endDate
+      ? dayjs(compute.item.endDate).format('HH:mm')
       : now.format('HH:mm:00')
 }

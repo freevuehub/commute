@@ -1,11 +1,3 @@
-export interface IMainData {
-  companyId: number
-  companyName: string
-  commuteId: number
-  endDate: string | null
-  startDate: string | null
-}
-
 export interface ICommuteOfPutAPI<T> {
   id: number
   payload: T

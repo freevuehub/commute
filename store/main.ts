@@ -1,30 +1,26 @@
-import dayjs from 'dayjs'
+// import dayjs from 'dayjs'
 import { MainConstant } from '~/constant'
 import { getMainData } from '~/API'
 import { ICommuteItem } from '~/types'
 
+interface IPayload {
+  termAvg: number
+  weekList: ICommuteItem[]
+}
+
 export interface IState {
-  data: ICommuteItem
+  data: IPayload
 }
 
 export const state = () => ({
   data: {
-    companyId: null,
-    companyName: '',
-    companyAddress: '',
-    companyZipCode: null,
-    latitude: null,
-    longitude: null,
-    commuteId: null,
-    endDate: null,
-    startDate: null,
-    comment: null,
-    tags: null,
+    termAvg: 0,
+    weekList: [],
   },
 })
 
 export const mutations = {
-  [MainConstant.$Set.MainData](state: IState, payload: ICommuteItem) {
+  [MainConstant.$Set.MainData](state: IState, payload: IPayload) {
     state.data = payload
   },
 }
@@ -33,11 +29,7 @@ export const actions = {
   [MainConstant.$Call.MainData]: async (store: any) => {
     const { result } = await getMainData()
 
-    store.commit(MainConstant.$Set.MainData, {
-      ...result,
-      startDate: result.startDate && dayjs(result.startDate).format('YYYY-MM-DD HH:mm'),
-      endDate: result.endDate && dayjs(result.endDate).format('YYYY-MM-DD HH:mm'),
-    })
+    store.commit(MainConstant.$Set.MainData, { ...result })
   },
 }
 

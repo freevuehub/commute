@@ -1,4 +1,4 @@
-import { reactive, computed, ComputedRef } from '@vue/composition-api'
+import { reactive, computed } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import { ICommuteItem } from '~/types'
 import { MainConstant, SnackConstant, CommuteConstant } from '~/constant'
@@ -11,7 +11,7 @@ export interface IState {
 }
 
 export interface IComputed {
-  mainData: ComputedRef<ICommuteItem>
+  mainData: any
 }
 
 const now = dayjs()
@@ -27,7 +27,12 @@ export const useState = () =>
 export const useComputed = (root: any) =>
   reactive<IComputed>({
     mainData: computed(() => {
-      return root.$store.getters[`main/${MainConstant.$Get.MainData}`]
+      const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
+
+      return {
+        ...data,
+        termAvg: `${Math.floor(data.termAvg / 60) - 1}시간 ${data.termAvg % 60}분`,
+      }
     }),
   })
 
@@ -43,7 +48,7 @@ export const useStartTimeSave = (root: any, state: IState) => async () => {
   })
 
   root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {
-    message: '출근시간이 등록되었습니다.',
+    message: `${state.time}에 출근하셨습니다.`,
     view: true,
     type: 'success',
   })
@@ -68,7 +73,7 @@ export const useEndTimeSave = (
   })
 
   root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {
-    message: '퇴근시간이 등록되었습니다.',
+    message: `${state.time}에 퇴근하셨습니다.`,
     view: true,
     type: 'success',
   })

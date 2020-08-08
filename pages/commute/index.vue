@@ -1,5 +1,9 @@
 <template>
-  <v-container fluid>
+  <v-container>
+    <div class="d-flex mb-5">
+      <v-spacer></v-spacer>
+      <v-btn color="primary">추가</v-btn>
+    </div>
     <v-simple-table class="mb-5 commute-list">
       <template v-slot:default>
         <simple-table-header :headers="state.headers" />
