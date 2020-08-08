@@ -65,7 +65,7 @@ export default {
     short_name: '출!사표',
     start_url: '/?utm_source=homescreen',
     display: 'standalone',
-    background_color: '#71b91c',
+    background_color: '#71b9c1',
   },
   workbox: {
     offline: false,
