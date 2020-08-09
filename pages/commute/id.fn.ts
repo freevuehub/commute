@@ -44,9 +44,7 @@ export const useComputed = ({ root }: SetupContext) =>
         startTime: dayjs(detailItem.startDate).format('HH:mm'),
         endTime: detailItem.endDate ? dayjs(detailItem.endDate).format('HH:mm') : 'N/A',
         workTime: detailItem.totalWorkTime
-          ? `${Math.floor(detailItem.totalWorkTime / 60) - 1}시간 ${
-              detailItem.totalWorkTime % 60
-            }분`
+          ? `${Math.floor(detailItem.totalWorkTime / 60)}시간 ${detailItem.totalWorkTime % 60}분`
           : 'N/A',
       }
     }),

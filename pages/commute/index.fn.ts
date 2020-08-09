@@ -32,7 +32,7 @@ export const useComputed = ({ root }: SetupContext) =>
         startDate: dayjs(item.startDate).locale('ko').format('HH:mm'),
         endDate: item.endDate ? dayjs(item.endDate).locale('ko').format('HH:mm') : 'N/A',
         totalWorkTime: item.totalWorkTime
-          ? `${Math.floor(item.totalWorkTime / 60) - 1}시간 ${item.totalWorkTime % 60}분`
+          ? `${Math.floor(item.totalWorkTime / 60)}시간 ${item.totalWorkTime % 60}분`
           : 'N/A',
       }))
     }),

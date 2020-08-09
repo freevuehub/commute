@@ -1,29 +1,32 @@
 <template>
   <v-container fluid>
     <h1 class="mb-2">통계</h1>
-    <v-card>
+    <v-card class="mb-5">
       <v-card-text>
+        <row class="mb-3" title="일주일 총 근무시간">
+          <span class="body-1 font-weight-bold">{{ state.mainData.termSum }}</span>
+        </row>
         <row title="일주일 평균 근무시간">
-          <span class="body-1 font-weight-bold">{{ computed.mainData.termAvg }}</span>
+          <span class="body-1 font-weight-bold">{{ state.mainData.termAvg }}</span>
         </row>
       </v-card-text>
     </v-card>
 
-    <!-- <date-picker-card v-model="state.date" class="mb-5" />
-    <time-picker-card v-model="state.time" class="mb-5" />
-    <time-save-card
-      class="mb-5"
-      type="start"
-      :date-time="computed.mainData.startDate || 'N/A'"
-      :loading="state.startLoading"
-      @click="onStartTimeSave"
-    />
-    <time-save-card
-      type="end"
-      :date-time="computed.mainData.endDate || 'N/A'"
-      :loading="state.endLoading"
-      @click="onEndTimeSave"
-    />-->
+    <h1 class="mb-2">일주일 상황판</h1>
+    <v-card class="pa-2">
+      <v-sparkline
+        :value="computed.weekBarValue"
+        :auto-draw-duration="300"
+        :gradient="['#71b9c1']"
+        :padding="10"
+        auto-line-width
+        type="bar"
+        auto-draw
+        :show-labels="true"
+        :label-size="12"
+        :labels="computed.weekBarLabels"
+      ></v-sparkline>
+    </v-card>
     <floating-button />
   </v-container>
 </template>
@@ -47,13 +50,13 @@ export default defineComponent({
     FloatingButton,
     row: CommuteDetailRow,
   },
-  setup(_: {}, { root }: SetupContext) {
-    const state = useState()
-    const computed = useComputed(root)
-    const onStartTimeSave = useStartTimeSave(root, state)
-    const onEndTimeSave = useEndTimeSave(root, state, computed)
+  setup(_: {}, vm: SetupContext) {
+    const state = useState(vm)
+    const computed = useComputed(state)
+    const onStartTimeSave = useStartTimeSave(vm, state)
+    const onEndTimeSave = useEndTimeSave(vm, state)
 
-    onBeforeMount(useBeforeMount(root))
+    onBeforeMount(useBeforeMount(vm.root))
 
     return {
       state,

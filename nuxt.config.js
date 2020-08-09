@@ -57,8 +57,9 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    // '@nuxtjs/axios',
+    '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    '@nuxtjs/auth',
   ],
   manifest: {
     name: '출!사표',
@@ -77,12 +78,21 @@ export default {
       },
     ],
   },
-  plugins: ['~/plugins/composition-api', '~/plugins/dayjs'],
+  plugins: ['~/plugins/composition-api', '~/plugins/dayjs', '~/plugins/axios'],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: `${process.env.API_PROTOCOL}${process.env.API_URL}`,
+  },
+  // auth: {
+  //   strategies: {
+  //     google: {
+  //       client_id: '...',
+  //     },
+  //   },
+  // },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

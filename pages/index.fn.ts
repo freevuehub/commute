@@ -1,4 +1,4 @@
-import { reactive, computed } from '@vue/composition-api'
+import { reactive, computed, SetupContext, ComputedRef } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import { ICommuteItem } from '~/types'
 import { MainConstant, SnackConstant, CommuteConstant } from '~/constant'
@@ -8,35 +8,48 @@ export interface IState {
   date: string
   startLoading: boolean
   endLoading: boolean
+  mainData: any
 }
 
 export interface IComputed {
-  mainData: any
+  weekBarValue: ComputedRef<number[]>
+  weekBarLabels: ComputedRef<string[]>
 }
 
 const now = dayjs()
 
-export const useState = () =>
+export const useState = ({ root }: SetupContext) =>
   reactive<IState>({
     time: now.format('HH:mm:00'),
     date: now.format('YYYY-MM-DD'),
     startLoading: false,
     endLoading: false,
-  })
-
-export const useComputed = (root: any) =>
-  reactive<IComputed>({
     mainData: computed(() => {
       const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
 
       return {
         ...data,
-        termAvg: `${Math.floor(data.termAvg / 60) - 1}시간 ${data.termAvg % 60}분`,
+        termAvg: `${Math.floor(data.termAvg / 60)}시간 ${data.termAvg % 60}분`,
+        termSum: `${Math.floor(data.termSum / 60)}시간 ${data.termSum % 60}분`,
       }
     }),
   })
 
-export const useStartTimeSave = (root: any, state: IState) => async () => {
+export const useComputed = (state: IState) =>
+  reactive<IComputed>({
+    weekBarValue: computed(() => {
+      const { weekList } = state.mainData
+
+      return weekList.map((item: ICommuteItem | null) => (item ? item.totalWorkTime : 0))
+    }),
+    weekBarLabels: computed(() => {
+      const weekNameList = ['일', '월', '화', '수', '목', '금', '토']
+
+      return weekNameList.map((_: string, index: number) => `${dayjs().day(index).format('DD')}일`)
+    }),
+  })
+
+export const useStartTimeSave = ({ root }: SetupContext, state: IState) => async () => {
   state.startLoading = true
 
   await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
@@ -58,15 +71,11 @@ export const useStartTimeSave = (root: any, state: IState) => async () => {
   useBeforeMount(root)()
 }
 
-export const useEndTimeSave = (
-  root: any,
-  state: IState,
-  computed: { mainData: ICommuteItem }
-) => async () => {
+export const useEndTimeSave = ({ root }: SetupContext, state: IState) => async () => {
   state.endLoading = true
 
   await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
-    id: computed.mainData.id,
+    id: state.mainData.id,
     payload: {
       endDate: `${state.date} ${state.time}`,
     },
