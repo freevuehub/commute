@@ -29,6 +29,11 @@ export const useState = ({ root }: SetupContext) =>
 
       return {
         ...data,
+        todayData: {
+          ...data.todayData,
+          startDate: data.todayData.startDate && dayjs(data.todayData.startDate).format('HH:mm'),
+          endDate: data.todayData.endDate && dayjs(data.todayData.endDate).format('HH:mm'),
+        },
         termAvg: `${Math.floor(data.termAvg / 60)}시간 ${data.termAvg % 60}분`,
         termSum: `${Math.floor(data.termSum / 60)}시간 ${data.termSum % 60}분`,
       }
@@ -49,16 +54,18 @@ export const useComputed = (state: IState) =>
     }),
   })
 
-export const useStartTimeSave = ({ root }: SetupContext, state: IState) => async () => {
+export const useStartTimeSave = ({ root }: SetupContext, state: IState) => async (key: string) => {
   state.startLoading = true
 
-  await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
-    companyId: 1,
-    startDate: `${state.date} ${state.time}:00`,
-    endDate: null,
-    comment: null,
-    tags: null,
-  })
+  console.log(key)
+
+  // await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
+  //   companyId: 1,
+  //   startDate: `${state.date} ${state.time}:00`,
+  //   endDate: null,
+  //   comment: null,
+  //   tags: null,
+  // })
 
   root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {
     message: `${state.time}에 출근하셨습니다.`,

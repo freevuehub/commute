@@ -13,7 +13,6 @@ export interface ICommuteItemOfAPI {
 
 export interface ICommuteItem extends ICommuteItemOfAPI {
   id: number
-  term: number
   companyName: string
   companyAddress: string
   companyZipCode: number | null

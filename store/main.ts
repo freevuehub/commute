@@ -16,6 +16,20 @@ export const state = () => ({
   data: {
     termAvg: 0,
     weekList: [],
+    todayData: {
+      id: 0,
+      companyName: '',
+      companyAddress: '',
+      companyZipCode: null,
+      latitude: null,
+      longitude: null,
+      totalWorkTime: 0,
+      companyId: 0,
+      startDate: '',
+      endDate: null,
+      comment: null,
+      tags: null,
+    },
   },
 })
 

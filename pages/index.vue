@@ -1,5 +1,26 @@
 <template>
   <v-container fluid>
+    <h1 class="mb-2">일일 현황</h1>
+    <v-card class="mb-5">
+      <v-card-text>
+        <row class="mb-3" title="출근 시간">
+          <span class="body-1 font-weight-bold">{{
+            state.mainData.todayData.startDate || 'N/A'
+          }}</span>
+        </row>
+        <row class="mb-3" title="근무 시간">
+          <span class="body-1 font-weight-bold">{{
+            state.mainData.todayData.totalWorkTime || 'N/A'
+          }}</span>
+        </row>
+        <row title="퇴근 시간">
+          <span class="body-1 font-weight-bold">{{
+            state.mainData.todayData.endDate || 'N/A'
+          }}</span>
+        </row>
+      </v-card-text>
+    </v-card>
+
     <h1 class="mb-2">통계</h1>
     <v-card class="mb-5">
       <v-card-text>
@@ -27,7 +48,11 @@
         :labels="computed.weekBarLabels"
       ></v-sparkline>
     </v-card>
-    <floating-button />
+    <floating-button
+      :disabled-start="!!state.mainData.todayData.startDate"
+      :disabled-end="!!state.mainData.todayData.endDate"
+      @click="onStartTimeSave"
+    />
   </v-container>
 </template>
 
