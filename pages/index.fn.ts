@@ -26,11 +26,20 @@ export const useState = ({ root }: SetupContext) =>
     endLoading: false,
     mainData: computed(() => {
       const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
+      const nowDiffStart = data.todayData.startDate
+        ? dayjs(now).diff(data.todayData.startDate, 'minute')
+        : 0
+      const breakTime = Math.floor(Number(nowDiffStart) / 240) * 30
 
       return {
         ...data,
         todayData: {
           ...data.todayData,
+          totalWorkTime: data.todayData.totalWorkTime
+            ? data.todayData.totalWorkTime
+            : `${Math.floor((nowDiffStart - breakTime) / 60)}시간 ${
+                (nowDiffStart - breakTime) % 60
+              }분`,
           startDate: data.todayData.startDate && dayjs(data.todayData.startDate).format('HH:mm'),
           endDate: data.todayData.endDate && dayjs(data.todayData.endDate).format('HH:mm'),
         },
