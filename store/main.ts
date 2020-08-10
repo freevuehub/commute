@@ -36,7 +36,7 @@ export const state = () => ({
 
 export const mutations = {
   [MainConstant.$Set.MainData](state: IState, payload: IPayload) {
-    state.data = payload
+    state.data = { ...state.data, ...payload }
   },
 }
 

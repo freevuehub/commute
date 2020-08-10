@@ -72,7 +72,7 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
     case '출근':
       await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
         companyId: 1,
-        startDate: `${state.date} ${state.time}:00`,
+        startDate: `${state.date} ${state.time}`,
         endDate: null,
         comment: null,
         tags: null,

@@ -58,19 +58,24 @@ export default defineComponent({
     const title = reactive({
       str: computed(() => {
         const item = vm.root.$store.getters[`main/${MainConstant.$Get.MainData}`]
+        const diffMinute = dayjs().diff(item.todayData.startDate, 'minute')
 
         switch (dayjs().day()) {
           case 0:
             return '오늘도 출근해요?'
           case 6:
             return '오늘도 출근해요?'
-          default:
-            return item.todayData.startDate
-              ? item.todayData.endDate
-                ? '수고했어요~'
-                : '퇴근할 시간이야!'
-              : '출근할 시간이야!'
         }
+
+        if (diffMinute < 240) {
+          return '수고하세요~'
+        }
+
+        return item.todayData.startDate
+          ? item.todayData.endDate
+            ? '수고했어요~'
+            : '퇴근할 시간이야!'
+          : '출근할 시간이야!'
       }),
     })
 

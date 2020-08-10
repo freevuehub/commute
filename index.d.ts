@@ -1,13 +1,25 @@
+import Vue from 'vue'
+// import { Store } from 'vuex'
+
 declare module '*.vue' {
-  import Vue from 'vue'
+  // import Vue from 'vue'
 
   export default Vue
 }
 
-// declare module 'vue/types/vue' {
-//   import { Store } from 'vuex'
+// export declare class TypeStroe extends Store<any> {
+//   readonly state: any
+//   readonly getters: any
+// }
 
+// declare module 'vue/types/options' {
+//   interface ComponentOptions<V extends Vue> {
+//     store?: TypeStroe
+//   }
+// }
+
+// declare module 'vue/types/vue' {
 //   interface Vue {
-//     $store: Store<any>
+//     $store: TypeStroe
 //   }
 // }
