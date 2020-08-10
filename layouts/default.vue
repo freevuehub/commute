@@ -28,11 +28,11 @@
 <script lang="ts">
 import 'vuetify/dist/vuetify.min.css'
 
+import dayjs from 'dayjs'
 import { defineComponent, reactive, computed, SetupContext } from '@vue/composition-api'
 import { SnackBar } from '~/containers'
 import { DefaultFooter } from '~/components'
 import { MainConstant } from '~/constant'
-import { ICommuteItem } from '~/types'
 
 export default defineComponent({
   components: {
@@ -41,7 +41,6 @@ export default defineComponent({
   },
   setup(_: {}, vm: SetupContext) {
     const state = reactive({
-      title: '출근할 시간이야',
       drawer: false,
       items: [
         {
@@ -58,9 +57,20 @@ export default defineComponent({
     })
     const title = reactive({
       str: computed(() => {
-        const item: ICommuteItem = vm.root.$store.getters[`main/${MainConstant.$Get.MainData}`]
+        const item = vm.root.$store.getters[`main/${MainConstant.$Get.MainData}`]
 
-        return `${item.startDate ? '퇴근' : '출근'}할 시간이야`
+        switch (dayjs().day()) {
+          case 0:
+            return '오늘도 출근해요?'
+          case 6:
+            return '오늘도 출근해요?'
+          default:
+            return item.todayData.startDate
+              ? item.todayData.endDate
+                ? '수고했어요~'
+                : '퇴근할 시간이야!'
+              : '출근할 시간이야!'
+        }
       }),
     })
 
