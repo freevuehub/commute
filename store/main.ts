@@ -6,6 +6,7 @@ import { ICommuteItem } from '~/types'
 interface IPayload {
   termAvg: number
   weekList: ICommuteItem[]
+  todayData: ICommuteItem
 }
 
 export interface IState {
@@ -48,7 +49,7 @@ export const actions = {
 }
 
 export const getters = {
-  [MainConstant.$Get.MainData](state: IState) {
+  [MainConstant.$Get.MainData](state: IState): IPayload {
     return state.data
   },
 }

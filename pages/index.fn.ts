@@ -36,7 +36,9 @@ export const useState = ({ root }: SetupContext) =>
         todayData: {
           ...data.todayData,
           totalWorkTime: data.todayData.totalWorkTime
-            ? data.todayData.totalWorkTime
+            ? `${Math.floor(data.todayData.totalWorkTime / 60)}시간 ${
+                data.todayData.totalWorkTime % 60
+              }분`
             : `${Math.floor((nowDiffStart - breakTime) / 60)}시간 ${
                 (nowDiffStart - breakTime) % 60
               }분`,
