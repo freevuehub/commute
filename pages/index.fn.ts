@@ -63,26 +63,36 @@ export const useComputed = (state: IState) =>
     }),
   })
 
-export const useStartTimeSave = ({ root }: SetupContext, state: IState) => async (key: string) => {
-  state.startLoading = true
+export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => async (
+  key: string
+) => {
+  switch (key) {
+    case '출근':
+      await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
+        companyId: 1,
+        startDate: `${state.date} ${state.time}:00`,
+        endDate: null,
+        comment: null,
+        tags: null,
+      })
 
-  console.log(key)
+      break
+    case '퇴근':
+      await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
+        id: state.mainData.id,
+        payload: {
+          endDate: `${state.date} ${state.time}`,
+        },
+      })
 
-  // await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
-  //   companyId: 1,
-  //   startDate: `${state.date} ${state.time}:00`,
-  //   endDate: null,
-  //   comment: null,
-  //   tags: null,
-  // })
+      break
+  }
 
   root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {
-    message: `${state.time}에 출근하셨습니다.`,
+    message: `${state.time}에 ${key}하셨습니다.`,
     view: true,
     type: 'success',
   })
-
-  state.startLoading = false
 
   useBeforeMount(root)()
 }

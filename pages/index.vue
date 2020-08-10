@@ -51,14 +51,14 @@
     <floating-button
       :disabled-start="!!state.mainData.todayData.startDate"
       :disabled-end="!!state.mainData.todayData.endDate"
-      @click="onStartTimeSave"
+      @click="onCommuteTimeSave"
     />
   </v-container>
 </template>
 
 <script lang="ts">
 import { SetupContext, defineComponent, onBeforeMount } from '@vue/composition-api'
-import { useState, useComputed, useStartTimeSave, useEndTimeSave, useBeforeMount } from './index.fn'
+import { useState, useComputed, useCommuteTimeSave, useBeforeMount } from './index.fn'
 import {
   DatePickerCard,
   TimePickerCard,
@@ -78,16 +78,14 @@ export default defineComponent({
   setup(_: {}, vm: SetupContext) {
     const state = useState(vm)
     const computed = useComputed(state)
-    const onStartTimeSave = useStartTimeSave(vm, state)
-    const onEndTimeSave = useEndTimeSave(vm, state)
+    const onCommuteTimeSave = useCommuteTimeSave(vm, state)
 
     onBeforeMount(useBeforeMount(vm.root))
 
     return {
       state,
       computed,
-      onStartTimeSave,
-      onEndTimeSave,
+      onCommuteTimeSave,
     }
   },
 })
