@@ -68,11 +68,17 @@ export const useComputed = (state: IState) =>
 export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => async (
   key: string
 ) => {
+  const {
+    date,
+    time,
+    mainData: { todayData },
+  } = state
+
   switch (key) {
     case '출근':
       await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
         companyId: 1,
-        startDate: `${state.date} ${state.time}`,
+        startDate: `${date} ${time}`,
         endDate: null,
         comment: null,
         tags: null,
@@ -81,9 +87,9 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
       break
     case '퇴근':
       await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
-        id: state.mainData.id,
+        id: todayData.id,
         payload: {
-          endDate: `${state.date} ${state.time}`,
+          endDate: `${date} ${time}`,
         },
       })
 
