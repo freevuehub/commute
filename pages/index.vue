@@ -1,45 +1,21 @@
 <template>
   <v-container fluid>
     <h1 class="mb-2">일일 현황</h1>
-    <v-card class="mb-5">
-      <v-card-text>
-        <row class="mb-3" title="출근 시간">
-          <span class="body-1 font-weight-bold">{{
-            state.mainData.todayData.startDate || 'N/A'
-          }}</span>
-        </row>
-        <row class="mb-3" title="근무 시간">
-          <span class="body-1 font-weight-bold">{{
-            state.mainData.todayData.totalWorkTime || 'N/A'
-          }}</span>
-        </row>
-        <row title="퇴근 시간">
-          <span class="body-1 font-weight-bold">{{
-            state.mainData.todayData.endDate || 'N/A'
-          }}</span>
-        </row>
-      </v-card-text>
-    </v-card>
+    <today :item="state.mainData.todayData" />
 
-    <h1 class="mb-2">통계</h1>
-    <v-card class="mb-5">
-      <v-card-text>
-        <row class="mb-3" title="일주일 총 근무시간">
-          <span class="body-1 font-weight-bold">{{ state.mainData.termSum }}</span>
-        </row>
-        <row title="일주일 평균 근무시간">
-          <span class="body-1 font-weight-bold">{{ state.mainData.termAvg }}</span>
-        </row>
-      </v-card-text>
-    </v-card>
+    <h1 class="mb-2">일주일 통계</h1>
+    <stats title="이번 주">
+      <span slot="sum">{{ state.mainData.weekTermSum }}</span>
+      <span slot="avg">{{ state.mainData.weekTermAvg }}</span>
+      <span slot="over">{{ state.mainData.weekOverTime }}</span>
+    </stats>
 
     <h1 class="mb-2">일주일 상황판</h1>
-    <v-card class="pa-2">
+    <v-card class="py-5 px-2 mb-5">
       <v-sparkline
         :value="computed.weekBarValue"
         :auto-draw-duration="300"
         :gradient="['#71b9c1']"
-        :padding="10"
         auto-line-width
         type="bar"
         auto-draw
@@ -48,6 +24,14 @@
         :labels="computed.weekBarLabels"
       ></v-sparkline>
     </v-card>
+
+    <h1 class="mb-2">월 통계</h1>
+    <stats title="이번 달">
+      <span slot="sum">{{ state.mainData.monthTermSum }}</span>
+      <span slot="avg">{{ state.mainData.monthTermAvg }}</span>
+      <span slot="over">{{ state.mainData.monthOverTime }}</span>
+    </stats>
+
     <floating-button
       :disabled-start="!!state.mainData.todayData.startDate"
       :disabled-end="!!state.mainData.todayData.endDate"
@@ -65,6 +49,8 @@ import {
   TimeSaveCard,
   FloatingButton,
   CommuteDetailRow,
+  TodayTotalData,
+  StatsData,
 } from '~/components'
 
 export default defineComponent({
@@ -74,6 +60,8 @@ export default defineComponent({
     TimeSaveCard,
     FloatingButton,
     row: CommuteDetailRow,
+    today: TodayTotalData,
+    stats: StatsData,
   },
   setup(_: {}, vm: SetupContext) {
     const state = useState(vm)

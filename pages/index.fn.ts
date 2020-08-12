@@ -6,8 +6,6 @@ import { MainConstant, SnackConstant, CommuteConstant } from '~/constant'
 export interface IState {
   time: string
   date: string
-  startLoading: boolean
-  endLoading: boolean
   mainData: any
 }
 
@@ -22,14 +20,14 @@ export const useState = ({ root }: SetupContext) =>
   reactive<IState>({
     time: now.format('HH:mm:00'),
     date: now.format('YYYY-MM-DD'),
-    startLoading: false,
-    endLoading: false,
     mainData: computed(() => {
       const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
       const nowDiffStart = data.todayData.startDate
         ? dayjs(now).diff(data.todayData.startDate, 'minute')
         : 0
       const breakTime = Math.floor(Number(nowDiffStart) / 240) * 30
+      const weekOverTime = data.weekTermSum - data.weekCount * 8 * 60
+      const monthOverTime = data.monthTermSum - data.monthCount * 8 * 60
 
       return {
         ...data,
@@ -45,8 +43,12 @@ export const useState = ({ root }: SetupContext) =>
           startDate: data.todayData.startDate && dayjs(data.todayData.startDate).format('HH:mm'),
           endDate: data.todayData.endDate && dayjs(data.todayData.endDate).format('HH:mm'),
         },
-        termAvg: `${Math.floor(data.termAvg / 60)}시간 ${data.termAvg % 60}분`,
-        termSum: `${Math.floor(data.termSum / 60)}시간 ${data.termSum % 60}분`,
+        weekTermAvg: `${Math.floor(data.weekTermAvg / 60)}시간 ${data.weekTermAvg % 60}분`,
+        weekTermSum: `${Math.floor(data.weekTermSum / 60)}시간 ${data.weekTermSum % 60}분`,
+        monthTermAvg: `${Math.floor(data.monthTermAvg / 60)}시간 ${data.monthTermAvg % 60}분`,
+        monthTermSum: `${Math.floor(data.monthTermSum / 60)}시간 ${data.monthTermSum % 60}분`,
+        weekOverTime: `${Math.floor(weekOverTime / 60)}시간 ${weekOverTime % 60}분`,
+        monthOverTime: `${Math.floor(monthOverTime / 60)}시간 ${monthOverTime % 60}분`,
       }
     }),
   })
@@ -101,27 +103,6 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
     view: true,
     type: 'success',
   })
-
-  useBeforeMount(root)()
-}
-
-export const useEndTimeSave = ({ root }: SetupContext, state: IState) => async () => {
-  state.endLoading = true
-
-  await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
-    id: state.mainData.id,
-    payload: {
-      endDate: `${state.date} ${state.time}`,
-    },
-  })
-
-  root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {
-    message: `${state.time}에 퇴근하셨습니다.`,
-    view: true,
-    type: 'success',
-  })
-
-  state.endLoading = false
 
   useBeforeMount(root)()
 }

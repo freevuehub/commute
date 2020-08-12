@@ -24,3 +24,14 @@ export interface IResponseData<T> {
   result: T
   status: 2000
 }
+
+export interface IMainData {
+  weekTermAvg: number
+  weekTermSum: number
+  monthTermAvg: number
+  monthTermSum: number
+  weekCount: number
+  monthCount: number
+  weekList: ICommuteItem[]
+  todayData: ICommuteItem
+}

@@ -1,21 +1,18 @@
 // import dayjs from 'dayjs'
 import { MainConstant } from '~/constant'
 import { getMainData } from '~/API'
-import { ICommuteItem } from '~/types'
-
-interface IPayload {
-  termAvg: number
-  weekList: ICommuteItem[]
-  todayData: ICommuteItem
-}
+import { IMainData } from '~/types'
 
 export interface IState {
-  data: IPayload
+  data: IMainData
 }
 
 export const state = () => ({
   data: {
     termAvg: 0,
+    weekTermSum: 0,
+    weekCount: 0,
+    monthCount: 0,
     weekList: [],
     todayData: {
       id: 0,
@@ -35,7 +32,7 @@ export const state = () => ({
 })
 
 export const mutations = {
-  [MainConstant.$Set.MainData](state: IState, payload: IPayload) {
+  [MainConstant.$Set.MainData](state: IState, payload: IMainData) {
     state.data = { ...state.data, ...payload }
   },
 }
@@ -49,7 +46,7 @@ export const actions = {
 }
 
 export const getters = {
-  [MainConstant.$Get.MainData](state: IState): IPayload {
+  [MainConstant.$Get.MainData](state: IState): IMainData {
     return state.data
   },
 }
