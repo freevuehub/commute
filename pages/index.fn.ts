@@ -4,8 +4,6 @@ import { ICommuteItem } from '~/types'
 import { MainConstant, SnackConstant, CommuteConstant } from '~/constant'
 
 export interface IState {
-  time: string
-  date: string
   mainData: any
 }
 
@@ -14,16 +12,12 @@ export interface IComputed {
   weekBarLabels: ComputedRef<string[]>
 }
 
-const now = dayjs()
-
 export const useState = ({ root }: SetupContext) =>
   reactive<IState>({
-    time: now.format('HH:mm:00'),
-    date: now.format('YYYY-MM-DD'),
     mainData: computed(() => {
       const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
       const nowDiffStart = data.todayData.startDate
-        ? dayjs(now).diff(data.todayData.startDate, 'minute')
+        ? dayjs().diff(data.todayData.startDate, 'minute')
         : 0
       const breakTime = Math.floor(Number(nowDiffStart) / 240) * 30
       const weekOverTime = data.weekTermSum - data.weekCount * 8 * 60
@@ -70,9 +64,10 @@ export const useComputed = (state: IState) =>
 export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => async (
   key: string
 ) => {
+  const now = dayjs()
+  const time = now.format('HH:mm:00')
+  const date = now.format('YYYY-MM-DD')
   const {
-    date,
-    time,
     mainData: { todayData },
   } = state
 
@@ -99,7 +94,7 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
   }
 
   root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {
-    message: `${state.time}에 ${key}하셨습니다.`,
+    message: `${time}에 ${key}하셨습니다.`,
     view: true,
     type: 'success',
   })
