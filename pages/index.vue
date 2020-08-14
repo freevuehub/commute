@@ -15,7 +15,7 @@
       <v-sparkline
         :value="computed.weekBarValue"
         :auto-draw-duration="300"
-        :gradient="['#71b9c1']"
+        :gradient="['#71abbd']"
         auto-line-width
         type="bar"
         auto-draw

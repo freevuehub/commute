@@ -27,6 +27,7 @@ export default {
         name: 'description',
         content: process.env.npm_package_description || '',
       },
+      { name: 'theme-color', content: '#71abbd' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
@@ -66,7 +67,7 @@ export default {
     short_name: '출!사표',
     start_url: '/?utm_source=homescreen',
     display: 'standalone',
-    background_color: '#71b9c1',
+    background_color: '#71abbd',
   },
   workbox: {
     offline: false,
@@ -103,7 +104,7 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: '#71b9c1',
+          primary: '#71abbd',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
