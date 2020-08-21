@@ -2,6 +2,7 @@
   <v-app dark>
     <v-navigation-drawer v-model="state.drawer" fixed app>
       <v-list>
+        <div id="g-signin2" class="g-signin2" data-onsuccess="onSignIn"></div>
         <v-list-item v-for="(item, i) in state.items" :key="i" :to="item.to" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>

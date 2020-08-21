@@ -28,8 +28,20 @@ export default {
         content: process.env.npm_package_description || '',
       },
       { name: 'theme-color', content: '#71abbd' },
+      {
+        name: 'google-signin-client_id',
+        content: '1079181255443-jthgbtu9rg5ece9dtrd3no4q7ekj30fr.apps.googleusercontent.com',
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://apis.google.com/js/platform.js?onload=renderButton',
+        async: true,
+        defer: true,
+      },
+      { src: './google-auth.js' },
+    ],
   },
   /*
    ** Global CSS
@@ -60,7 +72,6 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    '@nuxtjs/auth',
   ],
   manifest: {
     name: '출!사표',
@@ -87,13 +98,6 @@ export default {
   axios: {
     baseURL: `${process.env.API_PROTOCOL}${process.env.API_URL}`,
   },
-  // auth: {
-  //   strategies: {
-  //     google: {
-  //       client_id: '...',
-  //     },
-  //   },
-  // },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
