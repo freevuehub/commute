@@ -41,8 +41,8 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, defineComponent, onBeforeMount } from '@vue/composition-api'
-import { useState, useComputed, useCommuteTimeSave, useBeforeMount } from './index.fn'
+import { SetupContext, defineComponent, onMounted } from '@vue/composition-api'
+import { useState, useComputed, useCommuteTimeSave, useeMounted } from './index.fn'
 import {
   DatePickerCard,
   TimePickerCard,
@@ -68,7 +68,7 @@ export default defineComponent({
     const computed = useComputed(state)
     const onCommuteTimeSave = useCommuteTimeSave(vm, state)
 
-    onBeforeMount(useBeforeMount(vm.root))
+    onMounted(useeMounted(vm.root))
 
     return {
       state,

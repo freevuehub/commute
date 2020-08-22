@@ -1,3 +1,16 @@
+export const AuthConstant = {
+  $Set: {
+    Auth: 'SET/AUTH',
+  },
+  $Call: {
+    Auth: 'CALL/AUTH',
+  },
+  $Get: {
+    Token: 'GET/TOKEN',
+    Profile: 'GET/PROFILE',
+  },
+}
+
 export const MainConstant = {
   $Set: {
     MainData: 'SET/DATA',

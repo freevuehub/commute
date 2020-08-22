@@ -1,6 +1,15 @@
-import axios, { AxiosResponse } from 'axios'
 import { ICommuteItem, ICommuteItemOfAPI } from '@/types'
+import state from 'vuex'
+import instance, { AxiosResponse } from './instance'
 import endpoint from './endpoint.config'
+
+console.log(state)
+
+instance.interceptors.request.use((config) => {
+  console.log(config)
+
+  return config
+})
 
 interface IApiSuccessCode {
   status: number
@@ -27,7 +36,7 @@ export const getMainData = (): Promise<IMainDataResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
-        const response: AxiosResponse = await axios.get(endpoint.main.request.data())
+        const response: AxiosResponse = await instance.get(endpoint.main.request.data())
 
         if (response.data.status === 2000) {
           resolve(response.data)
@@ -47,7 +56,7 @@ export const getCommuteList = (page: number, limit: number): Promise<ICommuteGet
       try {
         const params = { page, limit }
 
-        const response: AxiosResponse = await axios.get(endpoint.commute.request.common(), {
+        const response: AxiosResponse = await instance.get(endpoint.commute.request.common(), {
           params,
         })
 
@@ -73,7 +82,7 @@ export const postCommute = (payload: ICommuteItemOfAPI): Promise<ICommuteInsertR
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
-        const response: AxiosResponse = await axios.post(
+        const response: AxiosResponse = await instance.post(
           endpoint.commute.request.common(),
           formData
         )
@@ -94,7 +103,7 @@ export const getCommuteItem = (id: number): Promise<ICommuteUpdateResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
-        const response: AxiosResponse = await axios.get(endpoint.commute.request.hasId(id))
+        const response: AxiosResponse = await instance.get(endpoint.commute.request.hasId(id))
 
         if (response.data.status === 2000) {
           resolve(response.data)
@@ -115,7 +124,10 @@ export const putCommute = (
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
-        const response: AxiosResponse = await axios.put(endpoint.commute.request.hasId(id), payload)
+        const response: AxiosResponse = await instance.put(
+          endpoint.commute.request.hasId(id),
+          payload
+        )
 
         if (response.data.status === 2000) {
           resolve(response.data)

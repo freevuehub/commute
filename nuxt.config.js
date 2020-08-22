@@ -40,7 +40,7 @@ export default {
         async: true,
         defer: true,
       },
-      { src: './google-auth.js' },
+      { src: '/google-auth.js' },
     ],
   },
   /*
@@ -97,6 +97,13 @@ export default {
    */
   axios: {
     baseURL: `${process.env.API_PROTOCOL}${process.env.API_URL}`,
+    requestInterceptor: (config, { store }) => {
+      console.log(store)
+
+      config.headers.common.Authorization = store.state.user.headers.access_token
+
+      return config
+    },
   },
   /*
    ** vuetify module configuration

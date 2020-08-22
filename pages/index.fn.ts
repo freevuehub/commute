@@ -99,9 +99,9 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
     type: 'success',
   })
 
-  useBeforeMount(root)()
+  useeMounted(root)()
 }
 
-export const useBeforeMount = (root: any) => () => {
+export const useeMounted = (root: any) => () => {
   root.$store.dispatch(`main/${MainConstant.$Call.MainData}`)
 }

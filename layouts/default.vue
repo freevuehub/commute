@@ -1,8 +1,9 @@
 <template>
   <v-app dark>
     <v-navigation-drawer v-model="state.drawer" fixed app>
+      <AuthUser />
+      <v-divider></v-divider>
       <v-list>
-        <div id="g-signin2" class="g-signin2" data-onsuccess="onSignIn"></div>
         <v-list-item v-for="(item, i) in state.items" :key="i" :to="item.to" router exact>
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -30,17 +31,18 @@
 import 'vuetify/dist/vuetify.min.css'
 
 import dayjs from 'dayjs'
-import { defineComponent, reactive, computed, SetupContext } from '@vue/composition-api'
+import { defineComponent, reactive, computed } from '@vue/composition-api'
 import { SnackBar } from '~/containers'
-import { DefaultFooter } from '~/components'
+import { DefaultFooter, AuthUser } from '~/components'
 import { MainConstant } from '~/constant'
 
 export default defineComponent({
   components: {
+    AuthUser,
     DefaultFooter,
     SnackBar,
   },
-  setup(_: {}, vm: SetupContext) {
+  setup(_, context) {
     const state = reactive({
       drawer: false,
       items: [
@@ -58,7 +60,7 @@ export default defineComponent({
     })
     const title = reactive({
       str: computed(() => {
-        const item = vm.root.$store.getters[`main/${MainConstant.$Get.MainData}`]
+        const item = context.root.$store.getters[`main/${MainConstant.$Get.MainData}`]
         const diffMinute = dayjs().diff(item.todayData.startDate, 'minute')
 
         switch (dayjs().day()) {
