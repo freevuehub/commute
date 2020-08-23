@@ -1,12 +1,18 @@
 import { ICommuteItem, ICommuteItemOfAPI } from '@/types'
-import state from 'vuex'
 import instance, { AxiosResponse } from './instance'
 import endpoint from './endpoint.config'
 
-console.log(state)
-
 instance.interceptors.request.use((config) => {
-  console.log(config)
+  const cookieList = document.cookie.split(';').reduce(
+    (prev, cur) => {
+      const [key, value] = cur.trim().split('=')
+
+      return { ...prev, [key]: value }
+    },
+    { token: '' }
+  )
+
+  config.headers = { authorization: cookieList.token }
 
   return config
 })

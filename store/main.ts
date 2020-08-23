@@ -1,5 +1,4 @@
-// import dayjs from 'dayjs'
-import { MainConstant, AuthConstant } from '~/constant'
+import { MainConstant } from '~/constant'
 import { getMainData } from '~/API'
 import { IMainData } from '~/types'
 

@@ -103,5 +103,6 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
 }
 
 export const useeMounted = (root: any) => () => {
+  console.log('main mounted')
   root.$store.dispatch(`main/${MainConstant.$Call.MainData}`)
 }

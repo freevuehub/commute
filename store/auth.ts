@@ -1,5 +1,4 @@
 import { AuthConstant } from '~/constant'
-import instance from '~/API/instance'
 
 interface IState {
   authData: {
@@ -40,16 +39,6 @@ export const mutations = {
 
 export const actions = {
   [AuthConstant.$Call.Auth](store: any, payload: IState) {
-    console.log(instance)
-    instance.interceptors.response.use((config) => {
-      console.log(config)
-
-      return config
-    })
-    // axios.defaults.headers.common = {
-    //   Authorization: `${payload.authData.tokenType} ${payload.authData.idToken}`,
-    // }
-
     store.commit(AuthConstant.$Set.Auth, payload)
   },
 }

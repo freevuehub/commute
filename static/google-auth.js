@@ -2,6 +2,9 @@ function onSuccess(googleUser) {
   const btnDom = document.getElementById('google-signin-button')
   const authData = googleUser.getAuthResponse()
   const profile = googleUser.getBasicProfile()
+
+  document.cookie = `token=${authData.id_token};`
+
   const event = new CustomEvent('GOOGLE_AUTH', {
     detail: {
       authData: {
