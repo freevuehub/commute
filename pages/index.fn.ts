@@ -41,7 +41,10 @@ export const useState = ({ root }: SetupContext) =>
         weekTermSum: `${Math.floor(data.weekTermSum / 60)}시간 ${data.weekTermSum % 60}분`,
         monthTermAvg: `${Math.floor(data.monthTermAvg / 60)}시간 ${data.monthTermAvg % 60}분`,
         monthTermSum: `${Math.floor(data.monthTermSum / 60)}시간 ${data.monthTermSum % 60}분`,
-        weekOverTime: `${Math.floor(weekOverTime / 60)}시간 ${weekOverTime % 60}분`,
+        weekOverTime:
+          weekOverTime < 0
+            ? `-${Math.floor(Math.abs(weekOverTime) / 60)}시간 ${Math.abs(weekOverTime) % 60}분`
+            : `${Math.floor(weekOverTime / 60)}시간 ${weekOverTime % 60}분`,
         monthOverTime: `${Math.floor(monthOverTime / 60)}시간 ${monthOverTime % 60}분`,
       }
     }),
