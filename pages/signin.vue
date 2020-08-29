@@ -1,18 +1,17 @@
 <template>
   <v-container fluid>
-    <div
-      id="google-signin-button"
-      ref="google-btn"
-      class="pa-2 g-signin2"
-      data-onsuccess="onSignIn"
-    ></div>
+    <AuthUser />
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
+import { AuthUser } from '~/components'
 
 export default defineComponent({
   layout: 'auth',
+  components: {
+    AuthUser,
+  },
 })
 </script>
