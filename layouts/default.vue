@@ -1,7 +1,6 @@
 <template>
   <v-app dark>
     <v-navigation-drawer v-model="state.drawer" fixed app>
-      <AuthUser />
       <v-divider></v-divider>
       <v-list>
         <v-list-item v-for="(item, i) in state.items" :key="i" :to="item.to" router exact>
@@ -33,12 +32,11 @@ import 'vuetify/dist/vuetify.min.css'
 import dayjs from 'dayjs'
 import { defineComponent, reactive, computed } from '@vue/composition-api'
 import { SnackBar } from '~/containers'
-import { DefaultFooter, AuthUser } from '~/components'
+import { DefaultFooter } from '~/components'
 import { MainConstant } from '~/constant'
 
 export default defineComponent({
   components: {
-    AuthUser,
     DefaultFooter,
     SnackBar,
   },
