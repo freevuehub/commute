@@ -95,16 +95,7 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {
-    baseURL: `${process.env.API_PROTOCOL}${process.env.API_URL}`,
-    requestInterceptor: (config, { store }) => {
-      console.log(store)
-
-      config.headers.common.Authorization = store.state.user.headers.access_token
-
-      return config
-    },
-  },
+  axios: {},
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
