@@ -1,16 +1,16 @@
 <template>
   <v-container fluid>
-    <h1 class="mb-2">일일 현황</h1>
+    <h2 class="mb-2">일일 현황</h2>
     <today :item="state.mainData.todayData" />
 
-    <h1 class="mb-2">일주일 통계</h1>
+    <h2 class="mb-2">일주일 통계</h2>
     <stats title="이번 주">
       <span slot="sum">{{ state.mainData.weekTermSum }}</span>
       <span slot="avg">{{ state.mainData.weekTermAvg }}</span>
       <span slot="over">{{ state.mainData.weekOverTime }}</span>
     </stats>
 
-    <h1 class="mb-2">일주일 상황판</h1>
+    <h2 class="mb-2">일주일 상황판</h2>
     <v-card class="py-5 px-2 mb-5">
       <v-sparkline
         :value="computed.weekBarValue"
@@ -25,7 +25,7 @@
       ></v-sparkline>
     </v-card>
 
-    <h1 class="mb-2">월 통계</h1>
+    <h2 class="mb-2">월 통계</h2>
     <stats title="이번 달">
       <span slot="sum">{{ state.mainData.monthTermSum }}</span>
       <span slot="avg">{{ state.mainData.monthTermAvg }}</span>

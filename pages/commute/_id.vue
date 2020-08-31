@@ -14,10 +14,10 @@
       </v-time-picker>
     </v-dialog>
 
-    <h1 class="mb-2">출퇴근 정보</h1>
+    <h2 class="mb-2">출퇴근 정보</h2>
     <commute-info :item="computed.item" @click="onRowClick" />
 
-    <h1 class="mb-2">회사 정보</h1>
+    <h2 class="mb-2">회사 정보</h2>
     <v-card class="mb-5" dark>
       <v-img
         class="white--text align-end"

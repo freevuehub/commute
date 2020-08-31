@@ -12,6 +12,8 @@ export interface IComputed {
   weekBarLabels: ComputedRef<string[]>
 }
 
+const floor = (value: number): number => Math.floor(value)
+
 export const useState = ({ root }: SetupContext) =>
   reactive<IState>({
     mainData: computed(() => {
@@ -19,7 +21,7 @@ export const useState = ({ root }: SetupContext) =>
       const nowDiffStart = data.todayData.startDate
         ? dayjs().diff(data.todayData.startDate, 'minute')
         : 0
-      const breakTime = Math.floor(Number(nowDiffStart) / 240) * 30
+      const breakTime = floor(Number(nowDiffStart) / 240) * 30
       const weekOverTime = data.weekTermSum - data.weekCount * 8 * 60
       const monthOverTime = data.monthTermSum - data.monthCount * 8 * 60
 
@@ -28,24 +30,25 @@ export const useState = ({ root }: SetupContext) =>
         todayData: {
           ...data.todayData,
           totalWorkTime: data.todayData.totalWorkTime
-            ? `${Math.floor(data.todayData.totalWorkTime / 60)}시간 ${
+            ? `${floor(data.todayData.totalWorkTime / 60)}시간 ${
                 data.todayData.totalWorkTime % 60
               }분`
-            : `${Math.floor((nowDiffStart - breakTime) / 60)}시간 ${
-                (nowDiffStart - breakTime) % 60
-              }분`,
+            : `${floor((nowDiffStart - breakTime) / 60)}시간 ${(nowDiffStart - breakTime) % 60}분`,
           startDate: data.todayData.startDate && dayjs(data.todayData.startDate).format('HH:mm'),
           endDate: data.todayData.endDate && dayjs(data.todayData.endDate).format('HH:mm'),
         },
-        weekTermAvg: `${Math.floor(data.weekTermAvg / 60)}시간 ${data.weekTermAvg % 60}분`,
-        weekTermSum: `${Math.floor(data.weekTermSum / 60)}시간 ${data.weekTermSum % 60}분`,
-        monthTermAvg: `${Math.floor(data.monthTermAvg / 60)}시간 ${data.monthTermAvg % 60}분`,
-        monthTermSum: `${Math.floor(data.monthTermSum / 60)}시간 ${data.monthTermSum % 60}분`,
+        weekTermAvg: `${floor(data.weekTermAvg / 60)}시간 ${data.weekTermAvg % 60}분`,
+        weekTermSum: `${floor(data.weekTermSum / 60)}시간 ${data.weekTermSum % 60}분`,
+        monthTermAvg: `${floor(data.monthTermAvg / 60)}시간 ${data.monthTermAvg % 60}분`,
+        monthTermSum: `${floor(data.monthTermSum / 60)}시간 ${data.monthTermSum % 60}분`,
         weekOverTime:
           weekOverTime < 0
-            ? `-${Math.floor(Math.abs(weekOverTime) / 60)}시간 ${Math.abs(weekOverTime) % 60}분`
-            : `${Math.floor(weekOverTime / 60)}시간 ${weekOverTime % 60}분`,
-        monthOverTime: `${Math.floor(monthOverTime / 60)}시간 ${monthOverTime % 60}분`,
+            ? `-${floor(Math.abs(weekOverTime) / 60)}시간 ${Math.abs(weekOverTime) % 60}분`
+            : `${floor(weekOverTime / 60)}시간 ${weekOverTime % 60}분`,
+        monthOverTime:
+          monthOverTime < 0
+            ? `-${floor(Math.abs(monthOverTime) / 60)}시간 ${Math.abs(monthOverTime) % 60}분`
+            : `${floor(monthOverTime / 60)}시간 ${monthOverTime % 60}분`,
       }
     }),
   })

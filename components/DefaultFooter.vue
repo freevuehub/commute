@@ -1,5 +1,5 @@
 <template>
-  <v-footer fixed app class="pa-3">
+  <v-footer absolute app class="pa-3">
     <strong class="mr-3">FreeVue</strong>
     Copyright &copy; {{ state.year }}.
   </v-footer>
