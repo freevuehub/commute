@@ -21,12 +21,12 @@ export default defineComponent({
   head() {
     return {
       script: [
-        {
-          src: 'https://apis.google.com/js/platform.js?onload=renderButton',
-          async: true,
-          defer: true,
-        },
-        { src: '/google-auth.js' },
+        // {
+        //   src: 'https://apis.google.com/js/platform.js?onload=init',
+        //   async: true,
+        //   defer: true,
+        // },
+        // { src: '/google-auth.js' },
       ],
     }
   },

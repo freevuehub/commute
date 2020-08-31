@@ -3,6 +3,8 @@ function onSuccess(googleUser) {
   const authData = googleUser.getAuthResponse()
   const profile = googleUser.getBasicProfile()
 
+  console.log('onSuccess')
+
   document.cookie = `token=${authData.id_token};`
 
   const event = new CustomEvent('GOOGLE_AUTH', {
@@ -40,15 +42,26 @@ function renderButton() {
   })
 }
 
-window.onload = function () {
-  console.log('document')
+function init() {
+  gapi.load('auth2', function () {
+    console.log('google init')
+    renderButton()
 
-  document.addEventListener('GoogleSiginOut', () => {
-    console.log('GoogleSiginOut')
+    console.log(gapi.auth2.GoogleUser())
+
+    // const authData = googleUser.getAuthResponse()
+    // const profile = googleUser.getBasicProfile()
   })
 }
 
-// var auth2 = gapi.auth2.getAuthInstance();
-// auth2.signOut().then(function () {
-//   console.log('User signed out.');
-// });
+document.addEventListener('SiginOut', () => {
+  var auth2 = gapi.auth2.getAuthInstance()
+  console.log(auth2)
+
+  auth2.signOut().then(function () {
+    console.log('User signed out.')
+    const event = new CustomEvent('SignOutSuccess')
+
+    document.dispatchEvent(event)
+  })
+})

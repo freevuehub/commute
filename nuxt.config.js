@@ -34,7 +34,14 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [],
+    script: [
+      {
+        src: 'https://apis.google.com/js/platform.js?onload=init',
+        async: true,
+        defer: true,
+      },
+      { src: '/google-auth.js' },
+    ],
   },
   /*
    ** Global CSS

@@ -17,6 +17,10 @@ export default defineComponent({
       const { refs }: any = context
       const onGoogleSignin = (event: CustomEvent) => {
         context.root.$store.dispatch(`auth/${AuthConstant.$Call.Auth}`, event.detail)
+
+        console.log('btnDom', event)
+
+        context.root.$router.push('/')
       }
 
       refs['google-signin-button'].addEventListener('GOOGLE_AUTH', onGoogleSignin)

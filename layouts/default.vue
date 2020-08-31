@@ -75,15 +75,17 @@ export default defineComponent({
       }),
     })
     const onSiginOutClick = () => {
-      const event = new CustomEvent('GoogleSiginOut', {})
+      const event = new CustomEvent('SiginOut')
 
       document.dispatchEvent(event)
     }
 
     onMounted(() => {
-      const event = new CustomEvent('onGoogleSiginOut')
+      document.addEventListener('SignOutSuccess', () => {
+        console.log('SignOutSuccess')
 
-      document.dispatchEvent(event)
+        context.root.$router.push('/signin')
+      })
     })
 
     return {
