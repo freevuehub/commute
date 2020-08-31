@@ -31,8 +31,7 @@ import 'vuetify/dist/vuetify.min.css'
 
 import dayjs from 'dayjs'
 import { defineComponent, reactive, computed } from '@vue/composition-api'
-import { SnackBar } from '~/containers'
-import { DefaultFooter } from '~/components'
+import { SnackBar, DefaultFooter } from '~/components'
 import { MainConstant } from '~/constant'
 
 export default defineComponent({

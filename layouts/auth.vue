@@ -10,8 +10,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { SnackBar } from '~/containers'
-import { DefaultFooter } from '~/components'
+import { SnackBar, DefaultFooter } from '~/components'
 
 export default defineComponent({
   components: {
