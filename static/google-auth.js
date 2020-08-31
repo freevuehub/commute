@@ -39,3 +39,16 @@ function renderButton() {
     onfailure: onFailure,
   })
 }
+
+window.onload = function () {
+  console.log('document')
+
+  document.addEventListener('GoogleSiginOut', () => {
+    console.log('GoogleSiginOut')
+  })
+}
+
+// var auth2 = gapi.auth2.getAuthInstance();
+// auth2.signOut().then(function () {
+//   console.log('User signed out.');
+// });

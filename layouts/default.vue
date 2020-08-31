@@ -16,7 +16,7 @@
       <nav-list />
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn outlined block>Logout</v-btn>
+          <v-btn outlined block @click="onSiginOutClick">Logout</v-btn>
         </div>
       </template>
     </v-navigation-drawer>
@@ -37,7 +37,7 @@
 import 'vuetify/dist/vuetify.min.css'
 
 import dayjs from 'dayjs'
-import { defineComponent, reactive, computed } from '@vue/composition-api'
+import { defineComponent, reactive, computed, onMounted } from '@vue/composition-api'
 import { SnackBar, DefaultFooter, NavList } from '~/components'
 import { MainConstant } from '~/constant'
 
@@ -74,10 +74,22 @@ export default defineComponent({
           : '출근할 시간이야!'
       }),
     })
+    const onSiginOutClick = () => {
+      const event = new CustomEvent('GoogleSiginOut', {})
+
+      document.dispatchEvent(event)
+    }
+
+    onMounted(() => {
+      const event = new CustomEvent('onGoogleSiginOut')
+
+      document.dispatchEvent(event)
+    })
 
     return {
       state,
       title,
+      onSiginOutClick,
     }
   },
 })

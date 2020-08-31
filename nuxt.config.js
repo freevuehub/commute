@@ -34,14 +34,7 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [
-      {
-        src: 'https://apis.google.com/js/platform.js?onload=renderButton',
-        async: true,
-        defer: true,
-      },
-      { src: '/google-auth.js' },
-    ],
+    script: [],
   },
   /*
    ** Global CSS

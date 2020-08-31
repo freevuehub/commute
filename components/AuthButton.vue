@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <div
-      id="google-signin-button"
-      ref="google-signin-button"
-      class="pa-2 g-signin2"
-      data-onsuccess="onSignIn"
-    ></div>
-  </div>
+  <div
+    id="google-signin-button"
+    ref="google-signin-button"
+    class="g-signin2"
+    data-onsuccess="onSignIn"
+  ></div>
 </template>
 
 <script lang="ts">
