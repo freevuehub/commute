@@ -81,6 +81,7 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      console.log(window)
       document.addEventListener('SignOutSuccess', () => {
         console.log('SignOutSuccess')
 

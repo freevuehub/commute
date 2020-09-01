@@ -30,7 +30,7 @@ export default {
       { name: 'theme-color', content: '#71abbd' },
       {
         name: 'google-signin-client_id',
-        content: '1079181255443-jthgbtu9rg5ece9dtrd3no4q7ekj30fr.apps.googleusercontent.com',
+        content: `${process.env.GOOGLE_SIGNIN_CLIENT_ID}.apps.googleusercontent.com`,
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
@@ -129,6 +129,8 @@ export default {
   env: {
     API_PROTOCOL: process.env.API_PROTOCOL,
     API_URL: process.env.API_URL,
-    API_PORT: process.env.API_PORT,
+    GITHUB_CLIENT_ID: process.env.GITHUB_CLIENT_ID,
+    GITHUB_CALLBACK_URL: process.env.GITHUB_CALLBACK_URL,
+    GOOGLE_SIGNIN_CLIENT_ID: process.env.GOOGLE_SIGNIN_CLIENT_ID,
   },
 }

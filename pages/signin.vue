@@ -1,12 +1,18 @@
 <template>
   <v-container fluid>
+    <a :href="state.authUrl">Github 로그인</a>
     <v-card max-width="300">
       <v-card-text>
         <v-img class="rounded" src="./icon.png" width="150px"></v-img>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <auth-button />
+        <div
+          id="google-signin-button"
+          ref="google-signin-button"
+          class="g-signin2"
+          data-onsuccess="onSignIn"
+        ></div>
         <v-spacer></v-spacer>
       </v-card-actions>
     </v-card>
@@ -14,26 +20,60 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api'
-import { AuthButton } from '~/components'
+import { defineComponent, reactive, onMounted } from '@vue/composition-api'
+// import { AuthButton } from '~/components'
 
 export default defineComponent({
-  head() {
-    return {
-      script: [
-        // {
-        //   src: 'https://apis.google.com/js/platform.js?onload=init',
-        //   async: true,
-        //   defer: true,
-        // },
-        // { src: '/google-auth.js' },
-      ],
-    }
-  },
   layout: 'no-auth',
   transition: 'slide-y-reverse-transition',
-  components: {
-    AuthButton,
+  setup() {
+    const state = reactive({
+      authUrl: `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${process.env.GITHUB_CALLBACK_URL}`,
+    })
+    const onFailure = (error: any) => {
+      console.log(error)
+    }
+    const onSuccess = (googleUser: any) => {
+      const authData = googleUser.getAuthResponse()
+      const profile = googleUser.getBasicProfile()
+
+      document.cookie = `token=${authData.id_token};`
+
+      console.log({
+        authData: {
+          idToken: authData.id_token,
+          idpId: authData.idpId,
+          loginHint: authData.login_hint,
+          tokenType: authData.token_type,
+        },
+        profile: {
+          id: profile.getId(),
+          name: profile.getName(),
+          imageUrl: profile.getImageUrl(),
+          email: profile.getEmail(),
+        },
+      })
+    }
+
+    onMounted(() => {
+      window.onload = () => {
+        // @ts-ignore
+        const { $gapi } = window
+
+        $gapi.signin2.render('google-signin-button', {
+          scope: 'profile email',
+          width: 240,
+          longtitle: true,
+          theme: 'light',
+          onsuccess: onSuccess,
+          onfailure: onFailure,
+        })
+      }
+    })
+
+    return {
+      state,
+    }
   },
 })
 </script>

@@ -1,3 +1,5 @@
+// window.gapi = gapi
+
 function onSuccess(googleUser) {
   const btnDom = document.getElementById('google-signin-button')
   const authData = googleUser.getAuthResponse()
@@ -44,13 +46,9 @@ function renderButton() {
 
 function init() {
   gapi.load('auth2', function () {
-    console.log('google init')
-    renderButton()
+    window.$gapi = gapi
 
-    console.log(gapi.auth2.GoogleUser())
-
-    // const authData = googleUser.getAuthResponse()
-    // const profile = googleUser.getBasicProfile()
+    // renderButton()
   })
 }
 
