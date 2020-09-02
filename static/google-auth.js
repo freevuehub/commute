@@ -4,13 +4,13 @@ function init() {
   })
 }
 
-document.addEventListener('SiginOut', () => {
-  var auth2 = gapi.auth2.getAuthInstance()
+// document.addEventListener('SiginOut', () => {
+//   var auth2 = gapi.auth2.getAuthInstance()
 
-  auth2.signOut().then(function () {
-    console.log('User signed out.')
-    const event = new CustomEvent('SignOutSuccess')
+//   auth2.signOut().then(function () {
+//     console.log('User signed out.')
+//     const event = new CustomEvent('SignOutSuccess')
 
-    document.dispatchEvent(event)
-  })
-})
+//     document.dispatchEvent(event)
+//   })
+// })

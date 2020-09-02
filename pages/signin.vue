@@ -1,20 +1,14 @@
 <template>
   <v-container fluid>
-    <a :href="state.authUrl">Github 로그인</a>
     <v-card max-width="300">
       <v-card-text>
         <v-img class="rounded" src="./icon.png" width="150px"></v-img>
       </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <div
-          id="google-signin-button"
-          ref="google-signin-button"
-          class="g-signin2"
-          data-onsuccess="onSignIn"
-        ></div>
-        <v-spacer></v-spacer>
-      </v-card-actions>
+      <div id="google-signin-button" ref="google-signin-button" class="google-button"></div>
+      <v-btn :href="state.authUrl" block class="text-left">
+        <v-icon>mdi-github</v-icon>
+        <span>Github 로그인</span>
+      </v-btn>
     </v-card>
   </v-container>
 </template>
@@ -63,8 +57,8 @@ export default defineComponent({
         $gapi.signin2.render('google-signin-button', {
           scope: 'profile email',
           width: 240,
+          height: 36,
           longtitle: true,
-          theme: 'light',
           onsuccess: onSuccess,
           onfailure: onFailure,
         })
@@ -77,3 +71,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.google-button {
+  width: 100%;
+}
+</style>
