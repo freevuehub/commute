@@ -1,4 +1,5 @@
 import { AuthConstant } from '~/constant'
+import { postGitHubSignIn } from '~/API'
 
 interface IState {
   authData: {
@@ -40,6 +41,9 @@ export const mutations = {
 export const actions = {
   [AuthConstant.$Call.Auth](store: any, payload: IState) {
     store.commit(AuthConstant.$Set.Auth, payload)
+  },
+  async [AuthConstant.$Call.GitHubSigin](_: any, payload: string) {
+    await postGitHubSignIn(payload)
   },
 }
 

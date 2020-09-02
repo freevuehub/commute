@@ -3,6 +3,11 @@ const URL = process.env.API_URL
 const SERVER = `${PTOTOCOL}${URL}`
 
 interface IConfig {
+  user: {
+    request: {
+      github(): string
+    }
+  }
   main: {
     request: {
       data(): string
@@ -18,6 +23,11 @@ interface IConfig {
 
 // process.env.production 분기!!
 const config: IConfig = {
+  user: {
+    request: {
+      github: () => `${SERVER}/user/github`,
+    },
+  },
   main: {
     request: {
       data: () => `${SERVER}/main`,

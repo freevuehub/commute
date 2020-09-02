@@ -38,6 +38,33 @@ interface ICommuteGetListResponse extends IApiSuccessCode {
   totalCount: number
 }
 
+export const postGitHubSignIn = (code: string): Promise<any> => {
+  return new Promise((resolve, reject) => {
+    ;(async () => {
+      try {
+        const formData = new FormData()
+
+        formData.append('code', code)
+
+        const response: AxiosResponse = await instance.post(
+          endpoint.user.request.github(),
+          formData
+        )
+
+        console.log(response)
+
+        if (response.data.status === 2000) {
+          resolve(response.data)
+        } else {
+          reject(response)
+        }
+      } catch (err) {
+        reject(err)
+      }
+    })()
+  })
+}
+
 export const getMainData = (): Promise<IMainDataResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
