@@ -20,6 +20,27 @@
     <h2 class="mb-2">회사 정보</h2>
     <company-info :item="computed.item" />
 
+    <h2 class="mb-2">
+      메모
+      <v-btn x-small icon>
+        <v-icon>edit</v-icon>
+      </v-btn>
+    </h2>
+    <v-card>
+      <v-card-text>
+        <!-- <v-textarea
+          v-model="computed.item.comment"
+          label="메모"
+          rows="1"
+          auto-grow
+          outlined
+          clear-icon
+          hide-details
+        ></v-textarea>-->
+        {{ computed.item.comment || '메모가 없습니다.' }}
+      </v-card-text>
+    </v-card>
+
     <div class="d-flex mt-10">
       <v-spacer></v-spacer>
       <v-btn nuxt color="primary" @click="$router.go(-1)">돌아가기</v-btn>
