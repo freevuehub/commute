@@ -18,6 +18,13 @@
     <commute-info :item="computed.item" @click="onRowClick" />
 
     <h2 class="mb-2">회사 정보</h2>
+
+    <!-- <v-card>
+      <v-skeleton-loader type="image"></v-skeleton-loader>
+      <v-card-text>
+        <v-skeleton-loader type="text"></v-skeleton-loader>
+      </v-card-text>
+    </v-card>-->
     <company-info :item="computed.item" />
 
     <h2 class="mb-2">
@@ -40,6 +47,13 @@
         {{ computed.item.comment || '메모가 없습니다.' }}
       </v-card-text>
     </v-card>
+
+    <!-- <v-chip class="mx-2" close color="teal" text-color="white">
+      <v-avatar left>
+        <v-icon>label</v-icon>
+      </v-avatar>
+      <span>Confirmed</span>
+    </v-chip>-->
 
     <div class="d-flex mt-10">
       <v-spacer></v-spacer>
