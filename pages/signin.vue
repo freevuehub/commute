@@ -18,7 +18,7 @@ import { defineComponent, reactive, onMounted } from '@vue/composition-api'
 // import { AuthButton } from '~/components'
 
 export default defineComponent({
-  layout: 'no-auth',
+  layout: 'no-header',
   transition: 'slide-y-reverse-transition',
   setup() {
     const state = reactive({
@@ -31,7 +31,7 @@ export default defineComponent({
       const authData = googleUser.getAuthResponse()
       const profile = googleUser.getBasicProfile()
 
-      document.cookie = `token=${authData.id_token};`
+      // document.cookie = `token=${authData.id_token};`
 
       console.log({
         authData: {

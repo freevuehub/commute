@@ -1,6 +1,12 @@
 import { AuthConstant } from '~/constant'
 import { postGitHubSignIn } from '~/API'
 
+interface IProfile {
+  avatarUrl: string
+  token: string
+  email: string
+  name: string
+}
 interface IState {
   authData: {
     idToken: string
@@ -8,12 +14,7 @@ interface IState {
     loginHint: string
     tokenType: 'Bearer'
   }
-  profile: {
-    email: string
-    id: string
-    imageUrl: string
-    name: string
-  }
+  profile: IProfile
 }
 
 export const state = (): IState => ({
@@ -24,9 +25,9 @@ export const state = (): IState => ({
     tokenType: 'Bearer',
   },
   profile: {
+    token: '',
     email: '',
-    id: '',
-    imageUrl: '',
+    avatarUrl: '',
     name: '',
   },
 })
@@ -36,14 +37,21 @@ export const mutations = {
     state.authData = payload.authData
     state.profile = payload.profile
   },
+  [AuthConstant.$Set.Profile](state: IState, payload: IProfile) {
+    state.profile = payload
+  },
 }
 
 export const actions = {
   [AuthConstant.$Call.Auth](store: any, payload: IState) {
     store.commit(AuthConstant.$Set.Auth, payload)
   },
-  async [AuthConstant.$Call.GitHubSigin](_: any, payload: string) {
-    await postGitHubSignIn(payload)
+  async [AuthConstant.$Call.GitHubSigin](store: any, payload: string) {
+    const { result } = await postGitHubSignIn(payload)
+
+    document.cookie = `token=${result.token};`
+
+    store.commit(AuthConstant.$Set.Profile, result)
   },
 }
 

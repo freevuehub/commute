@@ -8,7 +8,7 @@
 
         <v-list-item-title>사용자 이름</v-list-item-title>
 
-        <v-btn icon>
+        <v-btn icon to="/my-page">
           <v-icon>settings</v-icon>
         </v-btn>
       </v-list-item>
@@ -37,7 +37,7 @@
 import 'vuetify/dist/vuetify.min.css'
 
 import dayjs from 'dayjs'
-import { defineComponent, reactive, computed, onMounted } from '@vue/composition-api'
+import { defineComponent, reactive, computed } from '@vue/composition-api'
 import { SnackBar, DefaultFooter, NavList } from '~/components'
 import { MainConstant } from '~/constant'
 
@@ -79,15 +79,6 @@ export default defineComponent({
 
       document.dispatchEvent(event)
     }
-
-    onMounted(() => {
-      console.log(window)
-      document.addEventListener('SignOutSuccess', () => {
-        console.log('SignOutSuccess')
-
-        context.root.$router.push('/signin')
-      })
-    })
 
     return {
       state,

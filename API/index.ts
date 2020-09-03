@@ -38,7 +38,16 @@ interface ICommuteGetListResponse extends IApiSuccessCode {
   totalCount: number
 }
 
-export const postGitHubSignIn = (code: string): Promise<any> => {
+interface IGitHubAuthResponseResponse extends IApiSuccessCode {
+  result: {
+    avatarUrl: string
+    email: string
+    name: string
+    token: string
+  }
+}
+
+export const postGitHubSignIn = (code: string): Promise<IGitHubAuthResponseResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
@@ -50,8 +59,6 @@ export const postGitHubSignIn = (code: string): Promise<any> => {
           endpoint.user.request.github(),
           formData
         )
-
-        console.log(response)
 
         if (response.data.status === 2000) {
           resolve(response.data)

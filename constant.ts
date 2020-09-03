@@ -1,6 +1,7 @@
 export const AuthConstant = {
   $Set: {
     Auth: 'SET/AUTH',
+    Profile: 'SET/PROFILE',
   },
   $Call: {
     Auth: 'CALL/AUTH',
