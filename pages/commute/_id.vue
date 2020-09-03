@@ -18,20 +18,8 @@
     <commute-info :item="computed.item" @click="onRowClick" />
 
     <h2 class="mb-2">회사 정보</h2>
-    <v-card class="mb-5" dark>
-      <v-img
-        class="white--text align-end"
-        height="200px"
-        src="https://lh3.ggpht.com/p/AF1QipMy3ma_xoft6AHOyzkoK3A4ZTU1tjtCVa7Xbp_c=s1024"
-      >
-        <v-card-title>{{ computed.item.companyName }}</v-card-title>
-      </v-img>
-      <v-card-text>
-        <row title="주소">
-          <span class="address body-1 font-weight-bold">{{ computed.item.companyAddress }}</span>
-        </row>
-      </v-card-text>
-    </v-card>
+    <company-info :item="computed.item" />
+
     <div class="d-flex mt-10">
       <v-spacer></v-spacer>
       <v-btn nuxt color="primary" @click="$router.go(-1)">돌아가기</v-btn>
@@ -43,12 +31,12 @@
 <script lang="ts">
 import { defineComponent, SetupContext, onBeforeMount } from '@vue/composition-api'
 import { useState, useSaveClick, useRowClick, useComputed, useBeforeMounted } from './id.fn'
-import { CommuteDetailRow, DetailCommuteInfo } from '~/components'
+import { DetailCommuteInfo, DetailCompanyInfo } from '~/components'
 
 export default defineComponent({
   components: {
-    row: CommuteDetailRow,
     commuteInfo: DetailCommuteInfo,
+    companyInfo: DetailCompanyInfo,
   },
   setup(_: {}, vm: SetupContext) {
     const state = useState()
