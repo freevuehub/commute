@@ -12,12 +12,16 @@ export default defineComponent({
   layout: 'no-header',
   setup(_, context) {
     onMounted(async () => {
-      const { code } = context.root.$route.query
+      try {
+        const { code } = context.root.$route.query
 
-      await context.root.$store.dispatch(`auth/${AuthConstant.$Call.GitHubSigin}`, code)
+        await context.root.$store.dispatch(`auth/${AuthConstant.$Call.GitHubSigin}`, code)
 
-      context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '환영합니다.')
-      context.root.$router.push('/')
+        context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '환영합니다.')
+        context.root.$router.push('/')
+      } catch {
+        context.root.$router.push('/signin')
+      }
     })
   },
 })

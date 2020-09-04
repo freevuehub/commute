@@ -5,6 +5,7 @@ export const AuthConstant = {
   },
   $Call: {
     Auth: 'CALL/AUTH',
+    User: 'CALL/USER',
     GitHubSigin: 'CALL/GITHUB/SIGNIN',
   },
   $Get: {

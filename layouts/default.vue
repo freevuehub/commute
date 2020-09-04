@@ -1,17 +1,7 @@
 <template>
   <v-app dark>
     <v-navigation-drawer v-model="state.drawer" fixed app>
-      <v-list-item class="px-2">
-        <v-list-item-avatar>
-          <v-img src="https://randomuser.me/api/portraits/men/85.jpg"></v-img>
-        </v-list-item-avatar>
-
-        <v-list-item-title>사용자 이름</v-list-item-title>
-
-        <v-btn icon to="/my-page">
-          <v-icon>settings</v-icon>
-        </v-btn>
-      </v-list-item>
+      <profile />
       <v-divider></v-divider>
       <nav-list />
       <template v-slot:append>
@@ -37,13 +27,14 @@
 import 'vuetify/dist/vuetify.min.css'
 
 import dayjs from 'dayjs'
-import { defineComponent, reactive, computed } from '@vue/composition-api'
-import { SnackBar, DefaultFooter, NavList } from '~/components'
-import { MainConstant } from '~/constant'
+import { defineComponent, reactive, computed, onMounted } from '@vue/composition-api'
+import { SnackBar, DefaultFooter, NavList, NavUserProfile } from '~/components'
+import { MainConstant, AuthConstant } from '~/constant'
 
 export default defineComponent({
   middleware: 'auth',
   components: {
+    profile: NavUserProfile,
     DefaultFooter,
     SnackBar,
     NavList,
@@ -76,10 +67,16 @@ export default defineComponent({
       }),
     })
     const onSiginOutClick = () => {
-      const event = new CustomEvent('SiginOut')
+      const { $cookies }: any = context.root
 
-      document.dispatchEvent(event)
+      $cookies.remove('token')
+
+      context.root.$router.push('/signin')
     }
+
+    onMounted(async () => {
+      await context.root.$store.dispatch(`auth/${AuthConstant.$Call.User}`)
+    })
 
     return {
       state,

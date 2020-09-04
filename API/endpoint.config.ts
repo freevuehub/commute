@@ -5,6 +5,7 @@ const SERVER = `${PTOTOCOL}${URL}`
 interface IConfig {
   user: {
     request: {
+      user(): string
       github(): string
     }
   }
@@ -25,6 +26,7 @@ interface IConfig {
 const config: IConfig = {
   user: {
     request: {
+      user: () => `${SERVER}/user`,
       github: () => `${SERVER}/user/github`,
     },
   },

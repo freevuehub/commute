@@ -38,7 +38,7 @@ interface ICommuteGetListResponse extends IApiSuccessCode {
   totalCount: number
 }
 
-interface IGitHubAuthResponseResponse extends IApiSuccessCode {
+interface IUserAuthResponseResponse extends IApiSuccessCode {
   result: {
     token: string
     profile: {
@@ -49,7 +49,25 @@ interface IGitHubAuthResponseResponse extends IApiSuccessCode {
   }
 }
 
-export const postGitHubSignIn = (code: string): Promise<IGitHubAuthResponseResponse> => {
+export const getUserData = (): Promise<IUserAuthResponseResponse> => {
+  return new Promise((resolve, reject) => {
+    ;(async () => {
+      try {
+        const response: AxiosResponse = await instance.get(endpoint.user.request.user())
+
+        if (response.data.status === 2000) {
+          resolve(response.data)
+        } else {
+          reject(response)
+        }
+      } catch (err) {
+        reject(err)
+      }
+    })()
+  })
+}
+
+export const postGitHubSignIn = (code: string): Promise<IUserAuthResponseResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
