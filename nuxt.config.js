@@ -70,6 +70,7 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    'cookie-universal-nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
   ],

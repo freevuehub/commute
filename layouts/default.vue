@@ -42,6 +42,7 @@ import { SnackBar, DefaultFooter, NavList } from '~/components'
 import { MainConstant } from '~/constant'
 
 export default defineComponent({
+  middleware: 'auth',
   components: {
     DefaultFooter,
     SnackBar,

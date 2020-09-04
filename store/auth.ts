@@ -3,7 +3,6 @@ import { postGitHubSignIn } from '~/API'
 
 interface IProfile {
   avatarUrl: string
-  token: string
   email: string
   name: string
 }
@@ -25,7 +24,6 @@ export const state = (): IState => ({
     tokenType: 'Bearer',
   },
   profile: {
-    token: '',
     email: '',
     avatarUrl: '',
     name: '',
@@ -51,7 +49,7 @@ export const actions = {
 
     document.cookie = `token=${result.token};`
 
-    store.commit(AuthConstant.$Set.Profile, result)
+    store.commit(AuthConstant.$Set.Profile, result.profile)
   },
 }
 

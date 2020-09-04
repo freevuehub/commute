@@ -1,29 +1,26 @@
 <template>
-  <v-container fluid>
-    <v-card max-width="300">
-      <v-card-text>
-        <v-img class="rounded" src="./icon.png" width="150px"></v-img>
-      </v-card-text>
-      <div id="google-signin-button" ref="google-signin-button" class="google-button"></div>
-      <v-btn :href="state.authUrl" block class="text-left">
-        <v-icon>mdi-github</v-icon>
-        <span>Github 로그인</span>
-      </v-btn>
+  <v-container fluid class="d-flex container">
+    <v-card class="ma-auto" outlined>
+      <v-img class="rounded" src="./icon.png" width="250px"></v-img>
+      <!-- <div id="google-signin-button" ref="google-signin-button" class="google-button"></div> -->
+      <v-card-actions>
+        <git-btn />
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, onMounted } from '@vue/composition-api'
-// import { AuthButton } from '~/components'
+import { defineComponent, onMounted } from '@vue/composition-api'
+import { GithubSigninBtn } from '~/components'
 
 export default defineComponent({
   layout: 'no-header',
   transition: 'slide-y-reverse-transition',
+  components: {
+    gitBtn: GithubSigninBtn,
+  },
   setup() {
-    const state = reactive({
-      authUrl: `https://github.com/login/oauth/authorize?client_id=${process.env.GITHUB_CLIENT_ID}&redirect_uri=${process.env.GITHUB_CALLBACK_URL}`,
-    })
     const onFailure = (error: any) => {
       console.log(error)
     }
@@ -65,15 +62,16 @@ export default defineComponent({
       }
     })
 
-    return {
-      state,
-    }
+    return {}
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.google-button {
-  width: 100%;
+.container {
+  height: 100%;
+  .google-button {
+    width: 100%;
+  }
 }
 </style>

@@ -40,10 +40,12 @@ interface ICommuteGetListResponse extends IApiSuccessCode {
 
 interface IGitHubAuthResponseResponse extends IApiSuccessCode {
   result: {
-    avatarUrl: string
-    email: string
-    name: string
     token: string
+    profile: {
+      avatarUrl: string
+      email: string
+      name: string
+    }
   }
 }
 
