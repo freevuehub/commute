@@ -73,6 +73,7 @@ export default {
     'cookie-universal-nuxt',
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
+    ['@nuxtjs/google-analytics', { id: process.env.GOOGLE_ANALYTICE_ID }],
   ],
   manifest: {
     name: '출!사표',
