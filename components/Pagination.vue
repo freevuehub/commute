@@ -45,7 +45,10 @@ import { useComputed, usePageComputed, IProps, usePageBtnClick } from './paginat
 
 export default defineComponent({
   props: {
-    page: Number,
+    page: {
+      type: Number,
+      default: 1,
+    },
     max: Number,
     total: Number,
   },
