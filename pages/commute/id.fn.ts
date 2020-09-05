@@ -72,32 +72,36 @@ export const useSaveClick = (
   compute: { item: IComputedCommuteItem },
   vm: SetupContext
 ) => async () => {
-  const dateValue = () => {
-    switch (state.type) {
-      case '출근':
-        return {
-          startDate: `${compute.item.date} ${state.time}`,
-        }
-      case '퇴근':
-        return {
-          endDate: `${compute.item.date} ${state.time}`,
-        }
+  try {
+    const dateValue = () => {
+      switch (state.type) {
+        case '출근':
+          return {
+            startDate: `${compute.item.date} ${state.time}`,
+          }
+        case '퇴근':
+          return {
+            endDate: `${compute.item.date} ${state.time}`,
+          }
+      }
     }
+
+    await vm.root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
+      id: vm.root.$route.params.id,
+      payload: {
+        ...dateValue(),
+      },
+    })
+
+    state.modal = false
+    state.loading = true
+
+    await useBeforeMounted(state, vm)()
+
+    vm.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '등록되었습니다.')
+  } catch {
+    vm.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Error}`, '에러가 발생했습니다.')
   }
-
-  await vm.root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
-    id: vm.root.$route.params.id,
-    payload: {
-      ...dateValue(),
-    },
-  })
-
-  state.modal = false
-  state.loading = true
-
-  await useBeforeMounted(state, vm)()
-
-  vm.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '등록되었습니다.')
 }
 
 export const useRowClick = (state: IState, compute: { item: IComputedCommuteItem }) => (

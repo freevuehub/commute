@@ -33,6 +33,7 @@ export const SnackConstant = {
   $Call: {
     SnackStatus: 'CALL/STATUS',
     Success: 'CALL/SUCCESS',
+    Error: 'CALL/ERROR',
   },
   $Get: {
     SnackStatus: 'GET/STATUS',

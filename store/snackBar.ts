@@ -41,6 +41,14 @@ export const actions = {
       type: 'success',
     })
   },
+  [SnackConstant.$Call.Error]: ({ commit }: any, message: string) => {
+    commit(SnackConstant.$Set.SnackStatus, {
+      message,
+      timeout: 3000,
+      view: true,
+      type: 'error',
+    })
+  },
 }
 
 export const getters = {
