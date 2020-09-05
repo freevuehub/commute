@@ -70,45 +70,44 @@ export const useComputed = (state: IState) =>
 export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => async (
   key: string
 ) => {
-  const now = dayjs()
-  const time = now.format('HH:mm:00')
-  const date = now.format('YYYY-MM-DD')
-  const {
-    mainData: { todayData },
-  } = state
+  try {
+    const now = dayjs()
+    const time = now.format('HH:mm:00')
+    const date = now.format('YYYY-MM-DD')
+    const {
+      mainData: { todayData },
+    } = state
 
-  switch (key) {
-    case '출근':
-      await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
-        companyId: 1,
-        startDate: `${date} ${time}`,
-        endDate: null,
-        comment: null,
-        tags: null,
-      })
+    switch (key) {
+      case '출근':
+        await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
+          companyId: 1,
+          startDate: `${date} ${time}`,
+          endDate: null,
+          comment: null,
+          tags: null,
+        })
 
-      break
-    case '퇴근':
-      await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
-        id: todayData.id,
-        payload: {
-          endDate: `${date} ${time}`,
-        },
-      })
+        break
+      case '퇴근':
+        await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
+          id: todayData.id,
+          payload: {
+            endDate: `${date} ${time}`,
+          },
+        })
 
-      break
+        break
+    }
+
+    root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, `${time}에 ${key}하셨습니다.`)
+
+    useeMounted(root)()
+  } catch {
+    root.$store.dispatch(`snackBar/${SnackConstant.$Call.Error}`, '에러가 발생했습니다.')
   }
-
-  root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, {
-    message: `${time}에 ${key}하셨습니다.`,
-    view: true,
-    type: 'success',
-  })
-
-  useeMounted(root)()
 }
 
 export const useeMounted = (root: any) => () => {
-  console.log('main mounted')
   root.$store.dispatch(`main/${MainConstant.$Call.MainData}`)
 }
