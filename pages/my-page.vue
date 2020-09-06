@@ -1,3 +1,5 @@
 <template>
-  <v-btn to="/signin">로그인 페이지로</v-btn>
+  <v-container fluid>
+    <h2 class="mb-2">회사 정보</h2>
+  </v-container>
 </template>

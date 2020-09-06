@@ -19,12 +19,12 @@
 
     <h2 class="mb-2">회사 정보</h2>
 
-    <!-- <v-card>
+    <!-- <v-card v-if="!computed.item.id" class="mb-5">
       <v-skeleton-loader type="image"></v-skeleton-loader>
       <v-card-text>
         <v-skeleton-loader type="text"></v-skeleton-loader>
       </v-card-text>
-    </v-card>-->
+    </v-card> -->
     <company-info :item="computed.item" />
 
     <h2 class="mb-2">

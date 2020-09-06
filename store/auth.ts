@@ -8,6 +8,7 @@ interface IProfile {
 }
 interface IState {
   profile: IProfile
+  myCommuteInfo: {}
 }
 
 export const state = (): IState => ({
@@ -16,6 +17,7 @@ export const state = (): IState => ({
     avatarUrl: '',
     name: '',
   },
+  myCommuteInfo: {},
 })
 
 export const mutations = {
