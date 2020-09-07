@@ -24,7 +24,7 @@
       <v-card-text>
         <v-skeleton-loader type="text"></v-skeleton-loader>
       </v-card-text>
-    </v-card> -->
+    </v-card>-->
     <company-info :item="computed.item" />
 
     <h2 class="mb-2">
@@ -33,7 +33,7 @@
         <v-icon>edit</v-icon>
       </v-btn>
     </h2>
-    <v-card>
+    <v-card class="mb-5">
       <v-card-text>
         <!-- <v-textarea
           v-model="computed.item.comment"
@@ -48,12 +48,7 @@
       </v-card-text>
     </v-card>
 
-    <!-- <v-chip class="mx-2" close color="teal" text-color="white">
-      <v-avatar left>
-        <v-icon>label</v-icon>
-      </v-avatar>
-      <span>Confirmed</span>
-    </v-chip>-->
+    <v-chip class="ma-2" close color="teal" text-color="white" @click:close="close">tags</v-chip>
 
     <div class="d-flex mt-10">
       <v-spacer></v-spacer>
@@ -78,6 +73,9 @@ export default defineComponent({
     const computed = useComputed(vm)
     const onSaveClick = useSaveClick(state, computed, vm)
     const onRowClick = useRowClick(state, computed)
+    const close = () => {
+      alert('Chip close clicked')
+    }
 
     onBeforeMount(useBeforeMounted(state, vm))
 
@@ -86,6 +84,7 @@ export default defineComponent({
       computed,
       onSaveClick,
       onRowClick,
+      close,
     }
   },
 })
