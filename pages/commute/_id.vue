@@ -35,7 +35,21 @@
     </h2>
     <memo v-model="state.memoEdit" :comment="computed.item.comment" />
 
-    <v-chip class="ma-2" close color="teal" text-color="white" @click:close="close">tags</v-chip>
+    <div>
+      <!-- <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">재택근무</v-chip>
+      <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">리프레쉬 데이</v-chip>
+      <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">오후 반차</v-chip>
+      <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">반차</v-chip>
+      <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">오전 반차</v-chip>
+      <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">지각</v-chip>
+      <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">야근</v-chip>
+      <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">외근</v-chip>-->
+      <v-chip class="mx-1 mb-2 pa-1" color="primary" text-color="white">
+        <!-- <v-avatar left>
+        </v-avatar>-->
+        <v-icon>add</v-icon>
+      </v-chip>
+    </div>
 
     <div class="d-flex mt-10">
       <v-spacer></v-spacer>
