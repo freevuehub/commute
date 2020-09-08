@@ -53,4 +53,6 @@ export const usePageWatch = ({ root }: SetupContext, state: IState) => async (pa
   root.$router.push({ query: { page: `${page}` } })
 
   await loadCommuteList(root, page, state.limit)
+
+  window.scrollTo(0, 0)
 }
