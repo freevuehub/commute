@@ -9,6 +9,7 @@ interface IState {
   loading: boolean
   time: string
   type: string
+  memoEdit: boolean
 }
 
 interface IComputedCommuteItem extends ICommuteItem {
@@ -28,6 +29,7 @@ export const useState = () =>
   reactive<IState>({
     modal: false,
     loading: true,
+    memoEdit: false,
     time: now.format('HH:mm:00'),
     type: '',
   })

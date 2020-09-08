@@ -27,26 +27,13 @@
     </v-card>-->
     <company-info :item="computed.item" />
 
-    <h2 class="mb-2">
+    <h2 class="mb-2 d-flex align-center">
       메모
-      <v-btn x-small icon>
+      <v-btn x-small icon class="ml-1" @click="state.memoEdit = !state.memoEdit">
         <v-icon>edit</v-icon>
       </v-btn>
     </h2>
-    <v-card class="mb-5">
-      <v-card-text>
-        <!-- <v-textarea
-          v-model="computed.item.comment"
-          label="메모"
-          rows="1"
-          auto-grow
-          outlined
-          clear-icon
-          hide-details
-        ></v-textarea>-->
-        {{ computed.item.comment || '메모가 없습니다.' }}
-      </v-card-text>
-    </v-card>
+    <memo v-model="state.memoEdit" :comment="computed.item.comment" />
 
     <v-chip class="ma-2" close color="teal" text-color="white" @click:close="close">tags</v-chip>
 
@@ -61,23 +48,24 @@
 <script lang="ts">
 import { defineComponent, SetupContext, onBeforeMount } from '@vue/composition-api'
 import { useState, useSaveClick, useRowClick, useComputed, useBeforeMounted } from './id.fn'
-import { DetailCommuteInfo, DetailCompanyInfo } from '~/components'
+import { DetailCommuteInfo, DetailCompanyInfo, DetailCommuteMemo } from '~/components'
 
 export default defineComponent({
   components: {
     commuteInfo: DetailCommuteInfo,
     companyInfo: DetailCompanyInfo,
+    memo: DetailCommuteMemo,
   },
-  setup(_: {}, vm: SetupContext) {
+  setup(_: {}, context: SetupContext) {
     const state = useState()
-    const computed = useComputed(vm)
-    const onSaveClick = useSaveClick(state, computed, vm)
+    const computed = useComputed(context)
+    const onSaveClick = useSaveClick(state, computed, context)
     const onRowClick = useRowClick(state, computed)
     const close = () => {
       alert('Chip close clicked')
     }
 
-    onBeforeMount(useBeforeMounted(state, vm))
+    onBeforeMount(useBeforeMounted(state, context))
 
     return {
       state,
