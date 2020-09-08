@@ -81,6 +81,10 @@ export default {
     start_url: '/?utm_source=homescreen',
     display: 'standalone',
     background_color: '#71abbd',
+    theme_color: '#71abbd',
+    orientation: 'portrait',
+    scope: '/',
+    splash_pages: null,
   },
   workbox: {
     offline: false,
