@@ -11,17 +11,23 @@
         clear-icon
         hide-details
       ></v-textarea>
-      <span v-else>{{ comment || '메모가 없습니다.' }}</span>
+      <div v-else>
+        <template v-for="(text, index) in computed.memo">
+          <span v-if="text" :key="`span-${index}`">{{ text }}</span>
+          <br :key="`br-${index}`" />
+        </template>
+      </div>
     </v-card-text>
     <v-card-actions v-if="memoEdit">
       <v-spacer></v-spacer>
-      <v-btn @click="onMemoSave" text small color="primary">저장</v-btn>
+      <v-btn text small color="primary" @click="onMemoSave">저장</v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@vue/composition-api'
+import { defineComponent, watch } from '@vue/composition-api'
+import { useState, useComputed, useMemoSave, useCommentWatch } from './DetailCommuteMemo.fn'
 
 export default defineComponent({
   props: {
@@ -29,22 +35,25 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    memoEdit: Boolean,
+    memoEdit: {
+      type: Boolean,
+      default: false,
+    },
   },
   model: {
     prop: 'memoEdit',
     event: 'close',
   },
   setup(props, context) {
-    const state = reactive({
-      memo: props.comment,
-    })
-    const onMemoSave = () => {
-      context.emit('close', !props.memoEdit)
-    }
+    const state = useState(props)
+    const computed = useComputed(props)
+    const onMemoSave = useMemoSave(props, context, state)
+
+    watch(() => props.comment, useCommentWatch(state))
 
     return {
       state,
+      computed,
       onMemoSave,
     }
   },
