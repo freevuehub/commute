@@ -134,10 +134,11 @@ export const getCommuteList = (page: number, limit: number): Promise<ICommuteGet
 
 export const postCommute = (payload: ICommuteItemOfAPI): Promise<ICommuteInsertResponse> => {
   const formData = new FormData()
-
-  Object.entries(payload).forEach(([key, value]) => {
+  const appendFormData = ([key, value]: [string, ICommuteItemOfAPI]) => {
     formData.append(key, `${value}`)
-  })
+  }
+
+  Object.entries(payload).forEach(appendFormData)
 
   return new Promise((resolve, reject) => {
     ;(async () => {
