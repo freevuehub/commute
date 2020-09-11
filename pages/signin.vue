@@ -20,7 +20,7 @@ export default defineComponent({
   components: {
     gitBtn: GithubSigninBtn,
   },
-  setup() {
+  setup(_, context) {
     const onFailure = (error: any) => {
       console.log(error)
     }
@@ -47,6 +47,11 @@ export default defineComponent({
     }
 
     onMounted(() => {
+      // @ts-ignore
+      if (context.root.$cookies.get('token')) {
+        context.root.$router.push('/')
+      }
+
       window.onload = () => {
         // @ts-ignore
         const { $gapi } = window
