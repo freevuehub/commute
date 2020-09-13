@@ -1,10 +1,17 @@
 <template>
   <v-container fluid>
-    <h2 class="d-flex align-center">
+    <h1 class="d-flex align-center">
       {{ state.switch1 ? '카드 값 벌어야지...' : '도비 is free~!' }}
-      <v-switch v-model="state.switch1" class="ma-0 ml-auto" color="primary" inset hide-details />
-    </h2>
-    <v-divider class="my-3"></v-divider>
+      <v-switch
+        v-model="state.switch1"
+        class="ma-0 ml-auto"
+        color="primary"
+        inset
+        hide-details
+        dense
+      />
+    </h1>
+    <v-divider class="my-6"></v-divider>
     <h2 class="mb-2">근무 정보</h2>
     <v-card class="mb-5">
       <v-card-text>
