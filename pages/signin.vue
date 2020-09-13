@@ -47,9 +47,10 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      // @ts-ignore
-      if (context.root.$cookies.get('token')) {
-        context.root.$router.push('/')
+      const { $cookies, $router }: any = context.root
+
+      if ($cookies.get('token')) {
+        $router.push('/')
       }
 
       window.onload = () => {
