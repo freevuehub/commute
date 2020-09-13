@@ -1,6 +1,11 @@
 <template>
   <v-container fluid>
-    <h2 class="mb-2">기본 정보</h2>
+    <h2 class="d-flex align-center">
+      {{ state.switch1 ? '카드 값 벌어야지...' : '도비 is free~!' }}
+      <v-switch v-model="state.switch1" class="ma-0 ml-auto" color="primary" inset hide-details />
+    </h2>
+    <v-divider class="my-3"></v-divider>
+    <h2 class="mb-2">근무 정보</h2>
     <v-card class="mb-5">
       <v-card-text>
         <row class="mb-3" title="출근 시간">
@@ -33,7 +38,7 @@
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, reactive } from '@vue/composition-api'
 import { CommuteDetailRow } from '~/components'
 
 export default defineComponent({
@@ -45,6 +50,15 @@ export default defineComponent({
       type: Object,
       default: () => ({}),
     },
+  },
+  setup() {
+    const state = reactive({
+      switch1: true,
+    })
+
+    return {
+      state,
+    }
   },
 })
 </script>
