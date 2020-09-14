@@ -1,5 +1,5 @@
 import { AuthConstant } from '~/constant'
-import { postGitHubSignIn, getUserData } from '~/API'
+import { postGitHubSignIn, getUserProfile, getUserInfo } from '~/API'
 
 interface IProfile {
   avatarUrl: string
@@ -8,7 +8,7 @@ interface IProfile {
 }
 interface IState {
   profile: IProfile
-  myCommuteInfo: {}
+  userInfo: {}
 }
 
 export const state = (): IState => ({
@@ -17,18 +17,27 @@ export const state = (): IState => ({
     avatarUrl: '',
     name: '',
   },
-  myCommuteInfo: {},
+  userInfo: {},
 })
 
 export const mutations = {
   [AuthConstant.$Set.Profile](state: IState, payload: IProfile) {
     state.profile = payload
   },
+  [AuthConstant.$Set.Info](state: IState, payload: IProfile) {
+    // state.profile = payload
+    console.log(payload)
+  },
 }
 
 export const actions = {
-  async [AuthConstant.$Call.User](store: any) {
-    const { result } = await getUserData()
+  async [AuthConstant.$Call.Info](store: any) {
+    const { result } = await getUserInfo()
+
+    store.commit(AuthConstant.$Set.Info, result.profile)
+  },
+  async [AuthConstant.$Call.Profile](store: any) {
+    const { result } = await getUserProfile()
 
     store.commit(AuthConstant.$Set.Profile, result.profile)
   },
