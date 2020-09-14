@@ -49,11 +49,29 @@ interface IUserAuthResponseResponse extends IApiSuccessCode {
   }
 }
 
-export const getUserData = (): Promise<IUserAuthResponseResponse> => {
+export const getUserInfo = (): Promise<IUserAuthResponseResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
-        const response: AxiosResponse = await instance.get(endpoint.user.request.user())
+        const response: AxiosResponse = await instance.get(endpoint.user.request.info())
+
+        if (response.data.status === 2000) {
+          resolve(response.data)
+        } else {
+          reject(response)
+        }
+      } catch (err) {
+        reject(err)
+      }
+    })()
+  })
+}
+
+export const getUserProfile = (): Promise<IUserAuthResponseResponse> => {
+  return new Promise((resolve, reject) => {
+    ;(async () => {
+      try {
+        const response: AxiosResponse = await instance.get(endpoint.user.request.profile())
 
         if (response.data.status === 2000) {
           resolve(response.data)
