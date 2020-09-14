@@ -13,8 +13,6 @@ export const useComputed = (context: SetupContext) =>
     breakPoint: computed(() => {
       const { $vuetify }: any = context.root
 
-      console.log($vuetify.breakpoint)
-
       return $vuetify.breakpoint
     }),
   })
