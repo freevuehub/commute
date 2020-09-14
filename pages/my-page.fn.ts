@@ -1,4 +1,5 @@
-import { reactive, computed, ComputedRef } from '@vue/composition-api'
+import { reactive, computed, ComputedRef, SetupContext } from '@vue/composition-api'
+import { AuthConstant } from '~/constant'
 
 interface IState {
   switch1: boolean
@@ -42,3 +43,7 @@ export const useComputed = (state: IState) =>
       return state.workMessageList[randomNumber]
     }),
   })
+
+export const useBeforeMount = (context: SetupContext) => async () => {
+  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.Info}`)
+}

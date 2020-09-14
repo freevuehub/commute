@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
-import { useState, useComputed } from './my-page.fn'
+import { defineComponent, onBeforeMount } from '@vue/composition-api'
+import { useState, useComputed, useBeforeMount } from './my-page.fn'
 import { CommuteDetailRow } from '~/components'
 
 export default defineComponent({
@@ -59,9 +59,11 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  setup() {
+  setup(_, context) {
     const state = useState()
     const computed = useComputed(state)
+
+    onBeforeMount(useBeforeMount(context))
 
     return {
       state,
