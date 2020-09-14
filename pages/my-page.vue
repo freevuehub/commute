@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <h1 class="d-flex align-center">
-      {{ state.switch1 ? '카드 값 벌어야지...' : '도비 is free~!' }}
+      {{ state.switch1 ? computed.workMessage : computed.joblessMessage }}
       <v-switch
         v-model="state.switch1"
         class="ma-0 ml-auto"
@@ -45,7 +45,8 @@
 </template>
 
 <script>
-import { defineComponent, reactive } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
+import { useState, useComputed } from './my-page.fn'
 import { CommuteDetailRow } from '~/components'
 
 export default defineComponent({
@@ -59,12 +60,12 @@ export default defineComponent({
     },
   },
   setup() {
-    const state = reactive({
-      switch1: true,
-    })
+    const state = useState()
+    const computed = useComputed(state)
 
     return {
       state,
+      computed,
     }
   },
 })
