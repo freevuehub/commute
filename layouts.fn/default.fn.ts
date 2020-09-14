@@ -63,5 +63,5 @@ export const useBeforeMount = (context: SetupContext) => () => {
 }
 
 export const useMounted = (context: SetupContext) => async () => {
-  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.User}`)
+  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.Profile}`)
 }
