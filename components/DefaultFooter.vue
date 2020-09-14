@@ -1,5 +1,5 @@
 <template>
-  <v-footer absolute app class="pa-3">
+  <v-footer :fixed="computed.breakPoint.lg" :absolute="!computed.breakPoint.lg" app class="pa-3">
     <strong class="mr-3">FreeVue</strong>
     Copyright &copy; {{ state.year }}.
   </v-footer>
@@ -7,15 +7,17 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { useState } from './default-footer.fn'
+import { useState, useComputed } from './default-footer.fn'
 
 export default defineComponent({
   name: 'DefaultFooter',
-  setup() {
+  setup(_, context) {
     const state = useState()
+    const computed = useComputed(context)
 
     return {
       state,
+      computed,
     }
   },
 })
