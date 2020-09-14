@@ -28,13 +28,9 @@ export const mutations = {
 
 export const actions = {
   async [AuthConstant.$Call.User](store: any) {
-    try {
-      const { result } = await getUserData()
+    const { result } = await getUserData()
 
-      store.commit(AuthConstant.$Set.Profile, result.profile)
-    } catch (err) {
-      console.log(err)
-    }
+    store.commit(AuthConstant.$Set.Profile, result.profile)
   },
   async [AuthConstant.$Call.GitHubSigin](_: any, payload: string) {
     const { result } = await postGitHubSignIn(payload)
