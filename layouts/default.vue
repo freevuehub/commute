@@ -26,10 +26,15 @@
 <script lang="ts">
 import 'vuetify/dist/vuetify.min.css'
 
-import dayjs from 'dayjs'
-import { defineComponent, reactive, computed, onMounted } from '@vue/composition-api'
+import { defineComponent, onMounted, onBeforeMount } from '@vue/composition-api'
+import {
+  useState,
+  useComputed,
+  useSiginOutClick,
+  useBeforeMount,
+  useMounted,
+} from '~/layouts.fn/default.fn'
 import { SnackBar, DefaultFooter, NavList, NavUserProfile } from '~/components'
-import { MainConstant, AuthConstant } from '~/constant'
 
 export default defineComponent({
   middleware: 'auth',
@@ -40,43 +45,12 @@ export default defineComponent({
     NavList,
   },
   setup(_, context) {
-    const state = reactive({
-      drawer: false,
-    })
-    const title = reactive({
-      str: computed(() => {
-        const item = context.root.$store.getters[`main/${MainConstant.$Get.MainData}`]
-        const diffMinute = dayjs().diff(item.todayData.startDate, 'minute')
+    const state = useState()
+    const title = useComputed(context)
+    const onSiginOutClick = useSiginOutClick(context)
 
-        switch (dayjs().day()) {
-          case 0:
-            return '오늘도 출근해요?'
-          case 6:
-            return '오늘도 출근해요?'
-        }
-
-        if (diffMinute < 240) {
-          return '수고하세요~'
-        }
-
-        return item.todayData.startDate
-          ? item.todayData.endDate
-            ? '수고했어요~'
-            : '퇴근할 시간이야!'
-          : '출근할 시간이야!'
-      }),
-    })
-    const onSiginOutClick = () => {
-      const { $cookies }: any = context.root
-
-      $cookies.remove('token')
-
-      context.root.$router.push('/signin')
-    }
-
-    onMounted(async () => {
-      await context.root.$store.dispatch(`auth/${AuthConstant.$Call.User}`)
-    })
+    onBeforeMount(useBeforeMount(context))
+    onMounted(useMounted(context))
 
     return {
       state,
