@@ -33,7 +33,7 @@ export const useComputed = (context: SetupContext) =>
     }),
   })
 
-export const useSiginOutClick = (context: SetupContext) => {
+export const useSiginOutClick = (context: SetupContext) => () => {
   const { $cookies }: any = context.root
 
   $cookies.remove('token')
