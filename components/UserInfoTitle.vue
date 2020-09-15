@@ -1,5 +1,5 @@
 <template>
-  <h1>{{ isWork ? computed.workMessage : computed.joblessMessage }}</h1>
+  <h1>{{ status ? computed.workMessage : computed.joblessMessage }}</h1>
 </template>
 
 <script lang="ts">
@@ -8,7 +8,7 @@ import { useState, useComputed } from './user-info-title.fn'
 
 export default defineComponent({
   props: {
-    isWork: {
+    status: {
       type: Boolean,
       default: false,
     },
