@@ -6,9 +6,24 @@ interface IProfile {
   email: string
   name: string
 }
+
+interface IUserInfo {
+  companyAddress: string
+  companyLat: number | null
+  companyLong: number | null
+  companyName: string
+  companyZipCode: number
+  isWork: boolean
+  lunchEndTime: string
+  lunchStartTime: string
+  lunchTerm: number
+  workEndTime: string
+  workStartTime: string
+  workTerm: number
+}
 interface IState {
   profile: IProfile
-  userInfo: {}
+  userInfo: IUserInfo
 }
 
 export const state = (): IState => ({
@@ -17,16 +32,28 @@ export const state = (): IState => ({
     avatarUrl: '',
     name: '',
   },
-  userInfo: {},
+  userInfo: {
+    companyAddress: '',
+    companyLat: null,
+    companyLong: null,
+    companyName: '',
+    companyZipCode: 0,
+    isWork: false,
+    lunchEndTime: '',
+    lunchStartTime: '',
+    lunchTerm: 0,
+    workEndTime: '',
+    workStartTime: '',
+    workTerm: 0,
+  },
 })
 
 export const mutations = {
   [AuthConstant.$Set.Profile](state: IState, payload: IProfile) {
     state.profile = payload
   },
-  [AuthConstant.$Set.Info](state: IState, payload: IProfile) {
-    // state.profile = payload
-    console.log(payload)
+  [AuthConstant.$Set.Info](state: IState, payload: IUserInfo) {
+    state.userInfo = payload
   },
 }
 
@@ -34,7 +61,7 @@ export const actions = {
   async [AuthConstant.$Call.Info](store: any) {
     const { result } = await getUserInfo()
 
-    store.commit(AuthConstant.$Set.Info, result.profile)
+    store.commit(AuthConstant.$Set.Info, result)
   },
   async [AuthConstant.$Call.Profile](store: any) {
     const { result } = await getUserProfile()
