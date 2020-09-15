@@ -20,6 +20,10 @@ export default defineComponent({
         context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '환영합니다.')
         context.root.$router.push('/')
       } catch {
+        context.root.$store.dispatch(
+          `snackBar/${SnackConstant.$Call.Error}`,
+          '에러가 발생했습니다. 잠시 후 다시 시도해주세요.'
+        )
         context.root.$router.push('/signin')
       }
     })
