@@ -1,57 +1,53 @@
 <template>
   <v-container fluid>
-    <h1 class="d-flex align-center">
-      {{ state.switch1 ? computed.workMessage : computed.joblessMessage }}
+    <info-title />
+    <v-divider class="my-6"></v-divider>
+    <h2 class="mb-2 d-flex align-center">
+      노예 계약 현황
       <v-switch
-        v-model="state.switch1"
-        class="ma-0 ml-auto"
+        class="is-work-switch ma-0 ml-auto pa-0"
         color="primary"
         inset
         hide-details
         dense
+        value
+        :input-value="computed.userInfo.isWork"
+        @change="onSwitchChange"
       />
-    </h1>
-    <v-divider class="my-6"></v-divider>
-    <h2 class="mb-2">근무 정보</h2>
+    </h2>
     <v-card class="mb-5">
       <v-card-text>
         <row class="mb-3" title="출근 시간">
-          <span class="body-1 font-weight-bold">{{ item.startDate || 'N/A' }}</span>
+          <span class="body-1 font-weight-bold">{{ computed.userInfo.workStartTime }}</span>
         </row>
         <row class="mb-3" title="퇴근 시간">
-          <span class="body-1 font-weight-bold">{{ item.totalWorkTime || 'N/A' }}</span>
+          <span class="body-1 font-weight-bold">{{ computed.userInfo.workEndTime }}</span>
         </row>
-        <row title="점심 시간">
-          <span class="body-1 font-weight-bold">{{ item.endDate || 'N/A' }}</span>
+        <row class="mb-3" title="점심 시간">
+          <span class="body-1 font-weight-bold">{{ `${computed.userInfo.workEndTime}` }}</span>
         </row>
-      </v-card-text>
-    </v-card>
-    <h2 class="mb-2">회사 정보</h2>
-    <v-card class="mb-5" dark>
-      <v-img
-        class="white--text align-end"
-        height="200px"
-        src="https://lh3.ggpht.com/p/AF1QipMy3ma_xoft6AHOyzkoK3A4ZTU1tjtCVa7Xbp_c=s1024"
-      >
-        <v-card-title>{{ item.companyName }}</v-card-title>
-      </v-img>
-      <v-card-text>
-        <row title="주소">
-          <span class="address body-1 font-weight-bold">{{ item.companyAddress }}</span>
+        <v-divider class="mb-2"></v-divider>
+        <row>
+          <span>현재 노예 계약된 상태입니다..</span>
         </row>
       </v-card-text>
     </v-card>
+    <h2 class="mb-2">주인마님 댁</h2>
+    <company-info :item="computed.userInfo" />
   </v-container>
 </template>
 
-<script>
-import { defineComponent, onBeforeMount } from '@vue/composition-api'
-import { useState, useComputed, useBeforeMount } from './my-page.fn'
-import { CommuteDetailRow } from '~/components'
+<script lang="ts">
+import { defineComponent } from '@vue/composition-api'
+import { useState, useComputed } from './my-page.fn'
+import { CommuteDetailRow, DetailCompanyInfo, UserInfoTitle } from '~/components'
 
 export default defineComponent({
+  middleware: ['my-page'],
   components: {
     row: CommuteDetailRow,
+    companyInfo: DetailCompanyInfo,
+    infoTitle: UserInfoTitle,
   },
   props: {
     item: {
@@ -61,14 +57,22 @@ export default defineComponent({
   },
   setup(_, context) {
     const state = useState()
-    const computed = useComputed(state)
-
-    onBeforeMount(useBeforeMount(context))
+    const computed = useComputed(context)
+    const onSwitchChange = (value: boolean) => {
+      console.log(value)
+    }
 
     return {
       state,
       computed,
+      onSwitchChange,
     }
   },
 })
 </script>
+
+<style lang="scss">
+.is-work-switch {
+  width: 44px;
+}
+</style>

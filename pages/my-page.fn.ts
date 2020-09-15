@@ -1,49 +1,40 @@
 import { reactive, computed, ComputedRef, SetupContext } from '@vue/composition-api'
+import dayjs from 'dayjs'
 import { AuthConstant } from '~/constant'
+import { IUserInfo } from '~/types'
 
 interface IState {
-  switch1: boolean
-  joblessMessageList: string[]
-  workMessageList: string[]
+  isWork: boolean
 }
 
 interface IComputedItem {
-  joblessMessage: string
-  workMessage: string
+  userInfo: IUserInfo
 }
 
 interface IComputed {
-  joblessMessage: ComputedRef<IComputedItem['joblessMessage']>
-  workMessage: ComputedRef<IComputedItem['workMessage']>
+  userInfo: ComputedRef<IComputedItem['userInfo']>
 }
+
+const buildTimeSet = (time: string) => `${dayjs().format('YYYY-MM-DD')} ${time}`
 
 export const useState = () =>
   reactive<IState>({
-    switch1: true,
-    joblessMessageList: ['도비 is Free!', '안녕히계세요. 여러분!'],
-    workMessageList: [
-      '카드값 벌어야죠.',
-      '오늘도 출근을...',
-      '퇴근은 안옵니다.',
-      'Look Down!!',
-      '월급 = 충성도',
-    ],
+    isWork: true,
   })
 
-export const useComputed = (state: IState) =>
+export const useComputed = (context: SetupContext) =>
   reactive<IComputed>({
-    joblessMessage: computed(() => {
-      const randomNumber = Math.floor(Math.random() * state.joblessMessageList.length)
+    userInfo: computed(() => {
+      const infoData: IUserInfo = context.root.$store.getters[`auth/${AuthConstant.$Get.Info}`]
 
-      return state.joblessMessageList[randomNumber]
-    }),
-    workMessage: computed(() => {
-      const randomNumber = Math.floor(Math.random() * state.workMessageList.length)
-
-      return state.workMessageList[randomNumber]
+      return {
+        ...infoData,
+        workStartTime: infoData.workStartTime
+          ? dayjs(buildTimeSet(infoData.workStartTime)).format('HH:mm')
+          : 'N/A',
+        workEndTime: infoData.workEndTime
+          ? dayjs(buildTimeSet(infoData.workEndTime)).format('HH:mm')
+          : 'N/A',
+      }
     }),
   })
-
-export const useBeforeMount = (context: SetupContext) => async () => {
-  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.Info}`)
-}
