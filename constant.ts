@@ -9,7 +9,7 @@ export const AuthConstant = {
     GitHubSigin: 'CALL/GITHUB/SIGNIN',
   },
   $Get: {
-    Token: 'GET/TOKEN',
+    Info: 'GET/USER/INFO',
     Profile: 'GET/PROFILE',
   },
 }
