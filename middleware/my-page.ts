@@ -2,9 +2,14 @@ import { AuthConstant } from '~/constant'
 import { getUserInfo } from '~/API'
 
 export default async (context: any) => {
-  const { $cookies }: any = context
+  const { $cookies, store, redirect }: any = context.app
+  const token = $cookies.get('token')
 
-  const { result } = await getUserInfo($cookies.get('token'))
+  if (token) {
+    const { result } = await getUserInfo(token)
 
-  context.store.dispatch(`auth/${AuthConstant.$Call.Info}`, result)
+    store.dispatch(`auth/${AuthConstant.$Call.Info}`, result)
+  } else {
+    redirect('/signin')
+  }
 }
