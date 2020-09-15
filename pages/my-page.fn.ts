@@ -5,6 +5,7 @@ import { IUserInfo } from '~/types'
 
 interface IState {
   isWork: boolean
+  switchLoading: boolean
 }
 
 interface IComputedItem {
@@ -20,6 +21,7 @@ const buildTimeSet = (time: string) => `${dayjs().format('YYYY-MM-DD')} ${time}`
 export const useState = () =>
   reactive<IState>({
     isWork: true,
+    switchLoading: false,
   })
 
 export const useComputed = (context: SetupContext) =>
@@ -38,3 +40,11 @@ export const useComputed = (context: SetupContext) =>
       }
     }),
   })
+
+export const useSwitchChange = (context: SetupContext, state: IState) => async (value: boolean) => {
+  state.switchLoading = !state.switchLoading
+
+  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.InfoPut}`, { isWork: value })
+
+  state.switchLoading = !state.switchLoading
+}
