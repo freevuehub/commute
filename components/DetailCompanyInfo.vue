@@ -9,7 +9,7 @@
     </v-img>
     <v-card-text>
       <row title="주소">
-        <span class="address body-1 font-weight-bold">{{ item.companyAddress }}</span>
+        <span class="address body-1 font-weight-bold text-right">{{ item.companyAddress }}</span>
       </row>
     </v-card-text>
   </v-card>
@@ -31,3 +31,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+.address {
+  width: 80%;
+}
+</style>
