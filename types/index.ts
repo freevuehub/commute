@@ -35,3 +35,18 @@ export interface IMainData {
   weekList: ICommuteItem[]
   todayData: ICommuteItem
 }
+
+export interface IUserInfo {
+  companyAddress: string
+  companyLat: number | null
+  companyLong: number | null
+  companyName: string
+  companyZipCode: number
+  isWork: boolean
+  lunchEndTime: string
+  lunchStartTime: string
+  lunchTerm: number
+  workEndTime: string
+  workStartTime: string
+  workTerm: number
+}
