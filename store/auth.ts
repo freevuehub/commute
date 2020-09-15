@@ -1,25 +1,11 @@
 import { AuthConstant } from '~/constant'
-import { postGitHubSignIn, getUserProfile, getUserInfo } from '~/API'
+import { postGitHubSignIn, getUserProfile } from '~/API'
+import { IUserInfo } from '~/types'
 
 interface IProfile {
   avatarUrl: string
   email: string
   name: string
-}
-
-interface IUserInfo {
-  companyAddress: string
-  companyLat: number | null
-  companyLong: number | null
-  companyName: string
-  companyZipCode: number
-  isWork: boolean
-  lunchEndTime: string
-  lunchStartTime: string
-  lunchTerm: number
-  workEndTime: string
-  workStartTime: string
-  workTerm: number
 }
 interface IState {
   profile: IProfile
@@ -58,10 +44,8 @@ export const mutations = {
 }
 
 export const actions = {
-  async [AuthConstant.$Call.Info](store: any) {
-    const { result } = await getUserInfo()
-
-    store.commit(AuthConstant.$Set.Info, result)
+  [AuthConstant.$Call.Info](store: any, payload: IUserInfo) {
+    store.commit(AuthConstant.$Set.Info, payload)
   },
   async [AuthConstant.$Call.Profile](store: any) {
     const { result } = await getUserProfile()
@@ -69,14 +53,21 @@ export const actions = {
     store.commit(AuthConstant.$Set.Profile, result.profile)
   },
   async [AuthConstant.$Call.GitHubSigin](_: any, payload: string) {
-    const { result } = await postGitHubSignIn(payload)
+    try {
+      const { result } = await postGitHubSignIn(payload)
 
-    document.cookie = `token=${result.token};`
+      document.cookie = `token=${result.token};`
+    } catch (err) {
+      return Promise.reject(err)
+    }
   },
 }
 
 export const getters = {
   [AuthConstant.$Get.Profile](state: IState) {
     return state.profile
+  },
+  [AuthConstant.$Get.Info](state: IState) {
+    return state.userInfo
   },
 }
