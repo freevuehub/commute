@@ -2,21 +2,6 @@ import { ICommuteItem, ICommuteItemOfAPI } from '@/types'
 import instance, { AxiosResponse } from './instance'
 import endpoint from './endpoint.config'
 
-instance.interceptors.request.use((config) => {
-  const cookieList = document.cookie.split(';').reduce(
-    (prev, cur) => {
-      const [key, value] = cur.trim().split('=')
-
-      return { ...prev, [key]: value }
-    },
-    { token: '' }
-  )
-
-  config.headers = { authorization: cookieList.token }
-
-  return config
-})
-
 interface IApiSuccessCode {
   status: number
 }
@@ -49,11 +34,18 @@ interface IUserAuthResponseResponse extends IApiSuccessCode {
   }
 }
 
-export const getUserInfo = (): Promise<IUserAuthResponseResponse> => {
+export const getUserInfo = (token: string = ''): Promise<IUserAuthResponseResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
-        const response: AxiosResponse = await instance.get(endpoint.user.request.info())
+        const response: AxiosResponse = await instance.get(
+          endpoint.user.request.info(),
+          token
+            ? {
+                headers: { Authorization: token },
+              }
+            : {}
+        )
 
         if (response.data.status === 2000) {
           resolve(response.data)
