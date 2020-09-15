@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import { SetupContext, reactive, computed } from '@vue/composition-api'
 import { MainConstant, AuthConstant } from '~/constant'
-import instance from '~/API/instance'
+import instance, { AxiosRequestConfig } from '~/API/instance'
 
 export const useState = () =>
   reactive({
@@ -42,6 +42,14 @@ export const useSiginOutClick = (context: SetupContext) => () => {
 }
 
 export const useBeforeMount = (context: SetupContext) => () => {
+  instance.interceptors.request.use((config: AxiosRequestConfig) => {
+    const { $cookies }: any = context.root
+
+    config.headers = { authorization: $cookies.get('token') }
+
+    return config
+  })
+
   instance.interceptors.response.use(
     (response) => {
       if (response.data.status === 2000) {

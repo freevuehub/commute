@@ -37,7 +37,7 @@ import {
 import { SnackBar, DefaultFooter, NavList, NavUserProfile } from '~/components'
 
 export default defineComponent({
-  middleware: 'auth',
+  middleware: ['auth'],
   components: {
     profile: NavUserProfile,
     DefaultFooter,
