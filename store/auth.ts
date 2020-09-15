@@ -1,6 +1,6 @@
 import { AuthConstant } from '~/constant'
-import { postGitHubSignIn, getUserProfile } from '~/API'
-import { IUserInfo } from '~/types'
+import { postGitHubSignIn, getUserProfile, putUserInfo } from '~/API'
+import { IUserInfo, IUserInfoPutPayload } from '~/types'
 
 interface IProfile {
   avatarUrl: string
@@ -57,6 +57,15 @@ export const actions = {
       const { result } = await postGitHubSignIn(payload)
 
       document.cookie = `token=${result.token};`
+    } catch (err) {
+      return Promise.reject(err)
+    }
+  },
+  async [AuthConstant.$Call.InfoPut](store: any, payload: IUserInfoPutPayload) {
+    try {
+      const { result } = await putUserInfo(payload)
+
+      store.commit(AuthConstant.$Set.Info, result)
     } catch (err) {
       return Promise.reject(err)
     }

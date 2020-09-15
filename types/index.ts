@@ -50,3 +50,13 @@ export interface IUserInfo {
   workStartTime: string
   workTerm: number
 }
+
+export interface IUserInfoPutPayload {
+  id: number
+  companyId: number | null
+  isWork: boolean | null
+  lunchEndTime: string | null
+  lunchStartTime: string | null
+  workEndTime: string | null
+  workStartTime: string | null
+}

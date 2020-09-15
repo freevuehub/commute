@@ -1,4 +1,4 @@
-import { ICommuteItem, ICommuteItemOfAPI } from '@/types'
+import { ICommuteItem, ICommuteItemOfAPI, IUserInfo, IUserInfoPutPayload } from '@/types'
 import instance, { AxiosResponse } from './instance'
 import endpoint from './endpoint.config'
 
@@ -23,7 +23,7 @@ interface ICommuteGetListResponse extends IApiSuccessCode {
   totalCount: number
 }
 
-interface IUserAuthResponseResponse extends IApiSuccessCode {
+interface IUserAuthResponse extends IApiSuccessCode {
   result: {
     token: string
     profile: {
@@ -34,7 +34,11 @@ interface IUserAuthResponseResponse extends IApiSuccessCode {
   }
 }
 
-export const getUserInfo = (token: string = ''): Promise<IUserAuthResponseResponse> => {
+interface IUserInfoResponse extends IApiSuccessCode {
+  result: IUserInfo
+}
+
+export const getUserInfo = (token: string = ''): Promise<IUserInfoResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
@@ -59,7 +63,25 @@ export const getUserInfo = (token: string = ''): Promise<IUserAuthResponseRespon
   })
 }
 
-export const getUserProfile = (): Promise<IUserAuthResponseResponse> => {
+export const putUserInfo = (payload: IUserInfoPutPayload): Promise<IUserInfoResponse> => {
+  return new Promise((resolve, reject) => {
+    ;(async () => {
+      try {
+        const response: AxiosResponse = await instance.put(endpoint.user.request.info(), payload)
+
+        if (response.data.status === 2000) {
+          resolve(response.data)
+        } else {
+          reject(response)
+        }
+      } catch (err) {
+        reject(err)
+      }
+    })()
+  })
+}
+
+export const getUserProfile = (): Promise<IUserAuthResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
@@ -77,7 +99,7 @@ export const getUserProfile = (): Promise<IUserAuthResponseResponse> => {
   })
 }
 
-export const postGitHubSignIn = (code: string): Promise<IUserAuthResponseResponse> => {
+export const postGitHubSignIn = (code: string): Promise<IUserAuthResponse> => {
   return new Promise((resolve, reject) => {
     ;(async () => {
       try {
