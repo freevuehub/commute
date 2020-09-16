@@ -4,7 +4,7 @@
 			<v-time-picker v-if="state.itmeModal" v-model="state.time" full-width color="primary">
 				<v-spacer></v-spacer>
 				<v-btn text color="primary" @click="state.itmeModal = false">닫기</v-btn>
-				<v-btn text color="primary" @click="onSaveClick">{{ state.type }}</v-btn>
+				<v-btn text color="primary" @click="onSaveClick">저장</v-btn>
 			</v-time-picker>
 		</v-dialog>
 

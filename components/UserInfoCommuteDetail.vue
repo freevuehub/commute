@@ -7,7 +7,7 @@
 			<row class="mb-3" title="퇴근 시간" @click="onRowClick('퇴근')">
 				<span class="body-1 font-weight-bold">{{ item.workEndTime }}</span>
 			</row>
-			<row class="mb-3" title="점심 시간">
+			<row class="mb-3" title="점심 시간" @click="onRowClick('점심')">
 				<span class="body-1 font-weight-bold">{{
 					`${item.lunchStartTime} ~ ${item.lunchEndTime}`
 				}}</span>
