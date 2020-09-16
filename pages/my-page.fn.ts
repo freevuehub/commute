@@ -6,6 +6,8 @@ import { IUserInfo } from '~/types'
 interface IState {
   isWork: boolean
   switchLoading: boolean
+  itmeModal: boolean
+  time: string
 }
 
 interface IComputedItem {
@@ -22,6 +24,8 @@ export const useState = () =>
   reactive<IState>({
     isWork: true,
     switchLoading: false,
+    itmeModal: false,
+    time: '',
   })
 
 export const useComputed = (context: SetupContext) =>
@@ -47,4 +51,14 @@ export const useSwitchChange = (context: SetupContext, state: IState) => async (
   await context.root.$store.dispatch(`auth/${AuthConstant.$Call.InfoPut}`, { isWork: value })
 
   state.switchLoading = !state.switchLoading
+}
+
+export const useRowClick = (state: IState, computed: IComputedItem) => (value: string) => {
+  state.itmeModal = true
+
+  if (value === '출근') {
+    state.time = computed.userInfo.workStartTime
+  } else if (value === '퇴근') {
+    state.time = computed.userInfo.workEndTime
+  }
 }
