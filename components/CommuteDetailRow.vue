@@ -1,5 +1,5 @@
 <template>
-	<div class="d-flex align-center">
+	<div class="d-flex align-start">
 		<span class="body-1 font-weight-light">{{ title }}</span>
 		<v-spacer></v-spacer>
 		<button v-if="state.isClick" class="pa-0" @click.prevent="$emit('click')">
