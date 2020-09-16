@@ -1,11 +1,11 @@
 <template>
-  <v-app dark>
-    <v-main>
-      <nuxt />
-    </v-main>
-    <default-footer />
-    <snack-bar />
-  </v-app>
+	<v-app dark>
+		<v-main>
+			<nuxt />
+		</v-main>
+		<default-footer />
+		<snack-bar />
+	</v-app>
 </template>
 
 <script lang="ts">
@@ -14,20 +14,20 @@ import { SnackBar, DefaultFooter } from '~/components'
 import instance, { AxiosRequestConfig } from '~/API/instance'
 
 export default defineComponent({
-  components: {
-    DefaultFooter,
-    SnackBar,
-  },
-  setup(_, context) {
-    onBeforeMount(() => {
-      instance.interceptors.request.use((config: AxiosRequestConfig) => {
-        const { $cookies }: any = context.root
+	components: {
+		DefaultFooter,
+		SnackBar,
+	},
+	setup(_, context) {
+		onBeforeMount(() => {
+			instance.interceptors.request.use((config: AxiosRequestConfig) => {
+				const { $cookies }: any = context.root
 
-        config.headers = { authorization: $cookies.get('token') }
+				config.headers = { authorization: $cookies.get('token') }
 
-        return config
-      })
-    })
-  },
+				return config
+			})
+		})
+	},
 })
 </script>
