@@ -1,6 +1,6 @@
 import { reactive, computed, ComputedRef, SetupContext } from '@vue/composition-api'
 import dayjs from 'dayjs'
-import { AuthConstant } from '~/constant'
+import { AuthConstant, SnackConstant } from '~/constant'
 import { IUserInfo } from '~/types'
 
 interface IState {
@@ -8,6 +8,7 @@ interface IState {
 	switchLoading: boolean
 	itmeModal: boolean
 	time: string
+	type: string
 }
 
 interface IComputedItem {
@@ -26,6 +27,7 @@ export const useState = () =>
 		switchLoading: false,
 		itmeModal: false,
 		time: '',
+		type: '',
 	})
 
 export const useComputed = (context: SetupContext) =>
@@ -63,8 +65,10 @@ export const useRowClick = (state: IState, computed: IComputedItem) => (value: s
 	if (value === '점심') {
 		console.log('test')
 	} else {
+		state.type = value
+
 		const findTimeValue = () => {
-			switch (value) {
+			switch (state.type) {
 				case '출근':
 					return computed.userInfo.workStartTime
 				case '퇴근':
@@ -77,4 +81,25 @@ export const useRowClick = (state: IState, computed: IComputedItem) => (value: s
 		state.itmeModal = true
 		state.time = findTimeValue()
 	}
+}
+
+export const useSaveClick = (context: SetupContext, state: IState) => async () => {
+	const bulidTimekey = (): string => {
+		switch (state.type) {
+			case '출근':
+				return 'workStartTime'
+			case '퇴근':
+				return 'workEndTime'
+			default:
+				return ''
+		}
+	}
+
+	await context.root.$store.dispatch(`auth/${AuthConstant.$Call.InfoPut}`, {
+		[bulidTimekey()]: state.time,
+	})
+
+	context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '수정되었습니다.')
+
+	state.itmeModal = false
 }

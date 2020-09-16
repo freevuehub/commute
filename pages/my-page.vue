@@ -12,8 +12,8 @@
 
 		<v-divider class="my-6"></v-divider>
 
-		<h2 class="mb-2 d-flex align-center">
-			노예 계약 현황
+		<div class="d-flex align-center">
+			<h2 class="mb-2">노예 계약 현황</h2>
 			<v-switch
 				class="is-work-switch ma-0 ml-auto pa-0"
 				color="primary"
@@ -26,7 +26,7 @@
 				:disabled="state.switchLoading"
 				@change="onSwitchChange"
 			/>
-		</h2>
+		</div>
 		<info-detail :item="computed.userInfo" @click="onRowClick" />
 
 		<h2 class="mb-2">주인마님 댁</h2>
@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { useState, useComputed, useSwitchChange, useRowClick } from './my-page.fn'
+import { useState, useComputed, useSwitchChange, useRowClick, useSaveClick } from './my-page.fn'
 import { DetailCompanyInfo, UserInfoTitle, UserInfoCommuteDetail } from '~/components'
 
 export default defineComponent({
@@ -57,7 +57,7 @@ export default defineComponent({
 		const computed = useComputed(context)
 		const onSwitchChange = useSwitchChange(context, state)
 		const onRowClick = useRowClick(state, computed)
-		const onSaveClick = () => {}
+		const onSaveClick = useSaveClick(context, state)
 
 		return {
 			state,
