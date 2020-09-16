@@ -13,7 +13,7 @@
 		<v-app-bar fixed app color="primary">
 			<v-app-bar-nav-icon @click.stop="state.drawer = !state.drawer" />
 			<v-spacer />
-			<v-toolbar-title v-text="title.str" />
+			<v-toolbar-title v-text="computed.title" />
 		</v-app-bar>
 		<v-main>
 			<nuxt />
@@ -46,7 +46,7 @@ export default defineComponent({
 	},
 	setup(_, context) {
 		const state = useState()
-		const title = useComputed(context)
+		const computed = useComputed()
 		const onSiginOutClick = useSiginOutClick(context)
 
 		onBeforeMount(useBeforeMount(context))
@@ -54,7 +54,7 @@ export default defineComponent({
 
 		return {
 			state,
-			title,
+			computed,
 			onSiginOutClick,
 		}
 	},
