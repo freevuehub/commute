@@ -1,16 +1,16 @@
 <template>
 	<v-card class="mb-5">
 		<v-card-text>
-			<row class="mb-3" title="출근 시간" @click="onRowClick('출근')">
+			<row class="mb-3" title="출근 시간" :disabled="!item.isWork" @click="onRowClick('출근')">
 				<span class="body-1 font-weight-bold">{{ item.workStartTime }}</span>
 			</row>
-			<row class="mb-3" title="퇴근 시간" @click="onRowClick('퇴근')">
+			<row class="mb-3" title="퇴근 시간" :disabled="!item.isWork" @click="onRowClick('퇴근')">
 				<span class="body-1 font-weight-bold">{{ item.workEndTime }}</span>
 			</row>
-			<row class="mb-3" title="점심 시간" @click="onRowClick('점심')">
-				<span class="body-1 font-weight-bold">{{
-					`${item.lunchStartTime} ~ ${item.lunchEndTime}`
-				}}</span>
+			<row class="mb-3" title="점심 시간" :disabled="!item.isWork" @click="onRowClick('점심')">
+				<span class="body-1 font-weight-bold">
+					{{ `${item.lunchStartTime} ~ ${item.lunchEndTime}` }}
+				</span>
 			</row>
 			<v-divider class="mb-2"></v-divider>
 			<row>
