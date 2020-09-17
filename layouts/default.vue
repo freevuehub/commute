@@ -10,11 +10,7 @@
 				</div>
 			</template>
 		</v-navigation-drawer>
-		<v-app-bar fixed app color="primary">
-			<v-app-bar-nav-icon @click.stop="state.drawer = !state.drawer" />
-			<v-spacer />
-			<v-toolbar-title v-text="computed.title" />
-		</v-app-bar>
+		<bar @click="state.drawer = !state.drawer" />
 		<v-main>
 			<nuxt />
 		</v-main>
@@ -34,7 +30,7 @@ import {
 	useBeforeMount,
 	useMounted,
 } from '~/layouts.fn/default.fn'
-import { SnackBar, DefaultFooter, NavList, NavUserProfile } from '~/components'
+import { SnackBar, DefaultFooter, NavList, NavUserProfile, AppBar } from '~/components'
 
 export default defineComponent({
 	middleware: ['auth'],
@@ -43,6 +39,7 @@ export default defineComponent({
 		DefaultFooter,
 		SnackBar,
 		NavList,
+		bar: AppBar,
 	},
 	setup(_, context) {
 		const state = useState()
