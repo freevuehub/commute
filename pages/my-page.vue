@@ -29,8 +29,12 @@
 		</div>
 		<info-detail :item="computed.userInfo" @click="onRowClick" />
 
-		<h2 class="mb-2">주인마님 댁</h2>
-		<company-info :item="computed.userInfo" />
+		<transition-group name="fade">
+			<template v-if="computed.userInfo.isWork">
+				<h2 key="title" class="mb-2">주인마님 댁</h2>
+				<company-info key="content" :item="computed.userInfo" />
+			</template>
+		</transition-group>
 	</v-container>
 </template>
 
@@ -73,5 +77,33 @@ export default defineComponent({
 <style lang="scss">
 .is-work-switch {
 	width: 44px;
+}
+
+.fade-enter-active {
+	animation: fade-up 0.5s;
+}
+.fade-leave-active {
+	animation: fade-scale-up 0.5s;
+}
+
+@keyframes fade-scale-up {
+	0% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	100% {
+		opacity: 0;
+		transform: scale(1.3);
+	}
+}
+@keyframes fade-up {
+	0% {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 </style>
