@@ -1,7 +1,7 @@
 import { reactive, computed, SetupContext, ComputedRef } from '@vue/composition-api'
 import dayjs from 'dayjs'
-import { ICommuteItem } from '~/types'
-import { MainConstant, SnackConstant, CommuteConstant } from '~/constant'
+import { ICommuteItem, IUserProfile } from '~/types'
+import { MainConstant, SnackConstant, CommuteConstant, AuthConstant } from '~/constant'
 
 export interface IState {
   mainData: any
@@ -10,6 +10,7 @@ export interface IState {
 export interface IComputed {
   weekBarValue: ComputedRef<number[]>
   weekBarLabels: ComputedRef<string[]>
+  userProfile: ComputedRef<IUserProfile>
 }
 
 const floor = (value: number): number => Math.floor(value)
@@ -53,7 +54,7 @@ export const useState = ({ root }: SetupContext) =>
     }),
   })
 
-export const useComputed = (state: IState) =>
+export const useComputed = (context: SetupContext, state: IState) =>
   reactive<IComputed>({
     weekBarValue: computed(() => {
       const { weekList } = state.mainData
@@ -64,6 +65,9 @@ export const useComputed = (state: IState) =>
       const weekNameList = ['일', '월', '화', '수', '목', '금', '토']
 
       return weekNameList.map((_: string, index: number) => `${dayjs().day(index).format('DD')}일`)
+    }),
+    userProfile: computed(() => {
+      return context.root.$store.getters[`auth/${AuthConstant.$Get.Profile}`]
     }),
   })
 

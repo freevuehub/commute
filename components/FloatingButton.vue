@@ -13,12 +13,12 @@
         <v-icon v-else>more_horiz</v-icon>
       </v-btn>
     </template>
-    <v-btn rounded dark color="indigo" :disabled="disabledEnd" @click="onCommuteBtnClick('퇴근')"
-      >퇴근</v-btn
-    >
-    <v-btn rounded dark color="green" :disabled="disabledStart" @click="onCommuteBtnClick('출근')"
-      >출근</v-btn
-    >
+    <v-btn rounded dark color="indigo" :disabled="disabledEnd" @click="onCommuteBtnClick('퇴근')">
+      퇴근
+    </v-btn>
+    <v-btn rounded dark color="green" :disabled="disabledStart" @click="onCommuteBtnClick('출근')">
+      출근
+    </v-btn>
   </v-speed-dial>
 </template>
 

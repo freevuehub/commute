@@ -40,8 +40,9 @@
     </v-row>
 
     <floating-button
+      v-if="computed.userProfile.isWork"
       :disabled-start="!!state.mainData.todayData.startDate"
-      :disabled-end="!!state.mainData.todayData.endDate"
+      :disabled-end="!!state.mainData.todayData.endDate || !state.mainData.todayData.startDate"
       @click="onCommuteTimeSave"
     />
   </v-container>
@@ -73,7 +74,7 @@ export default defineComponent({
   },
   setup(_, context) {
     const state = useState(context)
-    const computed = useComputed(state)
+    const computed = useComputed(context, state)
     const onCommuteTimeSave = useCommuteTimeSave(context, state)
 
     return {
