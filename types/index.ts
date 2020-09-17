@@ -19,6 +19,39 @@ export interface IUserProfile {
 	workTerm: number
 }
 
+// Company에 대한 Type
+export interface ICompanyDetailResponse {
+	business: string
+	ceoName: string
+	companyAddress: string
+	companyLat: number | null
+	companyLong: number | null
+	companyName: string
+	companyZipCode: number
+	contact: string
+	mainBusiness: string | null
+	size: string
+}
+
+// Commute에 대한 Type
+export interface ICommuteDetailResponse {
+	comment: string | null
+	company: ICompanyDetailResponse
+	endDate: string | null
+	id: number
+	startDate: string | null
+	tags: null
+	totalWorkTime: number
+}
+export interface ICommuteListItem {
+	companyName: string
+	endDate: string
+	id: number
+	startDate: string
+	tags: null
+	totalWorkTime: number
+}
+
 export interface ICommuteOfPutAPI<T> {
 	id: number
 	payload: T
