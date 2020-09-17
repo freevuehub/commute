@@ -22,7 +22,6 @@ export default defineComponent({
 			],
 		})
 		const number = Math.floor(Math.random() * state.titleStrList.length)
-		console.log(number)
 
 		return {
 			state,
