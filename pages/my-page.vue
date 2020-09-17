@@ -1,5 +1,5 @@
 <template>
-	<v-container fluid>
+	<v-container fluid class="my-page-wrap">
 		<v-dialog ref="dialog" v-model="state.itmeModal">
 			<v-time-picker v-if="state.itmeModal" v-model="state.time" full-width color="primary">
 				<v-spacer></v-spacer>
@@ -75,35 +75,39 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.is-work-switch {
-	width: 44px;
-}
+.my-page-wrap {
+	overflow: hidden;
 
-.fade-enter-active {
-	animation: fade-up 0.5s;
-}
-.fade-leave-active {
-	animation: fade-scale-up 0.5s;
-}
+	.is-work-switch {
+		width: 44px;
+	}
+	.fade-enter-active {
+		animation: fade-up 0.5s;
 
-@keyframes fade-scale-up {
-	0% {
-		opacity: 1;
-		transform: scale(1);
+		@keyframes fade-scale-up {
+			0% {
+				opacity: 1;
+				transform: scale(1);
+			}
+			100% {
+				opacity: 0;
+				transform: scale(1.3);
+			}
+		}
 	}
-	100% {
-		opacity: 0;
-		transform: scale(1.3);
-	}
-}
-@keyframes fade-up {
-	0% {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-	100% {
-		opacity: 1;
-		transform: translateY(0);
+	.fade-leave-active {
+		animation: fade-scale-up 0.5s;
+
+		@keyframes fade-up {
+			0% {
+				opacity: 0;
+				transform: translateY(30px);
+			}
+			100% {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
 	}
 }
 </style>
