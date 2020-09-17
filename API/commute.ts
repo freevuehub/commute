@@ -1,30 +1,47 @@
-import { ICommuteItem, ICommuteItemOfAPI, IResponseData } from '@/types'
+import { IResponseData } from '@/types'
 import endpoint from './endpoint.config'
 import { AxiosGet, AxiosPut, AxiosPost } from './util'
-import instance, { AxiosResponse } from './instance'
 
-interface IApiSuccessCode {
-	status: number
+interface ICommuteListItem {
+	companyName: string
+	endDate: string
+	id: number
+	startDate: string
+	tags: null
+	totalWorkTime: number
 }
 
-interface ICommuteInsertResponse extends IApiSuccessCode {
-	result: ICommuteItemOfAPI
+interface ICommuteDetailResponse {
+	comment: string
+	companyAddress: string
+	companyName: string
+	companyZipCode: number
+	endDate: string
+	id: number
+	latitude: number | null
+	longitude: number | null
+	startDate: string
+	tags: null
+	totalWorkTime: number
 }
 
-interface ICommuteUpdateResponse extends IApiSuccessCode {
-	result: ICommuteItem
-}
-
-interface ICommuteListResponse extends IApiSuccessCode {
-	result: ICommuteItem[]
-	totalCount: number
+export interface ICommutePostItem {
+	companyId: number
+	startDate: string
+	endDate: string | null
+	comment: string | null
+	tags: string | null
 }
 
 export const getCommuteList = async (page: number, limit: number, token: string = '') => {
 	try {
 		const params = { page, limit }
 
-		const response = await AxiosGet(endpoint.commute.request.common(), token, params)
+		const response: IResponseData<ICommuteListItem[]> = await AxiosGet<ICommuteListItem[]>(
+			endpoint.commute.request.common(),
+			token,
+			params
+		)
 
 		return response
 	} catch (err) {
@@ -32,72 +49,43 @@ export const getCommuteList = async (page: number, limit: number, token: string 
 	}
 }
 
-export const postCommute = (payload: ICommuteItemOfAPI): Promise<ICommuteInsertResponse> => {
-	const formData = new FormData()
-	const appendFormData = ([key, value]: [string, ICommuteItemOfAPI]) => {
-		formData.append(key, `${value}`)
+export const getCommuteItem = async (id: number, token: string = '') => {
+	try {
+		const response: IResponseData<ICommuteDetailResponse> = await AxiosGet<ICommuteDetailResponse>(
+			endpoint.commute.request.hasId(id),
+			token,
+			{}
+		)
+
+		return response
+	} catch (err) {
+		return err
 	}
-
-	Object.entries(payload).forEach(appendFormData)
-
-	return new Promise((resolve, reject) => {
-		;(async () => {
-			try {
-				const response: AxiosResponse = await instance.post(
-					endpoint.commute.request.common(),
-					formData
-				)
-
-				if (response.data.status === 2000) {
-					resolve(response.data)
-				} else {
-					reject(response)
-				}
-			} catch (err) {
-				reject(err)
-			}
-		})()
-	})
 }
 
-export const getCommuteItem = (id: number): Promise<ICommuteUpdateResponse> => {
-	return new Promise((resolve, reject) => {
-		;(async () => {
-			try {
-				const response: AxiosResponse = await instance.get(endpoint.commute.request.hasId(id))
+export const postCommute = async (payload: ICommutePostItem, token: string = '') => {
+	try {
+		const formData = new FormData()
+		const appendFormData = ([key, value]: [string, ICommutePostItem]) => {
+			formData.append(key, `${value}`)
+		}
 
-				if (response.data.status === 2000) {
-					resolve(response.data)
-				} else {
-					reject(response)
-				}
-			} catch (err) {
-				reject(err)
-			}
-		})()
-	})
+		Object.entries(payload).forEach(appendFormData)
+
+		const response = await AxiosPost(endpoint.commute.request.common(), token, formData)
+
+		return response
+	} catch (err) {
+		return err
+	}
 }
 
-export const putCommute = (
-	id: number,
-	payload: ICommuteItemOfAPI
-): Promise<ICommuteUpdateResponse> => {
-	return new Promise((resolve, reject) => {
-		;(async () => {
-			try {
-				const response: AxiosResponse = await instance.put(
-					endpoint.commute.request.hasId(id),
-					payload
-				)
+export const putCommute = async (id: number, payload: ICommutePostItem, token: string = '') => {
+	try {
+		const response = await AxiosPut(endpoint.commute.request.hasId(id), token, payload)
 
-				if (response.data.status === 2000) {
-					resolve(response.data)
-				} else {
-					reject(response)
-				}
-			} catch (err) {
-				reject(err)
-			}
-		})()
-	})
+		return response
+	} catch (err) {
+		return err
+	}
 }

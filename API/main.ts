@@ -47,7 +47,8 @@ export const getMainData = async (token: string = '') => {
 	try {
 		const response: IResponseData<IMainDataResponse> = await AxiosGet<IMainDataResponse>(
 			endpoint.main.request.data(),
-			token
+			token,
+			{}
 		)
 
 		return response

@@ -17,11 +17,11 @@ export const filterStatus = <R = any>(response: IAR<R>) => {
 	}
 }
 
-export const AxiosGet = async <T = any, R = any>(URL: string, token: string, params: T) => {
+export const AxiosGet = async <R = any, T = any>(URL: string, token: string, params: T) => {
 	try {
 		const response: IAR<R> = await instance.get(URL, {
 			...bulidHeaderItem(token),
-			params: params || {},
+			params,
 		})
 
 		return filterStatus<R>(response)

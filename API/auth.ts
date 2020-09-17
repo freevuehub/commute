@@ -9,7 +9,7 @@ interface IUserProfileResponse {
 
 export const getUserInfo = async (token: string = '') => {
 	try {
-		const response = await AxiosGet(endpoint.user.request.info(), token)
+		const response = await AxiosGet(endpoint.user.request.info(), token, {})
 
 		return response
 	} catch (err) {
@@ -35,7 +35,8 @@ export const getUserProfile = async (token: string = '') => {
 	try {
 		const response: IResponseData<IUserProfileResponse> = await AxiosGet<IUserProfileResponse>(
 			endpoint.user.request.profile(),
-			token
+			token,
+			{}
 		)
 
 		return response
