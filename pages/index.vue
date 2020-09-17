@@ -61,6 +61,7 @@ import {
 } from '~/components'
 
 export default defineComponent({
+	middleware: ['main'],
 	components: {
 		DatePickerCard,
 		TimePickerCard,
