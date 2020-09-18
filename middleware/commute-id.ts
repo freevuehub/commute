@@ -14,6 +14,8 @@ export default async (context: any) => {
 
     store.dispatch(`commute/${CommuteConstant.$Call.CommuteGetItem}`, result)
   } catch (err) {
+    $cookies.remove('token')
+
     redirect('/signin')
   }
 }

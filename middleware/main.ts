@@ -14,6 +14,8 @@ export default async (context: any) => {
 
     store.dispatch(`main/${MainConstant.$Call.MainData}`, result)
   } catch (err) {
+    $cookies.remove('token')
+
     redirect('/signin')
   }
 }

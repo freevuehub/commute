@@ -14,6 +14,8 @@ export default async (context: any) => {
 
     store.dispatch(`auth/${AuthConstant.$Call.Info}`, result)
   } catch (err) {
+    $cookies.remove('token')
+
     redirect('/signin')
   }
 }
