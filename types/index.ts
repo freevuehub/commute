@@ -33,6 +33,20 @@ export interface ICompanyDetailResponse {
   size: string
 }
 
+export interface ICompanyListItemResponse {
+  id: number
+  ceoName: string
+  companyAddress: string
+  companyEsName: string | null
+  companyLat: number | null
+  companyLong: number | null
+  companyName: string
+  companyZipCode: number
+  contact: string
+  mainBusiness: string | null
+  webPage: string | null
+}
+
 // Commute에 대한 Type
 export interface ICommuteDetailResponse {
   comment: string | null
