@@ -17,16 +17,6 @@
     <h2 class="mb-2">출퇴근 정보</h2>
     <commute-info :item="computed.item" @click="onRowClick" />
 
-    <h2 class="mb-2">회사 정보</h2>
-
-    <!-- <v-card v-if="!computed.item.id" class="mb-5">
-      <v-skeleton-loader type="image"></v-skeleton-loader>
-      <v-card-text>
-        <v-skeleton-loader type="text"></v-skeleton-loader>
-      </v-card-text>
-		</v-card>-->
-    <company-info :item="computed.item.company" />
-
     <h2 class="mb-2 d-flex align-center">
       메모
       <v-btn x-small icon class="ml-1" @click="state.memoEdit = !state.memoEdit">
@@ -35,7 +25,7 @@
     </h2>
     <memo v-model="state.memoEdit" :comment="computed.item.comment" />
 
-    <div>
+    <div v-if="false" class="mb-5">
       <!-- <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">재택근무</v-chip>
       <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">리프레쉬 데이</v-chip>
       <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">오후 반차</v-chip>
@@ -51,11 +41,16 @@
       </v-chip>
     </div>
 
-    <div class="d-flex mt-10">
+    <div class="d-flex">
       <v-spacer></v-spacer>
       <v-btn nuxt color="primary" @click="$router.go(-1)">돌아가기</v-btn>
       <v-spacer></v-spacer>
     </div>
+
+    <v-divider class="my-5"></v-divider>
+
+    <h2 class="mb-2">회사 정보</h2>
+    <company-info :item="computed.item.company" />
   </v-container>
 </template>
 
