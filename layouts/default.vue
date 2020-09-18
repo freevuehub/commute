@@ -57,3 +57,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+.simple-list {
+  table {
+    width: max-content !important;
+  }
+}
+</style>
