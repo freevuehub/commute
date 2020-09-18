@@ -21,6 +21,11 @@ interface IConfig {
       hasId(id: number): string
     }
   }
+  company: {
+    request: {
+      list(): string
+    }
+  }
 }
 
 // process.env.production 분기!!
@@ -41,6 +46,11 @@ const config: IConfig = {
     request: {
       common: () => `${SERVER}/commute`,
       hasId: (id: number) => `${SERVER}/commute/${id}`,
+    },
+  },
+  company: {
+    request: {
+      list: () => `${SERVER}/company`,
     },
   },
 }
