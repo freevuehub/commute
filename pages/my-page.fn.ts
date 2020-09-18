@@ -7,6 +7,7 @@ interface IState {
   isWork: boolean
   switchLoading: boolean
   itmeModal: boolean
+  dialog: boolean
   time: string
   type: string
 }
@@ -26,6 +27,7 @@ export const useState = () =>
     isWork: true,
     switchLoading: false,
     itmeModal: false,
+    dialog: false,
     time: '',
     type: '',
   })

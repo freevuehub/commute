@@ -1,11 +1,11 @@
 <template>
   <v-container fluid class="my-page-wrap">
     <v-dialog ref="dialog" v-model="state.itmeModal">
-      <v-time-picker v-if="state.itmeModal" v-model="state.time" full-width color="primary">
-        <v-spacer></v-spacer>
-        <v-btn text color="primary" @click="state.itmeModal = false">닫기</v-btn>
-        <v-btn text color="primary" @click="onSaveClick">저장</v-btn>
-      </v-time-picker>
+      <time-picker v-model="state.time" @close="state.itmeModal = false" @save="onSaveClick" />
+    </v-dialog>
+
+    <v-dialog ref="dialog" v-model="state.dialog" persistent max-width="400">
+      <company-card v-if="state.dialog" @close="state.dialog = false" />
     </v-dialog>
 
     <info-title :status="computed.userInfo.isWork" />
@@ -31,7 +31,12 @@
 
     <transition-group name="fade">
       <template v-if="computed.userInfo.isWork">
-        <h2 key="title" class="mb-2">주인마님 댁</h2>
+        <div key="title" class="mb-2 d-flex align-center">
+          <h2>주인마님 댁</h2>
+          <v-btn small icon class="ml-1" @click="state.dialog = !state.dialog">
+            <v-icon>search</v-icon>
+          </v-btn>
+        </div>
         <company-info key="content" :item="computed.userInfo.company" />
       </template>
     </transition-group>
@@ -41,7 +46,13 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import { useState, useComputed, useSwitchChange, useRowClick, useSaveClick } from './my-page.fn'
-import { DetailCompanyInfo, UserInfoTitle, UserInfoCommuteDetail } from '~/components'
+import {
+  DetailCompanyInfo,
+  UserInfoTitle,
+  UserInfoCommuteDetail,
+  CommonTimePicker,
+  CompanySearchCard,
+} from '~/components'
 
 export default defineComponent({
   middleware: ['my-page'],
@@ -49,6 +60,8 @@ export default defineComponent({
     companyInfo: DetailCompanyInfo,
     infoTitle: UserInfoTitle,
     infoDetail: UserInfoCommuteDetail,
+    timePicker: CommonTimePicker,
+    companyCard: CompanySearchCard,
   },
   props: {
     item: {
@@ -74,7 +87,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .my-page-wrap {
   overflow: hidden;
 
