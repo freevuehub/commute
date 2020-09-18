@@ -59,3 +59,16 @@ export const CommuteConstant = {
     CommuteListTotal: 'GET/LIST/TOTAL',
   },
 }
+
+export const CompanyConstant = {
+  $Set: {
+    List: 'SET/LIST',
+  },
+  $Call: {
+    List: 'CALL/LIST',
+    ListReset: 'CALL/LIST/RESET',
+  },
+  $Get: {
+    List: 'GET/LIST',
+  },
+}
