@@ -1,5 +1,5 @@
 import { CommuteConstant } from '~/constant'
-import { postCommute, putCommute, getCommuteList } from '~/API'
+import { postCommute, putCommute, getCommuteList, getCommuteItem } from '~/API'
 import {
   ICommuteDetailResponse,
   ICommuteListItem,
@@ -58,12 +58,11 @@ export const actions = {
     store: any,
     { id, payload }: ICommuteOfPutAPI<ICommuteItemOfAPI>
   ) => {
-    const { result } = await putCommute(id, payload)
+    await putCommute(id, payload)
 
-    store.commit(CommuteConstant.$Set.CommuteItem, {
-      ...store.state.commuteItem,
-      ...result,
-    })
+    const { result } = await getCommuteItem(id)
+
+    store.commit(CommuteConstant.$Set.CommuteItem, result)
   },
   [CommuteConstant.$Call.CommuteGetList]: async (
     store: any,
