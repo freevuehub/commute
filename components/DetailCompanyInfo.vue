@@ -1,10 +1,6 @@
 <template>
   <v-card class="mb-5" dark>
-    <v-img
-      class="white--text align-end"
-      height="200px"
-      src="https://lh3.ggpht.com/p/AF1QipMy3ma_xoft6AHOyzkoK3A4ZTU1tjtCVa7Xbp_c=s1024"
-    >
+    <v-img class="white--text align-end" height="200px" :src="item.imgUrl || '/icon.png'">
       <v-card-title>{{ item.companyName }}</v-card-title>
     </v-img>
     <v-card-text>
