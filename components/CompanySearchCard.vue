@@ -34,7 +34,9 @@
     <v-card-actions>
       <v-spacer></v-spacer>
       <v-btn color="primary" text @click="onClose">닫기</v-btn>
-      <v-btn color="primary" text @click="$emit('close')">이직</v-btn>
+      <v-btn color="primary" :disabled="!state.selectCompany.companyName" text @click="onSave"
+        >이직</v-btn
+      >
     </v-card-actions>
   </v-card>
 </template>
@@ -43,6 +45,7 @@
 import { defineComponent, watch } from '@vue/composition-api'
 import {
   useClose,
+  useSave,
   uesState,
   useComputed,
   useSearchTextWatch,
@@ -59,6 +62,7 @@ export default defineComponent({
     const state = uesState()
     const computed = useComputed(context)
     const onClose = useClose(context)
+    const onSave = useSave(context, state)
     const onSearchFilter = useSearchFilter()
 
     watch(() => state.searchText, useSearchTextWatch(context, state))
@@ -66,6 +70,7 @@ export default defineComponent({
     return {
       state,
       computed,
+      onSave,
       onClose,
       onSearchFilter,
     }

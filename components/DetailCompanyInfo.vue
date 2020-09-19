@@ -7,7 +7,7 @@
       <row title="대표" class="mb-3">
         <span class="row-item body-1 font-weight-bold text-right">{{ item.ceoName }}</span>
       </row>
-      <row v-if="!min" itle="연락처" :class="!min && 'mb-3'">
+      <row v-if="!min && item.contact" title="연락처" :class="!min && 'mb-3'">
         <span class="row-item text-right">
           <v-btn
             color="primary"

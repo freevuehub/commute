@@ -5,7 +5,7 @@
     </v-dialog>
 
     <v-dialog ref="dialog" v-model="state.dialog" persistent max-width="400">
-      <company-card v-if="state.dialog" @close="state.dialog = false" />
+      <company-card v-if="state.dialog" @close="state.dialog = false" @save="onCompanySave" />
     </v-dialog>
 
     <info-title :status="computed.userInfo.isWork" />
@@ -45,7 +45,14 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { useState, useComputed, useSwitchChange, useRowClick, useSaveClick } from './my-page.fn'
+import {
+  useState,
+  useComputed,
+  useSwitchChange,
+  useRowClick,
+  useSaveClick,
+  useCompanySave,
+} from './my-page.fn'
 import {
   DetailCompanyInfo,
   UserInfoTitle,
@@ -75,6 +82,7 @@ export default defineComponent({
     const onSwitchChange = useSwitchChange(context, state)
     const onRowClick = useRowClick(state, computed)
     const onSaveClick = useSaveClick(context, state)
+    const onCompanySave = useCompanySave(context, state)
 
     return {
       state,
@@ -82,6 +90,7 @@ export default defineComponent({
       onSwitchChange,
       onRowClick,
       onSaveClick,
+      onCompanySave,
     }
   },
 })

@@ -1,6 +1,6 @@
 import { reactive, computed, ComputedRef, SetupContext } from '@vue/composition-api'
 import dayjs from 'dayjs'
-import { AuthConstant, SnackConstant } from '~/constant'
+import { AuthConstant, SnackConstant, CompanyConstant } from '~/constant'
 import { IUserInfo } from '~/types'
 
 interface IState {
@@ -104,4 +104,13 @@ export const useSaveClick = (context: SetupContext, state: IState) => async () =
   context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '수정되었습니다.')
 
   state.itmeModal = false
+}
+
+export const useCompanySave = (context: SetupContext, state: IState) => async (value: number) => {
+  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.InfoPut}`, { companyId: value })
+
+  context.root.$store.dispatch(`company/${CompanyConstant.$Call.ListReset}`)
+  context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '수정되었습니다.')
+
+  state.dialog = false
 }
