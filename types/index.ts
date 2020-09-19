@@ -31,6 +31,7 @@ export interface ICompanyDetailResponse {
   contact: string
   establishmenDate: string
   size: string
+  imgUrl: string | null
 }
 
 export interface ICompanyListItemResponse {
@@ -45,6 +46,7 @@ export interface ICompanyListItemResponse {
   contact: string
   establishmenDate: string
   webPage: string | null
+  imgUrl: string | null
 }
 
 // Commute에 대한 Type

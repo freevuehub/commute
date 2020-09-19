@@ -22,6 +22,7 @@ export const state = (): IState => ({
     comment: null,
     tags: null,
     company: {
+      imgUrl: '',
       industryName: '',
       ceoName: '',
       companyAddress: '',

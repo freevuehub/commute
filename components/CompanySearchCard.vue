@@ -2,28 +2,27 @@
   <v-card>
     <v-card-title class="headline">이직을 하셨나요?</v-card-title>
     <v-card-text>
-      <v-text-field v-model.lazy="state.searchText" label="검색" outlined dense></v-text-field>
-      <v-card v-if="computed.companyList.length" outlined>
-        <v-simple-table class="simple-list">
-          <template v-slot:default>
-            <simple-table-header :headers="state.headers" />
-            <tbody>
-              <tr v-for="company in computed.companyList" :key="company.id">
-                <td>{{ company.companyName }}</td>
-                <td>{{ company.ceoName }}</td>
-                <td>{{ company.contact }}</td>
-                <td>{{ company.establishmenDate }}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-simple-table>
-      </v-card>
-      <v-alert v-else-if="state.searchLoading" type="error" dense>
-        회사를 검색해보세요.
-      </v-alert>
-      <v-alert v-else type="info" dense>
-        회사를 검색해보세요.
-      </v-alert>
+      <v-autocomplete
+        v-model="state.selectCompany"
+        :items="computed.companyList"
+        :loading="state.searchLoading"
+        :search-input.sync="state.searchText"
+        :filter="onSearchFilter"
+        item-value="id"
+        item-text="companyName"
+        label="회사 이름"
+        dense
+        outlined
+        hide-details
+        no-data-text="아직 창업을 안했나봐요.."
+      >
+        <template v-slot:item="data">
+          <v-list-item-content>
+            <v-list-item-title>{{ data.item.companyName }}</v-list-item-title>
+            <v-list-item-subtitle>{{ data.item.contact }}</v-list-item-subtitle>
+          </v-list-item-content>
+        </template>
+      </v-autocomplete>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
@@ -35,7 +34,13 @@
 
 <script lang="ts">
 import { defineComponent, watch } from '@vue/composition-api'
-import { useClose, uesState, useComputed, useSearchTextWatch } from './company-search-card.fn'
+import {
+  useClose,
+  uesState,
+  useComputed,
+  useSearchTextWatch,
+  useSearchFilter,
+} from './company-search-card.fn'
 import { SimpleTableHeader } from '~/components'
 
 export default defineComponent({
@@ -46,6 +51,7 @@ export default defineComponent({
     const state = uesState()
     const computed = useComputed(context)
     const onClose = useClose(context)
+    const onSearchFilter = useSearchFilter(state)
 
     watch(() => state.searchText, useSearchTextWatch(context, state))
 
@@ -53,6 +59,7 @@ export default defineComponent({
       state,
       computed,
       onClose,
+      onSearchFilter,
     }
   },
 })
