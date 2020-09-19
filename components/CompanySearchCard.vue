@@ -51,7 +51,7 @@ export default defineComponent({
     const state = uesState()
     const computed = useComputed(context)
     const onClose = useClose(context)
-    const onSearchFilter = useSearchFilter(state)
+    const onSearchFilter = useSearchFilter()
 
     watch(() => state.searchText, useSearchTextWatch(context, state))
 
