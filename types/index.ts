@@ -47,6 +47,7 @@ export interface ICompanyListItemResponse {
   establishmenDate: string
   webPage: string | null
   imgUrl: string | null
+  industryName: string
 }
 
 // Commute에 대한 Type

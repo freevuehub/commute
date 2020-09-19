@@ -4,7 +4,7 @@ import { ICompanyListItemResponse } from '~/types'
 
 interface IState {
   headers: string[]
-  selectCompany: [] | ICompanyListItemResponse[]
+  selectCompany: {} | ICompanyListItemResponse
   searchText: string
   itemTextKey: string
   searchLoading: boolean
@@ -15,7 +15,7 @@ let searchTimeOut: any = null
 export const uesState = () =>
   reactive<IState>({
     headers: ['회사', '대표', '연락처', '주요 사업'],
-    selectCompany: [],
+    selectCompany: {},
     searchText: '',
     itemTextKey: 'companyName',
     searchLoading: false,
