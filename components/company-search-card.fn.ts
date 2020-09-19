@@ -24,14 +24,7 @@ export const uesState = () =>
 export const useComputed = (context: SetupContext) =>
   reactive({
     companyList: computed(() => {
-      const list = context.root.$store.getters[`company/${CompanyConstant.$Get.List}`]
-
-      return list
-
-      // return list.map((company: ICompanyListItemResponse) => ({
-      //   id: company.id,
-      //   text: company.companyName,
-      // }))
+      return context.root.$store.getters[`company/${CompanyConstant.$Get.List}`]
     }),
   })
 
