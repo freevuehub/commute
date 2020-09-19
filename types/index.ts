@@ -21,7 +21,7 @@ export interface IUserProfile {
 
 // Company에 대한 Type
 export interface ICompanyDetailResponse {
-  business: string
+  industryName: string
   ceoName: string
   companyAddress: string
   companyLat: number | null
@@ -29,7 +29,7 @@ export interface ICompanyDetailResponse {
   companyName: string
   companyZipCode: number
   contact: string
-  mainBusiness: string | null
+  establishmenDate: string
   size: string
 }
 
@@ -43,7 +43,7 @@ export interface ICompanyListItemResponse {
   companyName: string
   companyZipCode: number
   contact: string
-  mainBusiness: string | null
+  establishmenDate: string
   webPage: string | null
 }
 

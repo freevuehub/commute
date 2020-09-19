@@ -29,8 +29,8 @@
       <row title="주소" class="mb-3">
         <span class="row-item body-1 font-weight-bold text-right">{{ item.companyAddress }}</span>
       </row>
-      <row title="업종" class="mb-3">
-        <span class="row-item body-1 font-weight-bold text-right">{{ item.business }}</span>
+      <row title="산업" class="mb-3">
+        <span class="row-item body-1 font-weight-bold text-right">{{ item.industryName }}</span>
       </row>
       <row title="홈페이지">
         <span class="row-item body-1 font-weight-bold text-right">

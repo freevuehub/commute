@@ -12,7 +12,7 @@
                 <td>{{ company.companyName }}</td>
                 <td>{{ company.ceoName }}</td>
                 <td>{{ company.contact }}</td>
-                <td>{{ company.mainBusiness }}</td>
+                <td>{{ company.establishmenDate }}</td>
               </tr>
             </tbody>
           </template>

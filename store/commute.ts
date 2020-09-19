@@ -22,7 +22,7 @@ export const state = (): IState => ({
     comment: null,
     tags: null,
     company: {
-      business: '',
+      industryName: '',
       ceoName: '',
       companyAddress: '',
       companyLat: null,
@@ -30,7 +30,7 @@ export const state = (): IState => ({
       companyName: '',
       companyZipCode: 0,
       contact: '',
-      mainBusiness: null,
+      establishmenDate: '',
       size: '',
     },
   },
