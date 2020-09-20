@@ -81,11 +81,12 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
     const {
       mainData: { todayData },
     } = state
+    const { companyId } = root.$store.getters(`auth/${AuthConstant.$Get.Profile}`)
 
     switch (key) {
       case '출근':
         await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
-          companyId: 1,
+          companyId,
           startDate: `${date} ${time}`,
           endDate: null,
           comment: null,
