@@ -1,13 +1,17 @@
-import { reactive, computed } from '@vue/composition-api'
+import { reactive, computed, SetupContext } from '@vue/composition-api'
 import { SnackConstant } from '~/constant'
 
-export const useComputed = (root: any) =>
+export const useComputed = (context: SetupContext) =>
   reactive({
     status: computed(() => {
-      return root.$store.getters[`snackBar/${SnackConstant.$Get.SnackStatus}`]
+      return context.root.$store.getters[`snackBar/${SnackConstant.$Get.SnackStatus}`]
     }),
   })
 
-export const useSnackBarClose = (root: any) => () => {
-  root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, { view: false })
+export const useSnackBarClose = (context: SetupContext) => () => {
+  context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, { view: false })
+}
+
+export const useSnackBarInput = (context: SetupContext) => (value: boolean) => {
+  context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.SnackStatus}`, { view: value })
 }

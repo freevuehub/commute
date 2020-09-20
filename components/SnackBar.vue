@@ -5,6 +5,7 @@
     :color="computed.status.type"
     bottom
     multi-line
+    @input="onInput"
   >
     {{ computed.status.message }}
     <template v-slot:action="{ attrs }">
@@ -14,17 +15,19 @@
 </template>
 
 <script lang="ts">
-import { SetupContext, defineComponent } from '@vue/composition-api'
-import { useComputed, useSnackBarClose } from './snack-bar.fn'
+import { defineComponent } from '@vue/composition-api'
+import { useComputed, useSnackBarClose, useSnackBarInput } from './snack-bar.fn'
 
 export default defineComponent({
-  setup(_: {}, { root }: SetupContext) {
-    const computed = useComputed(root)
-    const onSnackBarClose = useSnackBarClose(root)
+  setup(_, context) {
+    const computed = useComputed(context)
+    const onSnackBarClose = useSnackBarClose(context)
+    const onInput = useSnackBarInput(context)
 
     return {
       computed,
       onSnackBarClose,
+      onInput,
     }
   },
 })
