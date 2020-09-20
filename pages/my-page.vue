@@ -1,7 +1,13 @@
 <template>
   <v-container fluid class="my-page-wrap">
     <v-dialog ref="dialog" v-model="state.itmeModal">
-      <time-picker v-model="state.time" @close="state.itmeModal = false" @save="onSaveClick" />
+      <time-picker
+        v-model="state.time"
+        :min="computed.minTime"
+        :max="computed.maxTime"
+        @close="state.itmeModal = false"
+        @save="onSaveClick"
+      />
     </v-dialog>
 
     <v-dialog ref="dialog" v-model="state.dialog" persistent max-width="400">
@@ -78,7 +84,7 @@ export default defineComponent({
   },
   setup(_, context) {
     const state = useState()
-    const computed = useComputed(context)
+    const computed = useComputed(context, state)
     const onSwitchChange = useSwitchChange(context, state)
     const onRowClick = useRowClick(state, computed)
     const onSaveClick = useSaveClick(context, state)

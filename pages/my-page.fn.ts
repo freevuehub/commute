@@ -14,10 +14,14 @@ interface IState {
 
 interface IComputedItem {
   userInfo: IUserInfo
+  minTime: string | undefined
+  maxTime: string | undefined
 }
 
 interface IComputed {
   userInfo: ComputedRef<IComputedItem['userInfo']>
+  minTime: ComputedRef<IComputedItem['minTime']>
+  maxTime: ComputedRef<IComputedItem['maxTime']>
 }
 
 const buildTimeSet = (time: string) => `${dayjs().format('YYYY-MM-DD')} ${time}`
@@ -32,7 +36,7 @@ export const useState = () =>
     type: '',
   })
 
-export const useComputed = (context: SetupContext) =>
+export const useComputed = (context: SetupContext, state: IState) =>
   reactive<IComputed>({
     userInfo: computed(() => {
       const infoData: IUserInfo = context.root.$store.getters[`auth/${AuthConstant.$Get.Info}`]
@@ -52,6 +56,20 @@ export const useComputed = (context: SetupContext) =>
           ? dayjs(buildTimeSet(infoData.lunchEndTime)).format('HH:mm')
           : 'N/A',
       }
+    }),
+    minTime: computed(() => {
+      const infoData: IUserInfo = context.root.$store.getters[`auth/${AuthConstant.$Get.Info}`]
+
+      return state.type === '퇴근'
+        ? dayjs(buildTimeSet(infoData.workStartTime)).format('HH:mm')
+        : undefined
+    }),
+    maxTime: computed(() => {
+      const infoData: IUserInfo = context.root.$store.getters[`auth/${AuthConstant.$Get.Info}`]
+
+      return state.type === '출근'
+        ? dayjs(buildTimeSet(infoData.workEndTime)).format('HH:mm')
+        : undefined
     }),
   })
 

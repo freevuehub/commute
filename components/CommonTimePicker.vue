@@ -1,5 +1,5 @@
 <template>
-  <v-time-picker v-model="state.time" full-width color="primary">
+  <v-time-picker v-model="state.time" full-width color="primary" :min="min" :max="max">
     <v-spacer></v-spacer>
     <v-btn text color="primary" @click="$emit('close')">닫기</v-btn>
     <v-btn text color="primary" @click="$emit('save')">저장</v-btn>
@@ -12,6 +12,8 @@ import { defineComponent, reactive, watch } from '@vue/composition-api'
 export default defineComponent({
   props: {
     time: String,
+    min: String,
+    max: String,
   },
   model: {
     prop: 'time',
