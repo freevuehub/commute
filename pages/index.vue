@@ -53,7 +53,6 @@ import { defineComponent } from '@vue/composition-api'
 import { useState, useComputed, useCommuteTimeSave } from './index.fn'
 import {
   DatePickerCard,
-  TimePickerCard,
   TimeSaveCard,
   FloatingButton,
   CommuteDetailRow,
@@ -65,7 +64,6 @@ export default defineComponent({
   middleware: ['main'],
   components: {
     DatePickerCard,
-    TimePickerCard,
     TimeSaveCard,
     FloatingButton,
     row: CommuteDetailRow,
