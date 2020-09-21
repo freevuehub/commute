@@ -10,6 +10,13 @@
       />
     </v-dialog>
 
+    <v-dialog ref="dialog" v-model="state.lunchModal" max-width="400">
+      <lunch-selector
+        :start="computed.userInfo.lunchStartTime"
+        :end="computed.userInfo.lunchEndTime"
+      />
+    </v-dialog>
+
     <v-dialog ref="dialog" v-model="state.dialog" persistent max-width="400">
       <company-card v-if="state.dialog" @close="state.dialog = false" @save="onCompanySave" />
     </v-dialog>
@@ -65,6 +72,7 @@ import {
   UserInfoCommuteDetail,
   CommonTimePicker,
   CompanySearchCard,
+  LunchTimeSelecter,
 } from '~/components'
 
 export default defineComponent({
@@ -75,6 +83,7 @@ export default defineComponent({
     infoDetail: UserInfoCommuteDetail,
     timePicker: CommonTimePicker,
     companyCard: CompanySearchCard,
+    lunchSelector: LunchTimeSelecter,
   },
   props: {
     item: {

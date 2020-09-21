@@ -8,6 +8,7 @@ interface IState {
   switchLoading: boolean
   itmeModal: boolean
   dialog: boolean
+  lunchModal: boolean
   time: string
   type: string
 }
@@ -32,6 +33,7 @@ export const useState = () =>
     switchLoading: false,
     itmeModal: false,
     dialog: false,
+    lunchModal: false,
     time: '',
     type: '',
   })
@@ -83,6 +85,7 @@ export const useSwitchChange = (context: SetupContext, state: IState) => async (
 
 export const useRowClick = (state: IState, computed: IComputedItem) => (value: string) => {
   if (value === '점심') {
+    state.lunchModal = true
     console.log('test')
   } else {
     state.type = value
