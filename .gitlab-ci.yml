@@ -1,24 +1,7 @@
 stages:
-  - Setting
   - Build
+  - Setting
   - Deploy
-
-Docker Remove Container:
-  stage: Setting
-  image: docker:latest
-  script:
-    - docker stop Commute-Front
-    - docker rm Commute-Front
-  only:
-    - tags
-
-Docker Image Delete:
-  stage: Setting
-  image: docker:latest
-  script:
-    - docker rmi `docker images |  awk '$1 ~ /commute\/front/ {print $3}'`
-  only:
-    - tags
 
 Docker Image Build:
   stage: Build
@@ -30,6 +13,23 @@ Docker Image Build:
     - docker build --tag commute/front .
   only:
     - tags
+
+Docker Remove Container:
+  stage: Setting
+  image: docker:latest
+  script:
+    - docker stop Commute-Front
+    - docker rm Commute-Front
+  only:
+    - tags
+
+# Docker Image Delete:
+#   stage: Setting
+#   image: docker:latest
+#   script:
+#     - docker rmi `docker images |  awk '$1 ~ /commute\/front/ {print $3}'`
+#   only:
+#     - tags
 
 Docker Run Container:
   stage: Deploy
