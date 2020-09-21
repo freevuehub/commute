@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, SetupContext, watch } from '@vue/composition-api'
+import { defineComponent, onBeforeMount, watch } from '@vue/composition-api'
 import {
   useState,
   useComputed,
@@ -27,18 +27,19 @@ export default defineComponent({
     SimpleTableBody,
     Pagination,
   },
-  setup(_: {}, vm: SetupContext) {
-    const state = useState(vm)
-    const computed = useComputed(vm)
+  setup(_, context) {
+    const state = useState(context)
+    const computed = useComputed(context)
+    const onCommuteItemClick = useCommuteItemClick(context)
 
-    onBeforeMount(useBeforeMounted(vm, state))
+    onBeforeMount(useBeforeMounted(context, state))
 
-    watch(() => state.page, usePageWatch(vm, state))
+    watch(() => state.page, usePageWatch(context, state))
 
     return {
       state,
       computed,
-      onCommuteItemClick: useCommuteItemClick(vm),
+      onCommuteItemClick,
     }
   },
 })
