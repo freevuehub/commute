@@ -71,9 +71,7 @@ export const useComputed = (context: SetupContext, state: IState) =>
     }),
   })
 
-export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => async (
-  key: string
-) => {
+export const useCommuteTimeSave = (context: SetupContext, state: IState) => async (key: string) => {
   try {
     const now = dayjs()
     const time = now.format('HH:mm:00')
@@ -81,11 +79,11 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
     const {
       mainData: { todayData },
     } = state
-    const { companyId } = root.$store.getters(`auth/${AuthConstant.$Get.Profile}`)
+    const { companyId } = context.root.$store.getters[`auth/${AuthConstant.$Get.Profile}`]
 
     switch (key) {
       case '출근':
-        await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
+        await context.root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
           companyId,
           startDate: `${date} ${time}`,
           endDate: null,
@@ -95,7 +93,7 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
 
         break
       case '퇴근':
-        await root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
+        await context.root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
           id: todayData.id,
           payload: {
             endDate: `${date} ${time}`,
@@ -105,10 +103,11 @@ export const useCommuteTimeSave = ({ root }: SetupContext, state: IState) => asy
         break
     }
 
-    root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, `${time}에 ${key}하셨습니다.`)
-
-    // useeMounted(root)()
+    context.root.$store.dispatch(
+      `snackBar/${SnackConstant.$Call.Success}`,
+      `${time}에 ${key}하셨습니다.`
+    )
   } catch {
-    root.$store.dispatch(`snackBar/${SnackConstant.$Call.Error}`, '에러가 발생했습니다.')
+    context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Error}`, '에러가 발생했습니다.')
   }
 }
