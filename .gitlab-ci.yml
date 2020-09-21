@@ -23,13 +23,13 @@ Docker Remove Container:
   only:
     - tags
 
-# Docker Image Delete:
-#   stage: Setting
-#   image: docker:latest
-#   script:
-#     - docker rmi `docker images |  awk '$1 ~ /commute\/front/ {print $3}'`
-#   only:
-#     - tags
+Docker Image Delete:
+  stage: Setting
+  image: docker:latest
+  script:
+    - docker rmi `docker images |  awk '$1 ~ /\<none\>/ {print $3}'`
+  only:
+    - tags
 
 Docker Run Container:
   stage: Deploy
