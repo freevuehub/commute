@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { defineComponent, watch } from '@vue/composition-api'
-import { useState, useComputed, useStartWatch } from './lunch-time-selecter.fn'
+import { useState, useComputed, useStartWatch, useEndWatch } from './lunch-time-selecter.fn'
 import { TimePicker } from './'
 
 export default defineComponent({
@@ -39,11 +39,12 @@ export default defineComponent({
       default: '',
     },
   },
-  setup(props) {
+  setup(props, context) {
     const state = useState(props)
     const computed = useComputed(state)
 
-    watch(() => state.start, useStartWatch)
+    watch(() => state.start, useStartWatch(context))
+    watch(() => state.end, useEndWatch(context))
 
     return {
       state,

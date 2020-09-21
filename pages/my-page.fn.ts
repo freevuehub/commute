@@ -26,6 +26,9 @@ interface IComputed {
 }
 
 const buildTimeSet = (time: string) => `${dayjs().format('YYYY-MM-DD')} ${time}`
+const maybeTimeSet = (time: string | null | undefined) => {
+  return time ? dayjs(buildTimeSet(time)).format('HH:mm') : 'N/A'
+}
 
 export const useState = () =>
   reactive<IState>({
@@ -45,18 +48,10 @@ export const useComputed = (context: SetupContext, state: IState) =>
 
       return {
         ...infoData,
-        workStartTime: infoData.workStartTime
-          ? dayjs(buildTimeSet(infoData.workStartTime)).format('HH:mm')
-          : 'N/A',
-        workEndTime: infoData.workEndTime
-          ? dayjs(buildTimeSet(infoData.workEndTime)).format('HH:mm')
-          : 'N/A',
-        lunchStartTime: infoData.lunchStartTime
-          ? dayjs(buildTimeSet(infoData.lunchStartTime)).format('HH:mm')
-          : 'N/A',
-        lunchEndTime: infoData.lunchEndTime
-          ? dayjs(buildTimeSet(infoData.lunchEndTime)).format('HH:mm')
-          : 'N/A',
+        workStartTime: maybeTimeSet(infoData.workStartTime),
+        workEndTime: maybeTimeSet(infoData.workEndTime),
+        lunchStartTime: maybeTimeSet(infoData.lunchStartTime),
+        lunchEndTime: maybeTimeSet(infoData.lunchEndTime),
       }
     }),
     minTime: computed(() => {
@@ -86,7 +81,6 @@ export const useSwitchChange = (context: SetupContext, state: IState) => async (
 export const useRowClick = (state: IState, computed: IComputedItem) => (value: string) => {
   if (value === '점심') {
     state.lunchModal = true
-    console.log('test')
   } else {
     state.type = value
 

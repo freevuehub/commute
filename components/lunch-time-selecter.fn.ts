@@ -1,5 +1,6 @@
-import { reactive, computed } from '@vue/composition-api'
+import { reactive, computed, SetupContext } from '@vue/composition-api'
 import dayjs from 'dayjs'
+import { AuthConstant } from '~/constant'
 
 interface IProps {
   start: string
@@ -33,10 +34,10 @@ export const useComputed = (state: IState) =>
     }),
   })
 
-export const useStartWatch = (value: string) => {
-  console.log(value)
+export const useStartWatch = (context: SetupContext) => async (lunchStartTime: string) => {
+  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.InfoPut}`, { lunchStartTime })
 }
 
-export const useEndWatch = (value: string) => {
-  console.log(value)
+export const useEndWatch = (context: SetupContext) => async (lunchEndTime: string) => {
+  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.InfoPut}`, { lunchEndTime })
 }
