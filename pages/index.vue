@@ -1,21 +1,25 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="12">
-        <h2 class="mb-2">일일 현황</h2>
+      <v-col cols="12" sm="6">
+        <v-card color="primary">
+          <v-card-text>
+            <span class="font-weight-light">
+              {{ computed.userProfile.name }}님의 이번달 근무시간입니다.
+            </span>
+            <h3 class="mt-2 font-weight-bolder">
+              평균: {{ state.mainData.monthTermAvg }} / 초과: {{ state.mainData.monthOverTime }}
+            </h3>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <h2 class="mb-2">오늘</h2>
         <today :item="state.mainData.todayData" />
       </v-col>
       <v-col cols="12" sm="6">
-        <h2 class="mb-2">일주일 통계</h2>
-        <stats title="이번 주">
-          <span slot="sum">{{ state.mainData.weekTermSum }}</span>
-          <span slot="avg">{{ state.mainData.weekTermAvg }}</span>
-          <span slot="over">{{ state.mainData.weekOverTime }}</span>
-        </stats>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <h2 class="mb-2">일주일 상황판</h2>
-        <v-card class="py-5 px-2 mb-5">
+        <h2 class="mb-2">이번 주</h2>
+        <v-card class="py-5 px-2 mb-3">
           <v-sparkline
             :value="computed.weekBarValue"
             :auto-draw-duration="300"
@@ -28,10 +32,15 @@
             :labels="computed.weekBarLabels"
           ></v-sparkline>
         </v-card>
+        <stats title="">
+          <span slot="sum">{{ state.mainData.weekTermSum }}</span>
+          <span slot="avg">{{ state.mainData.weekTermAvg }}</span>
+          <span slot="over">{{ state.mainData.weekOverTime }}</span>
+        </stats>
       </v-col>
       <v-col cols="12" sm="6">
-        <h2 class="mb-2">월 통계</h2>
-        <stats title="이번 달">
+        <h2 class="mb-2">이번 달</h2>
+        <stats title="">
           <span slot="sum">{{ state.mainData.monthTermSum }}</span>
           <span slot="avg">{{ state.mainData.monthTermAvg }}</span>
           <span slot="over">{{ state.mainData.monthOverTime }}</span>
