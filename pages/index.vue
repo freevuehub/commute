@@ -4,8 +4,8 @@
       <v-col cols="12" sm="6">
         <v-card color="primary" :class="$round" elevation="0" dark>
           <v-card-text>
-            <span class="font-weight-light">{{ userTotalCardTitle }}</span>
-            <h3 class="mt-2">{{ userTotalCardTime }}</h3>
+            <span class="font-weight-light text--primary">{{ userTotalCardTitle }}</span>
+            <h3 class="mt-2 font-weight-black text--primary">{{ userTotalCardTime }}</h3>
           </v-card-text>
         </v-card>
       </v-col>
@@ -27,16 +27,19 @@
           >
             <v-card-text>
               <v-sparkline
+                class="text--primary"
                 :value="computed.weekBarValue"
                 :auto-draw-duration="300"
                 auto-line-width
                 auto-draw
                 type="bar"
                 :show-labels="true"
-                :label-size="12"
+                :label-size="14"
                 :labels="computed.weekBarLabels"
                 :smooth="5"
-              ></v-sparkline>
+              >
+                <template v-slot:label="item">{{ item.value }}</template>
+              </v-sparkline>
             </v-card-text>
           </v-card>
         </stats>

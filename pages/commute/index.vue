@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-simple-table class="mb-5 simple-list">
+    <v-simple-table class="mb-5 simple-list" :class="$round">
       <template v-slot:default>
         <simple-table-header :headers="state.headers" />
         <simple-table-body :list="computed.commuteList" @click="onCommuteItemClick" />
