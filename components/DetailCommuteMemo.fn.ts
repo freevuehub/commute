@@ -3,11 +3,11 @@ import { CommuteConstant, SnackConstant } from '~/constant'
 
 interface IProps {
   comment: string
-  memoEdit: boolean
 }
 
 interface IState {
   memo: string | null
+  editOn: boolean
 }
 
 interface IComputed {
@@ -17,6 +17,7 @@ interface IComputed {
 export const useState = (props: IProps) =>
   reactive<IState>({
     memo: props.comment,
+    editOn: false,
   })
 export const useComputed = (props: IProps) =>
   reactive<IComputed>({
@@ -25,7 +26,7 @@ export const useComputed = (props: IProps) =>
     }),
   })
 
-export const useMemoSave = (props: IProps, context: SetupContext, state: IState) => async () => {
+export const useMemoSave = (context: SetupContext, state: IState) => async () => {
   await context.root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
     id: context.root.$route.params.id,
     payload: {
@@ -34,7 +35,7 @@ export const useMemoSave = (props: IProps, context: SetupContext, state: IState)
   })
   await context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '수정되었습니다.')
 
-  context.emit('close', !props.memoEdit)
+  state.editOn = false
 }
 
 export const useCommentWatch = (state: IState) => (value: string | null) => {

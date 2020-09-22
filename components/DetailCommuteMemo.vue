@@ -1,8 +1,14 @@
 <template>
-  <v-card class="mb-5" :class="$round" elevation="10">
+  <v-card :class="$round" elevation="10">
+    <v-card-title class="d-flex align-center">
+      메모
+      <v-btn x-small icon class="ml-1" @click="state.editOn = !state.editOn">
+        <v-icon>edit</v-icon>
+      </v-btn>
+    </v-card-title>
     <v-card-text>
       <v-textarea
-        v-if="memoEdit"
+        v-if="state.editOn"
         v-model="state.memo"
         label="메모"
         rows="1"
@@ -18,7 +24,7 @@
         </template>
       </div>
     </v-card-text>
-    <v-card-actions v-if="memoEdit">
+    <v-card-actions v-if="state.editOn">
       <v-spacer></v-spacer>
       <v-btn text small color="primary" @click="onMemoSave">저장</v-btn>
     </v-card-actions>
@@ -35,19 +41,11 @@ export default defineComponent({
       type: String,
       default: '',
     },
-    memoEdit: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  model: {
-    prop: 'memoEdit',
-    event: 'close',
   },
   setup(props, context) {
     const state = useState(props)
     const computed = useComputed(props)
-    const onMemoSave = useMemoSave(props, context, state)
+    const onMemoSave = useMemoSave(context, state)
 
     watch(() => props.comment, useCommentWatch(state))
 

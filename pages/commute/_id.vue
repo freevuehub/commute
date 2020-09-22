@@ -14,16 +14,14 @@
       </v-time-picker>
     </v-dialog>
 
-    <h2 class="mb-2">출퇴근 정보</h2>
-    <commute-info :item="computed.item" @click="onRowClick" />
-
-    <h2 class="mb-2 d-flex align-center">
-      메모
-      <v-btn x-small icon class="ml-1" @click="state.memoEdit = !state.memoEdit">
-        <v-icon>edit</v-icon>
-      </v-btn>
-    </h2>
-    <memo v-model="state.memoEdit" :comment="computed.item.comment" />
+    <v-row>
+      <v-col cols="12">
+        <commute-info :item="computed.item" @click="onRowClick" />
+      </v-col>
+      <v-col cols="12">
+        <memo :comment="computed.item.comment" />
+      </v-col>
+    </v-row>
 
     <div v-if="false" class="mb-5">
       <!-- <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">재택근무</v-chip>
@@ -33,15 +31,15 @@
       <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">오전 반차</v-chip>
       <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">지각</v-chip>
       <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">야근</v-chip>
-			<v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">외근</v-chip>-->
+      <v-chip class="mx-1 mb-2" close color="teal" text-color="white" @click:close="close">외근</v-chip>-->
       <v-chip class="mx-1 mb-2 pa-1" color="primary" text-color="white">
         <!-- <v-avatar left>
-				</v-avatar>-->
+        </v-avatar>-->
         <v-icon>add</v-icon>
       </v-chip>
     </div>
 
-    <div class="d-flex">
+    <div class="d-flex mt-5">
       <v-spacer></v-spacer>
       <v-btn nuxt color="primary" @click="$router.go(-1)">돌아가기</v-btn>
       <v-spacer></v-spacer>
