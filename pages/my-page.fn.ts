@@ -2,6 +2,7 @@ import { reactive, computed, ComputedRef, SetupContext } from '@vue/composition-
 import dayjs from 'dayjs'
 import { AuthConstant, SnackConstant, CompanyConstant } from '~/constant'
 import { IUserInfo } from '~/types'
+import { makeTerm, makeDefaultFormat } from '~/utile'
 
 interface IState {
   isWork: boolean
@@ -106,25 +107,22 @@ export const useSaveClick = (
   computed: IComputedItem
 ) => async () => {
   const bulidTimekey = () => {
-    const makeTerm = (start: string, end: string) => {
-      const makeDefaultFormat = (time: string) => `${dayjs().format('YYYY-MM-DD')} ${time}`
-
-      return dayjs(makeDefaultFormat(end), 'YYYY-MM-DD HH:mm').diff(
-        dayjs(makeDefaultFormat(start), 'YYYY-MM-DD HH:mm'),
-        'minute'
-      )
-    }
-
     switch (state.type) {
       case '출근':
         return {
           workStartTime: state.time,
-          workTerm: makeTerm(state.time, computed.userInfo.workEndTime),
+          workTerm: makeTerm(
+            makeDefaultFormat(state.time),
+            makeDefaultFormat(computed.userInfo.workEndTime)
+          ),
         }
       case '퇴근':
         return {
           workEndTime: state.time,
-          workTerm: makeTerm(computed.userInfo.workStartTime, state.time),
+          workTerm: makeTerm(
+            makeDefaultFormat(computed.userInfo.workStartTime),
+            makeDefaultFormat(state.time)
+          ),
         }
       default:
         return ''
