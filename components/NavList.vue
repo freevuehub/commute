@@ -19,14 +19,19 @@ export default defineComponent({
     const state = reactive({
       items: [
         {
-          icon: 'home',
-          title: '메인 페이지',
+          icon: 'assessment',
+          title: '대시보드',
           to: '/',
         },
         {
-          icon: 'timelapse',
-          title: '출퇴근 리스트',
+          icon: 'list',
+          title: '출퇴근 데이터',
           to: '/commute',
+        },
+        {
+          icon: 'search',
+          title: '회사 검색',
+          to: '/company',
         },
       ],
     })
