@@ -71,14 +71,6 @@ export const useComputed = (context: SetupContext, state: IState) =>
     }),
   })
 
-export const useSwitchChange = (context: SetupContext, state: IState) => async (value: boolean) => {
-  state.switchLoading = !state.switchLoading
-
-  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.InfoPut}`, { isWork: value })
-
-  state.switchLoading = !state.switchLoading
-}
-
 export const useRowClick = (state: IState, computed: IComputedItem) => (value: string) => {
   if (value === '점심') {
     state.lunchModal = true

@@ -1,14 +1,19 @@
 <template>
-  <v-card :class="`mb-5 ${$round}`" elevation="10">
+  <v-card :class="`mb-5 user-commute ${$round}`" elevation="10">
     <v-card-title class="d-flex align-center">
       노예 계약 현황
       <v-switch
         class="is-work-switch ma-0 ml-auto pa-0"
+        style="margin-right: -3px !important;"
         color="primary"
         inset
         hide-details
         dense
         value
+        :input-value="item.isWork"
+        :loading="state.switchLoading"
+        :disabled="state.switchLoading"
+        @change="onSwitchChange"
       />
     </v-card-title>
     <v-card-text>
@@ -32,6 +37,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
+import { useState, useRowClick, useSwitchChange } from './user-info-commute-detail.fn'
 import { CommuteDetailRow } from '~/components'
 
 export default defineComponent({
@@ -45,24 +51,28 @@ export default defineComponent({
     },
   },
   setup(props, context) {
-    const onRowClick = (key: string) => {
-      context.emit('click', key)
-    }
+    const state = useState()
+    const onRowClick = useRowClick(context)
+    const onSwitchChange = useSwitchChange(context, state)
 
     const lunchTime = `${props.item.lunchStartTime} ~ ${props.item.lunchEndTime}`
 
     return {
+      state,
       onRowClick,
       lunchTime,
+      onSwitchChange,
     }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.d-flex {
-  .is-work-switch {
-    width: 44px;
+.user-commute {
+  .d-flex {
+    .is-work-switch {
+      width: 44px;
+    }
   }
 }
 </style>

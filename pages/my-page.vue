@@ -25,21 +25,6 @@
 
     <v-divider class="my-6"></v-divider>
 
-    <div class="d-flex align-center">
-      <h2 class="mb-2">노예 계약 현황</h2>
-      <v-switch
-        class="is-work-switch ma-0 ml-auto pa-0"
-        color="primary"
-        inset
-        hide-details
-        dense
-        value
-        :input-value="computed.userInfo.isWork"
-        :loading="state.switchLoading"
-        :disabled="state.switchLoading"
-        @change="onSwitchChange"
-      />
-    </div>
     <info-detail :item="computed.userInfo" @click="onRowClick" />
 
     <transition-group name="fade">
@@ -58,14 +43,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import {
-  useState,
-  useComputed,
-  useSwitchChange,
-  useRowClick,
-  useSaveClick,
-  useCompanySave,
-} from './my-page.fn'
+import { useState, useComputed, useRowClick, useSaveClick, useCompanySave } from './my-page.fn'
 import {
   DetailCompanyInfo,
   UserInfoTitle,
@@ -94,7 +72,6 @@ export default defineComponent({
   setup(_, context) {
     const state = useState()
     const computed = useComputed(context, state)
-    const onSwitchChange = useSwitchChange(context, state)
     const onRowClick = useRowClick(state, computed)
     const onSaveClick = useSaveClick(context, state, computed)
     const onCompanySave = useCompanySave(context, state)
@@ -102,7 +79,6 @@ export default defineComponent({
     return {
       state,
       computed,
-      onSwitchChange,
       onRowClick,
       onSaveClick,
       onCompanySave,
