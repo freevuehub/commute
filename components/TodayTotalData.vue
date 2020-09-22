@@ -1,5 +1,8 @@
 <template>
-  <v-card class="mb-5">
+  <v-card class="rounded-xl" elevation="10">
+    <v-card-title>
+      <span class="font-weight-bold">오늘</span>
+    </v-card-title>
     <v-card-text>
       <row class="mb-3" title="출근 시간">
         <span class="body-1 font-weight-bold">{{ item.startDate || 'N/A' }}</span>
