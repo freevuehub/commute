@@ -96,7 +96,12 @@ export default {
       },
     ],
   },
-  plugins: ['~/plugins/composition-api', '~/plugins/dayjs', '~/plugins/axios'],
+  plugins: [
+    '~/plugins/composition-api',
+    '~/plugins/dayjs',
+    '~/plugins/axios',
+    '~/plugins/themeClass',
+  ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -112,6 +117,15 @@ export default {
       dark: true,
       themes: {
         dark: {
+          primary: '#71abbd',
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3,
+        },
+        light: {
           primary: '#71abbd',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
