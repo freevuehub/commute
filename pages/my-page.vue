@@ -96,7 +96,7 @@ export default defineComponent({
     const computed = useComputed(context, state)
     const onSwitchChange = useSwitchChange(context, state)
     const onRowClick = useRowClick(state, computed)
-    const onSaveClick = useSaveClick(context, state)
+    const onSaveClick = useSaveClick(context, state, computed)
     const onCompanySave = useCompanySave(context, state)
 
     return {

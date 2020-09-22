@@ -100,21 +100,38 @@ export const useRowClick = (state: IState, computed: IComputedItem) => (value: s
   }
 }
 
-export const useSaveClick = (context: SetupContext, state: IState) => async () => {
-  const bulidTimekey = (): string => {
+export const useSaveClick = (
+  context: SetupContext,
+  state: IState,
+  computed: IComputedItem
+) => async () => {
+  const bulidTimekey = () => {
+    const makeTerm = (start: string, end: string) => {
+      const makeDefaultFormat = (time: string) => `${dayjs().format('YYYY-MM-DD')} ${time}`
+
+      return dayjs(makeDefaultFormat(end), 'YYYY-MM-DD HH:mm').diff(
+        dayjs(makeDefaultFormat(start), 'YYYY-MM-DD HH:mm'),
+        'minute'
+      )
+    }
+
     switch (state.type) {
       case '출근':
-        return 'workStartTime'
+        return {
+          workStartTime: state.time,
+          workTerm: makeTerm(state.time, computed.userInfo.workEndTime),
+        }
       case '퇴근':
-        return 'workEndTime'
+        return {
+          workEndTime: state.time,
+          workTerm: makeTerm(computed.userInfo.workStartTime, state.time),
+        }
       default:
         return ''
     }
   }
 
-  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.InfoPut}`, {
-    [bulidTimekey()]: state.time,
-  })
+  await context.root.$store.dispatch(`auth/${AuthConstant.$Call.InfoPut}`, bulidTimekey())
 
   context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '수정되었습니다.')
 
