@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar fixed app color="primary">
+  <v-app-bar fixed app color="primary" dark>
     <v-app-bar-nav-icon @click.stop="$emit('click')" />
     <v-spacer />
     <v-toolbar-title v-text="state.titleStrList[number]" />
