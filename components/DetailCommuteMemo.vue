@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mb-5">
+  <v-card class="mb-5" :class="$round" elevation="10">
     <v-card-text>
       <v-textarea
         v-if="memoEdit"

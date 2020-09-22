@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12" sm="6">
-        <v-card color="primary" class="rounded-xl" elevation="0">
+        <v-card color="primary" :class="$round" elevation="0" dark>
           <v-card-text>
             <span class="font-weight-light">{{ userTotalCardTitle }}</span>
             <h3 class="mt-2">{{ userTotalCardTime }}</h3>
@@ -17,7 +17,14 @@
           <span slot="sum">{{ state.mainData.weekTermSum }}</span>
           <span slot="avg">{{ state.mainData.weekTermAvg }}</span>
           <span slot="over">{{ state.mainData.weekOverTime }}</span>
-          <v-card slot="before" outlined class="mb-5 rounded-xl" color="primary" elevation="0">
+          <v-card
+            slot="before"
+            outlined
+            :class="`${$round} mb-5`"
+            color="primary"
+            elevation="0"
+            dark
+          >
             <v-card-text>
               <v-sparkline
                 :value="computed.weekBarValue"
@@ -28,7 +35,7 @@
                 :show-labels="true"
                 :label-size="12"
                 :labels="computed.weekBarLabels"
-                :smooth="10"
+                :smooth="5"
               ></v-sparkline>
             </v-card-text>
           </v-card>

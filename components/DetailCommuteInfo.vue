@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mb-5" dark>
+  <v-card :class="`mb-5 ${$round}`" elevation="10">
     <v-card-text>
       <row class="mb-3" title="일자">
         <span class="body-1 font-weight-bold">{{ item.date }}</span>

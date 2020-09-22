@@ -1,5 +1,5 @@
 <template>
-  <v-card class="rounded-xl" elevation="10">
+  <v-card :class="$round" elevation="10">
     <v-card-title>
       <span class="font-weight-bold">{{ title }}</span>
     </v-card-title>
