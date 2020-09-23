@@ -4,12 +4,7 @@ import { ICompanyListItemResponse } from '~/types'
 
 interface IState {
   selectCompany: ICompanyListItemResponse
-  searchText: string
-  itemTextKey: string
-  searchLoading: boolean
 }
-
-let searchTimeOut: any = null
 
 export const uesState = () =>
   reactive<IState>({
@@ -28,9 +23,6 @@ export const uesState = () =>
       imgUrl: null,
       industryName: '',
     },
-    searchText: '',
-    itemTextKey: 'companyName',
-    searchLoading: false,
   })
 
 export const useComputed = (context: SetupContext) =>
@@ -40,24 +32,6 @@ export const useComputed = (context: SetupContext) =>
     }),
   })
 
-export const useSearchTextWatch = (context: SetupContext, state: IState) => (value: string) => {
-  if (state.searchLoading || !state.searchText || state.searchText.length < 2) {
-    return
-  }
-
-  const companySearchTimeOut = async () => {
-    state.searchLoading = true
-
-    await context.root.$store.dispatch(`company/${CompanyConstant.$Call.List}`, value)
-
-    state.searchLoading = false
-  }
-
-  clearTimeout(searchTimeOut)
-
-  searchTimeOut = setTimeout(companySearchTimeOut, 500)
-}
-
 export const useClose = (context: SetupContext) => () => {
   context.root.$store.dispatch(`company/${CompanyConstant.$Call.ListReset}`)
 
@@ -66,8 +40,4 @@ export const useClose = (context: SetupContext) => () => {
 
 export const useSave = (context: SetupContext, state: IState) => () => {
   context.emit('save', state.selectCompany.id)
-}
-
-export const useSearchFilter = () => (item: ICompanyListItemResponse, queryText: string) => {
-  return item.companyName.includes(queryText) || item.companyEsName?.includes(queryText)
 }
