@@ -55,7 +55,7 @@ export interface ICommuteDetailResponse {
   comment: string | null
   company: ICompanyDetailResponse
   endDate: string | null
-  id: number
+  id: string
   startDate: string | null
   tags: null
   totalWorkTime: number
@@ -63,14 +63,14 @@ export interface ICommuteDetailResponse {
 export interface ICommuteListItem {
   companyName: string
   endDate: string
-  id: number
+  id: string
   startDate: string
   tags: null
   totalWorkTime: number
 }
 
 export interface ICommuteOfPutAPI<T> {
-  id: number
+  id: string
   payload: T
 }
 
@@ -83,7 +83,7 @@ export interface ICommuteItemOfAPI {
 }
 
 export interface ICommuteItem extends ICommuteItemOfAPI {
-  id: number
+  id: string
   companyName: string
   companyAddress: string
   companyZipCode: number | null

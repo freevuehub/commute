@@ -16,7 +16,7 @@ interface IState {
 export const state = (): IState => ({
   commuteItem: {
     totalWorkTime: 0,
-    id: 0,
+    id: '',
     endDate: null,
     startDate: null,
     comment: null,

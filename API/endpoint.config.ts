@@ -18,7 +18,7 @@ interface IConfig {
   commute: {
     request: {
       common(): string
-      hasId(id: number): string
+      hasId(id: string): string
     }
   }
   company: {
@@ -45,7 +45,7 @@ const config: IConfig = {
   commute: {
     request: {
       common: () => `${SERVER}/commute`,
-      hasId: (id: number) => `${SERVER}/commute/${id}`,
+      hasId: (id: string) => `${SERVER}/commute/${id}`,
     },
   },
   company: {

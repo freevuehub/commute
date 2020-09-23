@@ -35,7 +35,7 @@ export const getCommuteList = async (page: number, limit: number, token: string 
   }
 }
 
-export const getCommuteItem = async (id: number, token: string = '') => {
+export const getCommuteItem = async (id: string, token: string = '') => {
   try {
     const response: IResponseData<ICommuteDetailResponse> = await AxiosGet<ICommuteDetailResponse>(
       endpoint.commute.request.hasId(id),
@@ -66,7 +66,7 @@ export const postCommute = async (payload: ICommutePostItem, token: string = '')
   }
 }
 
-export const putCommute = async (id: number, payload: ICommutePostItem, token: string = '') => {
+export const putCommute = async (id: string, payload: ICommutePostItem, token: string = '') => {
   try {
     const response = await AxiosPut(endpoint.commute.request.hasId(id), token, payload)
 

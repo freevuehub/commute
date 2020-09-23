@@ -10,7 +10,7 @@ export default async (context: any) => {
   try {
     const token = $cookies.get('token')
 
-    const { result } = await getCommuteItem(Number(context.params.id), token)
+    const { result } = await getCommuteItem(context.params.id, token)
 
     store.dispatch(`commute/${CommuteConstant.$Call.CommuteGetItem}`, result)
   } catch (err) {
