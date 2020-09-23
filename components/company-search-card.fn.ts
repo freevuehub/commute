@@ -3,7 +3,6 @@ import { CompanyConstant } from '~/constant'
 import { ICompanyListItemResponse } from '~/types'
 
 interface IState {
-  headers: string[]
   selectCompany: ICompanyListItemResponse
   searchText: string
   itemTextKey: string
@@ -14,7 +13,6 @@ let searchTimeOut: any = null
 
 export const uesState = () =>
   reactive<IState>({
-    headers: ['회사', '대표', '연락처', '주요 사업'],
     selectCompany: {
       id: 0,
       ceoName: '',
