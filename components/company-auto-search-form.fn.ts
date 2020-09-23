@@ -5,7 +5,6 @@ import { ICompanyListItemResponse } from '~/types'
 interface IState {
   selectCompany: ICompanyListItemResponse
   searchText: string
-  itemTextKey: string
   searchLoading: boolean
 }
 
@@ -29,7 +28,6 @@ export const uesState = () =>
       industryName: '',
     },
     searchText: '',
-    itemTextKey: 'companyName',
     searchLoading: false,
   })
 
