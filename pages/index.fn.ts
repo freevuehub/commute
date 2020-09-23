@@ -2,6 +2,7 @@ import { reactive, computed, SetupContext, ComputedRef } from '@vue/composition-
 import dayjs from 'dayjs'
 import { ICommuteItem, IUserProfile } from '~/types'
 import { MainConstant, SnackConstant, CommuteConstant, AuthConstant } from '~/constant'
+import { getMainData } from '~/API'
 
 export interface IState {
   mainData: any
@@ -103,6 +104,9 @@ export const useCommuteTimeSave = (context: SetupContext, state: IState) => asyn
         break
     }
 
+    const { result } = await getMainData()
+
+    context.root.$store.dispatch(`main/${MainConstant.$Call.MainData}`, result)
     context.root.$store.dispatch(
       `snackBar/${SnackConstant.$Call.Success}`,
       `${time}에 ${key}하셨습니다.`
