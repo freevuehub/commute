@@ -1,6 +1,6 @@
 import { SetupContext, reactive, computed } from '@vue/composition-api'
 import { AuthConstant } from '~/constant'
-import instance, { AxiosRequestConfig } from '~/API/instance'
+import instance, { AxiosRequestConfig, AxiosResponse, AxiosError } from '~/API/instance'
 
 export const useState = () =>
   reactive({
@@ -41,24 +41,25 @@ export const useBeforeMount = (context: SetupContext) => () => {
     return config
   })
 
-  instance.interceptors.response.use(
-    (response) => {
-      if (response.data.status === 2000) {
-        return response
-      } else if (response.data.status === 4010) {
-        const { $cookies }: any = context.root
+  const responseSuccess = (response: AxiosResponse) => {
+    const { status } = response.data
 
-        $cookies.remove('token')
+    if (status === 2000) {
+      return response
+    } else if (status === 4010) {
+      const { $cookies }: any = context.root
 
-        context.root.$router.push('/signin')
-      }
-
-      return Promise.reject(response)
-    },
-    (error) => {
-      return Promise.reject(error.response)
+      $cookies.remove('token')
+      context.root.$router.push('/signin')
     }
-  )
+
+    return Promise.reject(response)
+  }
+  const responseError = (error: AxiosError) => {
+    return Promise.reject(error.response)
+  }
+
+  instance.interceptors.response.use(responseSuccess, responseError)
 }
 
 export const useMounted = (context: SetupContext) => async () => {

@@ -1,5 +1,5 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'
 
-export { AxiosResponse, AxiosRequestConfig }
+export { AxiosResponse, AxiosRequestConfig, AxiosError }
 
 export default axios
