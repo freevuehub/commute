@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="d-flex container">
-    <v-card class="ma-auto" outlined>
-      <v-img class="rounded" src="./icon.png" width="250px"></v-img>
+    <v-card class="ma-auto" :class="$round" outlined elevation="10">
+      <v-img src="./icon.png" width="250px"></v-img>
       <!-- <div id="google-signin-button" ref="google-signin-button" class="google-button"></div> -->
       <v-card-actions>
         <git-btn />
