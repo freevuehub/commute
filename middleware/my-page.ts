@@ -1,21 +1,19 @@
+import { Context } from '@nuxt/types'
 import { AuthConstant } from '~/constant'
 import { getUserInfo } from '~/API'
 
-export default async (context: any) => {
-  const {
-    app: { $cookies, store },
-    redirect,
-  }: any = context
+export default async (context: Context) => {
+  const { $cookies }: any = context.app
 
   try {
     const token = $cookies.get('token')
 
     const { result } = await getUserInfo(token)
 
-    store.dispatch(`auth/${AuthConstant.$Call.Info}`, result)
+    context.app.store?.dispatch(`auth/${AuthConstant.$Call.Info}`, result)
   } catch (err) {
     $cookies.remove('token')
 
-    redirect('/signin')
+    context.redirect('/signin')
   }
 }

@@ -1,21 +1,19 @@
+import { Context } from '@nuxt/types'
 import { MainConstant } from '~/constant'
 import { getMainData } from '~/API'
 
-export default async (context: any) => {
-  const {
-    app: { $cookies, store },
-    redirect,
-  }: any = context
+export default async (context: Context) => {
+  const { $cookies }: any = context.app
 
   try {
     const token = $cookies.get('token')
 
     const { result } = await getMainData(token)
 
-    store.dispatch(`main/${MainConstant.$Call.MainData}`, result)
+    context.app.store?.dispatch(`main/${MainConstant.$Call.MainData}`, result)
   } catch (err) {
     $cookies.remove('token')
 
-    redirect('/signin')
+    context.redirect('/signin')
   }
 }
