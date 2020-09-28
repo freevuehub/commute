@@ -4,8 +4,12 @@
       <v-col cols="12" sm="6">
         <v-card color="primary" :class="$round" elevation="0" dark>
           <v-card-text>
-            <span class="font-weight-light text--primary">{{ userTotalCardTitle }}</span>
-            <h3 class="mt-2 font-weight-black text--primary">{{ userTotalCardTime }}</h3>
+            <span class="font-weight-light text--primary">
+              {{ computed.userProfile.name }}님의 이번달 근무시간입니다.
+            </span>
+            <h3 class="mt-2 font-weight-black text--primary">
+              평균: {{ state.mainData.monthTermAvg }} / 초과: {{ state.mainData.monthOverTime }}
+            </h3>
           </v-card-text>
         </v-card>
       </v-col>
@@ -89,15 +93,10 @@ export default defineComponent({
     const computed = useComputed(context, state)
     const onCommuteTimeSave = useCommuteTimeSave(context, state)
 
-    const userTotalCardTitle = `${computed.userProfile.name}님의 이번달 근무시간입니다.`
-    const userTotalCardTime = `평균: ${state.mainData.monthTermAvg} / 초과: ${state.mainData.monthOverTime}`
-
     return {
       state,
       computed,
       onCommuteTimeSave,
-      userTotalCardTitle,
-      userTotalCardTime,
     }
   },
 })
