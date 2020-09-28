@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title class="headline">이직을 하셨나요?</v-card-title>
     <v-card-text>
-      <search v-model="state.selectCompany" class="mb-3" />
+      <company-auto-search-form v-model="state.selectCompany" class="mb-3" />
       <company v-if="state.selectCompany.companyName" :item="state.selectCompany" min />
     </v-card-text>
     <v-card-actions>
@@ -24,7 +24,7 @@ export default defineComponent({
   components: {
     SimpleTableHeader,
     company: DetailCompanyInfo,
-    search: CompanyAutoSearchForm,
+    CompanyAutoSearchForm,
   },
   setup(_, context) {
     const state = uesState()
