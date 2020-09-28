@@ -7,22 +7,21 @@ export const useState = () =>
     drawer: false,
   })
 
-export const useComputed = () =>
-  reactive({
-    title: computed(() => {
-      const titleStrList = [
-        '힘내라! 직장인!',
-        '출!사표',
-        '직장인 딴짓 프로젝트',
-        '내가 출퇴근 관리한다.',
-        '루팡하기 좋은 날이다.',
-        '일 안하고 부자되자!',
-      ]
-      const randomNumber = Math.floor(Math.random() * titleStrList.length)
+export const useComputed = () => ({
+  title: computed(() => {
+    const titleStrList = [
+      '힘내라! 직장인!',
+      '출!사표',
+      '직장인 딴짓 프로젝트',
+      '내가 출퇴근 관리한다.',
+      '루팡하기 좋은 날이다.',
+      '일 안하고 부자되자!',
+    ]
+    const randomNumber = Math.floor(Math.random() * titleStrList.length)
 
-      return titleStrList[randomNumber]
-    }),
-  })
+    return titleStrList[randomNumber]
+  }),
+})
 
 export const useSiginOutClick = (context: SetupContext) => () => {
   const { $cookies }: any = context.root
@@ -33,14 +32,13 @@ export const useSiginOutClick = (context: SetupContext) => () => {
 }
 
 export const useBeforeMount = (context: SetupContext) => () => {
-  instance.interceptors.request.use((config: AxiosRequestConfig) => {
+  const interceptorRequers = (config: AxiosRequestConfig) => {
     const { $cookies }: any = context.root
 
     config.headers = { authorization: $cookies.get('token') }
 
     return config
-  })
-
+  }
   const responseSuccess = (response: AxiosResponse) => {
     const { status } = response.data
 
@@ -59,6 +57,7 @@ export const useBeforeMount = (context: SetupContext) => () => {
     return Promise.reject(error.response)
   }
 
+  instance.interceptors.request.use(interceptorRequers)
   instance.interceptors.response.use(responseSuccess, responseError)
 }
 
