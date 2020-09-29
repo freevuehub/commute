@@ -1,9 +1,11 @@
 <template>
-  <v-card>
+  <v-card :class="$round" elevation="10">
     <v-card-title class="headline">이직을 하셨나요?</v-card-title>
     <v-card-text>
       <CompanyAutoSearchForm v-model="state.selectCompany" class="mb-3" />
-      <company v-if="state.selectCompany.companyName" :item="state.selectCompany" min />
+      <v-expand-transition>
+        <company v-if="state.selectCompany.companyName" :item="state.selectCompany" min outlined />
+      </v-expand-transition>
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
@@ -18,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
 import { useClose, useSave, uesState, useComputed } from './company-search-card.fn'
-import { DetailCompanyInfo, CompanyAutoSearchForm } from '~/components'
+import { DetailCompanyInfo, CompanyAutoSearchForm } from './'
 
 export default defineComponent({
   components: {

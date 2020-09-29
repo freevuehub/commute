@@ -32,7 +32,7 @@ import {
   useSearchFilter,
   useSelectCompanyWatch,
 } from './company-auto-search-form.fn'
-import { SimpleTableHeader, DetailCompanyInfo } from '~/components'
+import { SimpleTableHeader, DetailCompanyInfo } from './'
 
 export default defineComponent({
   components: {
@@ -40,10 +40,25 @@ export default defineComponent({
     company: DetailCompanyInfo,
   },
   props: {
-    company: Object,
+    companyValue: Object,
+    default: () => ({
+      id: 0,
+      ceoName: '',
+      companyAddress: '',
+      companyEsName: null,
+      companyLat: null,
+      companyLong: null,
+      companyName: '',
+      companyZipCode: 0,
+      contact: '',
+      establishmenDate: '',
+      webPage: null,
+      imgUrl: null,
+      industryName: '',
+    }),
   },
   model: {
-    prop: 'company',
+    prop: 'companyValue',
     event: 'change',
   },
   setup(_, context) {
