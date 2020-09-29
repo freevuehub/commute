@@ -5,6 +5,7 @@ import { MainConstant, SnackConstant, CommuteConstant, AuthConstant } from '~/co
 import { getMainData } from '~/API'
 
 export interface IState {
+  test: boolean
   mainData: any
 }
 
@@ -18,6 +19,7 @@ const floor = (value: number): number => Math.floor(value)
 
 export const useState = ({ root }: SetupContext) =>
   reactive<IState>({
+    test: false,
     mainData: computed(() => {
       const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
       const nowDiffStart = data.todayData.startDate

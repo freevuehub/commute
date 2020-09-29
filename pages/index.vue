@@ -57,12 +57,34 @@
       </v-col>
     </v-row>
 
-    <floating-button
+    <v-bottom-sheet v-model="state.test">
+      <sheet
+        :disabled-start="!!state.mainData.todayData.startDate"
+        :disabled-end="!!state.mainData.todayData.endDate || !state.mainData.todayData.startDate"
+        @click="onCommuteTimeSave"
+      />
+    </v-bottom-sheet>
+
+    <v-btn
+      v-if="computed.userProfile.isWork"
+      color="primary"
+      elevation="10"
+      dark
+      fixed
+      bottom
+      right
+      fab
+      @click="state.test = true"
+    >
+      <v-icon>more_horiz</v-icon>
+    </v-btn>
+
+    <!-- <floating-button
       v-if="computed.userProfile.isWork"
       :disabled-start="!!state.mainData.todayData.startDate"
       :disabled-end="!!state.mainData.todayData.endDate || !state.mainData.todayData.startDate"
       @click="onCommuteTimeSave"
-    />
+    /> -->
   </v-container>
 </template>
 
@@ -76,6 +98,7 @@ import {
   CommuteDetailRow,
   TodayTotalData,
   StatsData,
+  CommutePostBottomSheet,
 } from '~/components'
 
 export default defineComponent({
@@ -87,6 +110,7 @@ export default defineComponent({
     row: CommuteDetailRow,
     today: TodayTotalData,
     stats: StatsData,
+    sheet: CommutePostBottomSheet,
   },
   setup(_, context) {
     const state = useState(context)
