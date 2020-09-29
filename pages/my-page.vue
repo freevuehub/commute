@@ -18,7 +18,12 @@
     </v-dialog>
 
     <v-dialog ref="dialog" v-model="state.dialog" persistent max-width="400">
-      <company-card v-if="state.dialog" @close="state.dialog = false" @save="onCompanySave" />
+      <company-card
+        v-if="state.dialog"
+        title="이직을 하셨나요?"
+        @close="state.dialog = false"
+        @save="onCompanySave"
+      />
     </v-dialog>
 
     <info-title :status="computed.userInfo.isWork" />

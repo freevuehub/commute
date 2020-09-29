@@ -30,6 +30,9 @@ export const useComputed = (context: SetupContext) =>
     companyList: computed(() => {
       return context.root.$store.getters[`company/${CompanyConstant.$Get.List}`]
     }),
+    isActions: computed(() => {
+      return !!context.listeners.save
+    }),
   })
 
 export const useClose = (context: SetupContext) => () => {

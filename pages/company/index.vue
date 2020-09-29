@@ -2,15 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-card :class="$round" elevation="10">
-          <v-card-title>회사 검색</v-card-title>
-          <v-card-text>
-            <search v-model="state.company" class="mb-3" />
-            <v-expand-transition>
-              <company v-if="state.company.companyName" :item="state.company" min outlined />
-            </v-expand-transition>
-          </v-card-text>
-        </v-card>
+        <company-card title="회사 검색" />
       </v-col>
       <v-col cols="12">
         <v-card :class="$round" elevation="10">
@@ -28,12 +20,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from '@vue/composition-api'
-import { CompanyAutoSearchForm, DetailCompanyInfo } from '~/components'
+import { CompanySearchCard } from '~/components'
 
 export default defineComponent({
   components: {
-    search: CompanyAutoSearchForm,
-    company: DetailCompanyInfo,
+    companyCard: CompanySearchCard,
   },
   setup() {
     const state = reactive({

@@ -32,11 +32,11 @@ import {
   useSearchFilter,
   useSelectCompanyWatch,
 } from './company-auto-search-form.fn'
-import { SimpleTableHeader, DetailCompanyInfo } from './'
+import { DetailCompanyInfo } from './'
 
 export default defineComponent({
+  name: 'SearchCompany',
   components: {
-    SimpleTableHeader,
     company: DetailCompanyInfo,
   },
   props: {
