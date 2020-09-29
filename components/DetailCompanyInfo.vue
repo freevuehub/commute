@@ -1,5 +1,9 @@
 <template>
-  <v-card :class="[min ? 'ma-0' : 'mb-5', $round]" elevation="10">
+  <v-card
+    :class="[min ? 'ma-0' : 'mb-5', $round]"
+    :elevation="outlined ? 0 : 10"
+    :outlined="outlined"
+  >
     <v-img class="white--text align-end" height="200px" :src="item.imgUrl || '/icon.png'">
       <v-card-title>{{ item.companyName }}</v-card-title>
     </v-img>
@@ -44,6 +48,10 @@ export default defineComponent({
       default: () => ({}),
     },
     min: {
+      type: Boolean,
+      default: false,
+    },
+    outlined: {
       type: Boolean,
       default: false,
     },
