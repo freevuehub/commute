@@ -63,5 +63,8 @@ export const useSelectCompanyWatch = (context: SetupContext) => (
 }
 
 export const useSearchFilter = () => (item: ICompanyListItemResponse, queryText: string) => {
-  return item.companyName.includes(queryText) || item.companyEsName?.includes(queryText)
+  return (
+    item.companyName.includes(queryText) ||
+    item.companyEsName?.includes(queryText.toLocaleLowerCase())
+  )
 }
