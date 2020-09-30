@@ -2,14 +2,9 @@
   <v-card :class="$round" elevation="10">
     <v-card-title>{{ title }}</v-card-title>
     <v-card-text>
-      <test v-model="state.selectCompany" class="mb-3" />
+      <search v-model="state.selectCompany" class="mb-3" />
       <v-expand-transition>
-        <DetailCompanyInfo
-          v-if="state.selectCompany.companyName"
-          :item="state.selectCompany"
-          min
-          outlined
-        />
+        <info v-if="state.selectCompany.companyName" :item="state.selectCompany" min outlined />
       </v-expand-transition>
     </v-card-text>
     <v-card-actions v-if="computed.isActions">
@@ -29,8 +24,8 @@ import { DetailCompanyInfo, CompanyInput } from './'
 
 export default defineComponent({
   components: {
-    DetailCompanyInfo,
-    test: CompanyInput,
+    info: DetailCompanyInfo,
+    search: CompanyInput,
   },
   props: {
     title: {
