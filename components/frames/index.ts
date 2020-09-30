@@ -1,3 +1,5 @@
 export { default as AppBar } from './AppBar.vue'
 export { default as DefaultFooter } from './DefaultFooter.vue'
 export { default as NavList } from './NavList.vue'
+export { default as NavUserProfile } from './NavUserProfile.vue'
+export { default as SnackBar } from './SnackBar.vue'

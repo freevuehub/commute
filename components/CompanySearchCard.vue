@@ -2,7 +2,7 @@
   <v-card :class="$round" elevation="10">
     <v-card-title>{{ title }}</v-card-title>
     <v-card-text>
-      <!-- <search v-model="state.selectCompany" class="mb-3" /> -->
+      <search v-model="state.selectCompany" class="mb-3" />
       <v-expand-transition>
         <company v-if="state.selectCompany.companyName" :item="state.selectCompany" min outlined />
       </v-expand-transition>

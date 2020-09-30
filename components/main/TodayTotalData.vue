@@ -19,7 +19,7 @@
 
 <script>
 import { defineComponent } from '@vue/composition-api'
-import { CommuteDetailRow } from './'
+import { CommuteDetailRow } from '../'
 
 export default defineComponent({
   components: {
