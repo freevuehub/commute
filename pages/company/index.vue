@@ -2,16 +2,19 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <company-card title="회사 검색" />
+        <company-search title="회사 검색" />
+      </v-col>
+      <v-col cols="12">
+        <test title="회사 검색" />
       </v-col>
       <v-col cols="12">
         <v-card :class="$round" elevation="10">
           <v-card-title>회사 등록 요청</v-card-title>
-          <v-form ref="form" v-model="valid" :lazy-validation="lazy">
+          <!-- <v-form ref="form" v-model="valid" :lazy-validation="lazy">
             <v-card-text>
               <v-text-field label="회사 이름" dense outlined></v-text-field>
             </v-card-text>
-          </v-form>
+          </v-form> -->
         </v-card>
       </v-col>
     </v-row>
@@ -20,11 +23,12 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from '@vue/composition-api'
-import { CompanySearchCard } from '~/components'
+import { CompanySearch, CompanyInput } from '~/components'
 
 export default defineComponent({
   components: {
-    companyCard: CompanySearchCard,
+    CompanySearch,
+    test: CompanyInput,
   },
   setup() {
     const state = reactive({

@@ -18,7 +18,7 @@
     </v-dialog>
 
     <v-dialog ref="dialog" v-model="state.dialog" persistent max-width="400">
-      <company-card
+      <company-search
         v-if="state.dialog"
         title="이직을 하셨나요?"
         @close="state.dialog = false"
@@ -54,7 +54,7 @@ import {
   UserInfoTitle,
   UserInfoCommuteDetail,
   CommonTimePicker,
-  CompanySearchCard,
+  CompanySearch,
   LunchTimeSelecter,
 } from '~/components'
 
@@ -65,7 +65,7 @@ export default defineComponent({
     infoTitle: UserInfoTitle,
     infoDetail: UserInfoCommuteDetail,
     timePicker: CommonTimePicker,
-    companyCard: CompanySearchCard,
+    CompanySearch,
     lunchSelector: LunchTimeSelecter,
   },
   props: {
