@@ -2,10 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <company-search title="회사 검색" />
-      </v-col>
-      <v-col cols="12">
-        <test title="회사 검색" />
+        <search title="회사 검색" />
       </v-col>
       <v-col cols="12">
         <v-card :class="$round" elevation="10">
@@ -23,12 +20,11 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from '@vue/composition-api'
-import { CompanySearch, CompanyInput } from '~/components'
+import { CompanySearch } from '~/components'
 
 export default defineComponent({
   components: {
-    CompanySearch,
-    test: CompanyInput,
+    search: CompanySearch,
   },
   setup() {
     const state = reactive({
