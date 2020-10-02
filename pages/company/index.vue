@@ -7,11 +7,42 @@
       <v-col cols="12">
         <v-card :class="$round" elevation="10">
           <v-card-title>회사 등록 요청</v-card-title>
-          <!-- <v-form ref="form" v-model="valid" :lazy-validation="lazy">
-            <v-card-text>
-              <v-text-field label="회사 이름" dense outlined></v-text-field>
-            </v-card-text>
-          </v-form> -->
+          <v-card-text>
+            <v-tabs v-model="state.tab" background-color="transparent" color="primary" grow>
+              <v-tab>URL 입력</v-tab>
+              <v-tab>직접 입력</v-tab>
+            </v-tabs>
+            <v-card outlined>
+              <v-tabs-items v-model="state.tab">
+                <v-tab-item key="URL 입력">
+                  <v-card flat :class="$round">
+                    <v-card-text>
+                      <v-form ref="form" v-model="state.valid" lazy-validation>
+                        <v-text-field label="잡플래닛 URL" dense outlined></v-text-field>
+                        <v-btn color="primary" small>
+                          요청
+                        </v-btn>
+                      </v-form>
+                    </v-card-text>
+                  </v-card>
+                </v-tab-item>
+                <v-tab-item key="직접 입력">
+                  <v-card flat :class="$round">
+                    <v-card-text>
+                      <v-form ref="form" v-model="state.valid" lazy-validation>
+                        <v-text-field label="회사 이름" dense outlined></v-text-field>
+                        <v-text-field label="회사 이름" dense outlined></v-text-field>
+                        <v-text-field label="회사 이름" dense outlined></v-text-field>
+                        <v-btn color="primary" small>
+                          요청
+                        </v-btn>
+                      </v-form>
+                    </v-card-text>
+                  </v-card>
+                </v-tab-item>
+              </v-tabs-items>
+            </v-card>
+          </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -43,6 +74,8 @@ export default defineComponent({
         imgUrl: null,
         industryName: '',
       },
+      valid: false,
+      tab: '',
     })
 
     return {
