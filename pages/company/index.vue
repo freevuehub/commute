@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <search title="회사 검색" />
+        <search v-model="state.company" title="회사 검색" />
       </v-col>
       <v-col cols="12">
         <v-card :class="$round" elevation="10">
