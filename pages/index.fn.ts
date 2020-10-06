@@ -5,7 +5,7 @@ import { MainConstant, SnackConstant, CommuteConstant, AuthConstant } from '~/co
 import { getMainData } from '~/API'
 
 export interface IState {
-  test: boolean
+  bottomModalStataue: boolean
   mainData: any
 }
 
@@ -19,7 +19,7 @@ const floor = (value: number): number => Math.floor(value)
 
 export const useState = ({ root }: SetupContext) =>
   reactive<IState>({
-    test: false,
+    bottomModalStataue: false,
     mainData: computed(() => {
       const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
       const nowDiffStart = data.todayData.startDate
@@ -113,6 +113,8 @@ export const useCommuteTimeSave = (context: SetupContext, state: IState) => asyn
       `snackBar/${SnackConstant.$Call.Success}`,
       `${time}에 ${key}하셨습니다.`
     )
+
+    state.bottomModalStataue = false
   } catch {
     context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Error}`, '에러가 발생했습니다.')
   }

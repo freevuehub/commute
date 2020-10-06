@@ -57,7 +57,7 @@
       </v-col>
     </v-row>
 
-    <v-bottom-sheet v-model="state.test">
+    <v-bottom-sheet v-model="state.bottomModalStataue">
       <sheet
         :disabled-start="!!state.mainData.todayData.startDate"
         :disabled-end="!!state.mainData.todayData.endDate || !state.mainData.todayData.startDate"
@@ -74,9 +74,9 @@
       bottom
       right
       fab
-      @click="state.test = true"
+      @click="state.bottomModalStataue = true"
     >
-      <v-icon>more_horiz</v-icon>
+      <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
 
     <!-- <floating-button
