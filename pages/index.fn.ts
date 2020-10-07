@@ -1,8 +1,7 @@
 import { reactive, computed, SetupContext, ComputedRef } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import { ICommuteItem, IUserProfile } from '~/types'
-import { MainConstant, SnackConstant, CommuteConstant, AuthConstant } from '~/constant'
-import { getMainData } from '~/API'
+import { MainConstant, AuthConstant } from '~/constant'
 
 export interface IState {
   bottomModalStataue: boolean
@@ -74,48 +73,6 @@ export const useComputed = (context: SetupContext, state: IState) =>
     }),
   })
 
-export const useCommuteTimeSave = (context: SetupContext, state: IState) => async (key: string) => {
-  try {
-    const now = dayjs()
-    const time = now.format('HH:mm:00')
-    const date = now.format('YYYY-MM-DD')
-    const {
-      mainData: { todayData },
-    } = state
-    const { companyId } = context.root.$store.getters[`auth/${AuthConstant.$Get.Profile}`]
-
-    switch (key) {
-      case '출근':
-        await context.root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePost}`, {
-          companyId,
-          startDate: `${date} ${time}`,
-          endDate: null,
-          comment: null,
-          tags: null,
-        })
-
-        break
-      case '퇴근':
-        await context.root.$store.dispatch(`commute/${CommuteConstant.$Call.CommutePut}`, {
-          id: todayData.id,
-          payload: {
-            endDate: `${date} ${time}`,
-          },
-        })
-
-        break
-    }
-
-    const { result } = await getMainData()
-
-    context.root.$store.dispatch(`main/${MainConstant.$Call.MainData}`, result)
-    context.root.$store.dispatch(
-      `snackBar/${SnackConstant.$Call.Success}`,
-      `${time}에 ${key}하셨습니다.`
-    )
-
-    state.bottomModalStataue = false
-  } catch {
-    context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Error}`, '에러가 발생했습니다.')
-  }
+export const useSheetClose = (state: IState) => () => {
+  state.bottomModalStataue = false
 }
