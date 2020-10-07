@@ -1,4 +1,4 @@
-import { SetupContext, reactive } from '@vue/composition-api'
+import { SetupContext, reactive, computed } from '@vue/composition-api'
 import dayjs from 'dayjs'
 import { AuthConstant, CommuteConstant, SnackConstant, MainConstant } from '~/constant'
 import { getMainData } from '~/API'
@@ -8,28 +8,31 @@ interface IState {
 }
 
 const updateNowTime = (state: IState) => () => {
-  state.time = dayjs().format('HH시 mm분 ss초')
+  state.time = dayjs().format('HH:mm:ss')
 }
 
 export const useState = () =>
   reactive({
-    time: dayjs().format('HH시 mm분 ss초'),
+    time: dayjs().format('HH:mm:ss'),
   })
 
-// export const useCommuteBtnClick = (context: SetupContext) => (key: string) => {
-//   context.emit('click', key)
-// }
+export const useComputed = (state: IState) => ({
+  nowTime: computed(() => {
+    return dayjs(`${dayjs().format('YYYY-MM-DD')} ${state.time}`, 'YYYY-MM-DD HH:mm:ss').format(
+      'HH시 mm분 ss초'
+    )
+  }),
+})
 
 export const useBeforeMount = (state: IState) => () => {
   setInterval(updateNowTime(state), 1000)
 }
 
-// export const useCommuteTimeSave = (context: SetupContext, state: IState, props: any) => async (
 export const useCommuteBtnClick = (context: SetupContext, id: string, state: IState) => async (
   key: string
 ) => {
   try {
-    const time = dayjs().format('HH:mm:00')
+    const time = state.time
     const date = dayjs().format('YYYY-MM-DD')
     const { companyId } = context.root.$store.getters[`auth/${AuthConstant.$Get.Profile}`]
 
