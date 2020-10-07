@@ -34,10 +34,14 @@ export default defineComponent({
   props: {
     disabledStart: Boolean,
     disabledEnd: Boolean,
+    commuteId: {
+      type: String,
+      default: '',
+    },
   },
-  setup(_, context) {
+  setup(props, context) {
     const state = useState()
-    const onCommuteBtnClick = useCommuteBtnClick(context)
+    const onCommuteBtnClick = useCommuteBtnClick(context, props.commuteId, state)
 
     onBeforeMount(useBeforeMount(state))
 
