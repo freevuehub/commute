@@ -18,34 +18,14 @@
       </v-col>
       <v-col cols="12" sm="6">
         <stats title="이번 주">
+          <spark-line
+            slot="before"
+            :values="computed.weekBarValue"
+            :labels="computed.weekBarLabels"
+          />
           <span slot="sum">{{ state.mainData.weekTermSum }}</span>
           <span slot="avg">{{ state.mainData.weekTermAvg }}</span>
           <span slot="over">{{ state.mainData.weekOverTime }}</span>
-          <v-card
-            slot="before"
-            outlined
-            :class="`${$round} mb-5`"
-            color="primary"
-            elevation="0"
-            dark
-          >
-            <v-card-text>
-              <v-sparkline
-                class="text--primary"
-                :value="computed.weekBarValue"
-                :auto-draw-duration="300"
-                auto-line-width
-                auto-draw
-                type="bar"
-                :show-labels="true"
-                :label-size="14"
-                :labels="computed.weekBarLabels"
-                :smooth="5"
-              >
-                <template v-slot:label="item">{{ item.value }}</template>
-              </v-sparkline>
-            </v-card-text>
-          </v-card>
         </stats>
       </v-col>
       <v-col cols="12" sm="6">
@@ -59,9 +39,10 @@
 
     <v-bottom-sheet v-model="state.bottomModalStataue">
       <sheet
+        :commute-id="state.mainData.todayData.id"
         :disabled-start="!!state.mainData.todayData.startDate"
         :disabled-end="!!state.mainData.todayData.endDate || !state.mainData.todayData.startDate"
-        @click="onCommuteTimeSave"
+        @close="onSheetClose"
       />
     </v-bottom-sheet>
 
@@ -78,19 +59,12 @@
     >
       <v-icon>keyboard_arrow_up</v-icon>
     </v-btn>
-
-    <!-- <floating-button
-      v-if="computed.userProfile.isWork"
-      :disabled-start="!!state.mainData.todayData.startDate"
-      :disabled-end="!!state.mainData.todayData.endDate || !state.mainData.todayData.startDate"
-      @click="onCommuteTimeSave"
-    /> -->
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { useState, useComputed, useCommuteTimeSave } from './index.fn'
+import { useState, useComputed, useSheetClose } from './index.fn'
 import {
   DatePickerCard,
   TimeSaveCard,
@@ -99,6 +73,7 @@ import {
   TodayTotalData,
   StatsData,
   CommutePostBottomSheet,
+  SparkLine,
 } from '~/components'
 
 export default defineComponent({
@@ -111,16 +86,17 @@ export default defineComponent({
     today: TodayTotalData,
     stats: StatsData,
     sheet: CommutePostBottomSheet,
+    SparkLine,
   },
   setup(_, context) {
     const state = useState(context)
     const computed = useComputed(context, state)
-    const onCommuteTimeSave = useCommuteTimeSave(context, state)
+    const onSheetClose = useSheetClose(state)
 
     return {
       state,
       computed,
-      onCommuteTimeSave,
+      onSheetClose,
     }
   },
 })
