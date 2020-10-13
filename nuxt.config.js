@@ -95,6 +95,7 @@ export default {
         method: 'GET',
       },
     ],
+    importScripts: ['sw.js'],
   },
   plugins: [
     '~/plugins/composition-api',
