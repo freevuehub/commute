@@ -15,15 +15,17 @@
       </row>
     </v-card-text>
     <v-divider></v-divider>
-    <v-card-actions class="py-0">
+    <v-card-actions class="pa-0">
       <v-spacer></v-spacer>
-      <h5 class="py-3">휴가 쓰자</h5>
+      <h5 class="py-3">오늘은 쉬자</h5>
       <v-spacer></v-spacer>
-      <v-divider vertical class="mr-5"></v-divider>
-      <v-btn small>하루</v-btn>
+      <v-divider vertical></v-divider>
+      <v-spacer></v-spacer>
+      <v-btn small>종일</v-btn>
       <v-btn small>오전</v-btn>
       <v-btn small>오후</v-btn>
-      <v-btn small>시차</v-btn>
+      <v-btn small>시간</v-btn>
+      <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
 </template>
