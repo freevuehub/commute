@@ -14,6 +14,12 @@
         <span class="body-1 font-weight-bold">{{ item.endDate || 'N/A' }}</span>
       </row>
     </v-card-text>
+    <v-divider></v-divider>
+    <v-card-actions>
+      <v-spacer></v-spacer>
+      <v-btn samll>연차</v-btn>
+      <v-btn samll>반차</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 
