@@ -39,7 +39,7 @@
 
     <v-bottom-sheet v-model="state.bottomModalStataue">
       <sheet
-        :commute-id="state.mainData.todayData.id"
+        :commute-id="`${state.mainData.todayData.id}`"
         :disabled-start="!!state.mainData.todayData.startDate"
         :disabled-end="!!state.mainData.todayData.endDate || !state.mainData.todayData.startDate"
         @close="onSheetClose"

@@ -1,24 +1,32 @@
 <template>
-  <v-card tile elevation="10">
+  <v-card elevation="10" class="round">
     <v-card-text class="pb-0">
       <v-row class="align-center">
-        <v-col cols="8">
-          <h3 class="ma-0 text-left">현재 시간은</h3>
-          <h2 class="ma-0 text-center primary--text">{{ nowTime }}</h2>
-          <h3 class="ma-0 text-right">입니다.</h3>
+        <v-col cols="12">
+          <h3 class="font-weight-bold">
+            현재 시간은
+            <span class="primary--text headline mx-1 font-weight-black">{{ nowTime }}</span>
+            입니다.
+          </h3>
         </v-col>
-        <v-col cols="4">
-          <v-btn
-            block
-            color="indigo"
-            class="mb-5"
-            :disabled="disabledStart"
-            @click="onCommuteBtnClick('출근')"
-          >
+        <v-col cols="6" class="pa-1">
+          <v-btn block color="indigo" :disabled="disabledStart" @click="onCommuteBtnClick('출근')">
             출근
           </v-btn>
+        </v-col>
+        <v-col cols="6" class="pa-1">
           <v-btn block color="green" :disabled="disabledEnd" @click="onCommuteBtnClick('퇴근')">
             퇴근
+          </v-btn>
+        </v-col>
+        <v-col cols="6" class="pa-1">
+          <v-btn block class="mb-2" :disabled="disabledEnd">
+            반차
+          </v-btn>
+        </v-col>
+        <v-col cols="6" class="pa-1">
+          <v-btn block class="mb-2" :disabled="disabledStart">
+            연차
           </v-btn>
         </v-col>
       </v-row>
@@ -59,3 +67,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.round {
+  border-radius: 20px 20px 0 0 !important;
+}
+</style>
