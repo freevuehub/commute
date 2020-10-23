@@ -30,6 +30,7 @@
     "@vue/composition-api": "^1.0.0-beta.6",
     "cookie-universal-nuxt": "^2.1.4",
     "dayjs": "^1.8.31",
+    "lottie-vuejs": "^0.4.0",
     "nuxt": "^2.14.0"
   },
   "devDependencies": {

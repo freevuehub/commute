@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-col cols="12" sm="6">
+      <v-col cols="12">
         <v-card color="primary" :class="$round" elevation="0" dark>
           <v-card-text>
             <span class="font-weight-light text--primary">
@@ -13,7 +13,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="12">
         <today :item="state.mainData.todayData" />
       </v-col>
       <v-col v-for="(item, index) in ['오늘', '이번주', '이번달', '그냥']" :key="item" cols="6">
@@ -31,7 +31,7 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="12">
         <stats title="이번 주">
           <spark-line
             slot="before"
@@ -43,7 +43,7 @@
           <span slot="over">{{ state.mainData.weekOverTime }}</span>
         </stats>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-col cols="12">
         <stats title="이번 달" class="mb-3">
           <span slot="sum">{{ state.mainData.monthTermSum }}</span>
           <span slot="avg">{{ state.mainData.monthTermAvg }}</span>

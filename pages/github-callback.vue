@@ -1,15 +1,19 @@
 <template>
   <v-container fluid class="d-flex container d-flex">
-    <v-progress-circular :size="70" :width="7" color="primary" indeterminate class="ma-auto" />
+    <lottie />
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted } from '@vue/composition-api'
 import { AuthConstant, SnackConstant } from '~/constant'
+import { LottieAni } from '~/components'
 
 export default defineComponent({
   layout: 'no-header',
+  components: {
+    lottie: LottieAni,
+  },
   setup(_, context) {
     onMounted(async () => {
       try {
