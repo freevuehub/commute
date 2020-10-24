@@ -1,7 +1,8 @@
 <template>
-  <v-container fluid class="d-flex container">
+  <v-container fluid class="d-flex flex-column container">
+    <lottie path="lottie/lock-action.json" />
     <v-card class="ma-auto" :class="$round" outlined elevation="10">
-      <v-img src="./icon.png" width="250px"></v-img>
+      <!-- <v-img src="./icon.png" width="250px"></v-img> -->
       <!-- <div id="google-signin-button" ref="google-signin-button" class="google-button"></div> -->
       <v-card-actions>
         <git-btn />
@@ -12,13 +13,14 @@
 
 <script lang="ts">
 import { defineComponent, onMounted } from '@vue/composition-api'
-import { GithubSigninBtn } from '~/components'
+import { GithubSigninBtn, LottieAni } from '~/components'
 
 export default defineComponent({
   layout: 'no-header',
   transition: 'slide-y-reverse-transition',
   components: {
     gitBtn: GithubSigninBtn,
+    lottie: LottieAni,
   },
   setup(_, context) {
     const onFailure = (error: any) => {

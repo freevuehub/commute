@@ -1,5 +1,6 @@
 <template>
   <v-app dark>
+    <lottie path="lottie/404-1.json" />
     <h1 v-if="error.statusCode === 404">
       {{ pageNotFound }}
     </h1>
@@ -13,8 +14,13 @@
 </template>
 
 <script>
+import { LottieAni } from '~/components'
+
 export default {
   layout: 'empty',
+  components: {
+    lottie: LottieAni,
+  },
   props: {
     error: {
       type: Object,
