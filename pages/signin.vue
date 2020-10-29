@@ -1,13 +1,7 @@
 <template>
   <v-container fluid class="d-flex flex-column container">
     <lottie path="lottie/lock-action.json" />
-    <v-card class="ma-auto" :class="$round" outlined elevation="10">
-      <!-- <v-img src="./icon.png" width="250px"></v-img> -->
-      <!-- <div id="google-signin-button" ref="google-signin-button" class="google-button"></div> -->
-      <v-card-actions>
-        <git-btn />
-      </v-card-actions>
-    </v-card>
+    <git-btn />
   </v-container>
 </template>
 
