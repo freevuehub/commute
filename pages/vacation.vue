@@ -1,5 +1,6 @@
 <template>
   <v-container fluid class="d-flex flex-column container">
+    <v-calender></v-calender>
     연차 사용 이력 페이지
   </v-container>
 </template>
