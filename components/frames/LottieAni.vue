@@ -36,12 +36,9 @@ export default defineComponent({
       default: 253,
     },
   },
-  setup() {
-    const setAnimController = (event) => {
-      console.log(event)
-      // setTimeout(() => {
-      // }, 1000)
-      event.setDirection(-1)
+  setup(_, { emit }) {
+    const setAnimController = (event: any) => {
+      emit('load', event)
     }
 
     return {
