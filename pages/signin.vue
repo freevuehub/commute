@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid class="d-flex flex-column container">
+  <v-container fluid class="container">
     <lottie path="lottie/lock-action.json" />
     <git-btn />
   </v-container>
