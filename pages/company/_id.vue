@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    회사 상세.. 일이 너무 많다..
+    회사 상세..
   </v-container>
 </template>
 
