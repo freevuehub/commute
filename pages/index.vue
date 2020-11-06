@@ -16,20 +16,8 @@
       <v-col cols="12">
         <today :item="state.mainData.todayData" />
       </v-col>
-      <v-col v-for="(item, index) in ['오늘', '이번주', '이번달', '그냥']" :key="item" cols="6">
-        <v-card :class="$round" elevation="10" color="primary">
-          <v-card-title>
-            <span class="font-weight-bold">{{ item }}</span>
-            <v-btn icon x-small absolute right center>
-              <v-icon>delete</v-icon>
-            </v-btn>
-          </v-card-title>
-          <v-card-text class="text-center">
-            <v-progress-circular :size="100" :width="20" :value="15 * (index + 1)" color="white">
-              {{ 15 * (index + 1) }}%
-            </v-progress-circular>
-          </v-card-text>
-        </v-card>
+      <v-col v-for="(item, index) in ['오늘', '이번주', '이번달']" :key="item" cols="6">
+        <progress-card :title="item" :value="15 * (index + 1)" />
       </v-col>
       <v-col cols="12">
         <stats title="이번 주">
@@ -89,6 +77,7 @@ import {
   StatsData,
   CommutePostBottomSheet,
   SparkLine,
+  ProgressCard,
 } from '~/components'
 
 export default defineComponent({
@@ -102,6 +91,7 @@ export default defineComponent({
     stats: StatsData,
     sheet: CommutePostBottomSheet,
     SparkLine,
+    ProgressCard,
   },
   setup(_, context) {
     const state = useState(context)
