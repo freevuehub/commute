@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="d-flex container d-flex">
-    <lottie />
+  <v-container fluid class="d-flex container align-center">
+    <lottie :width="300" :height="300" path="lottie/rubiks-cube.json" @load="onLottieLoad" />
   </v-container>
 </template>
 
@@ -15,14 +15,21 @@ export default defineComponent({
     lottie: LottieAni,
   },
   setup(_, context) {
+    const onLottieLoad = (lottie: any) => {
+      console.log(lottie)
+    }
+
     onMounted(async () => {
       try {
         const { code } = context.root.$route.query
+        const timeOut = () => {
+          context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '환영합니다.')
+          context.root.$router.push('/')
+        }
 
         await context.root.$store.dispatch(`auth/${AuthConstant.$Call.GitHubSigin}`, code)
 
-        context.root.$store.dispatch(`snackBar/${SnackConstant.$Call.Success}`, '환영합니다.')
-        context.root.$router.push('/')
+        setTimeout(timeOut, 3000)
       } catch {
         context.root.$store.dispatch(
           `snackBar/${SnackConstant.$Call.Error}`,
@@ -31,6 +38,10 @@ export default defineComponent({
         context.root.$router.push('/signin')
       }
     })
+
+    return {
+      onLottieLoad,
+    }
   },
 })
 </script>
