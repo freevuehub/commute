@@ -2,6 +2,9 @@
   <v-card :class="$round" elevation="10">
     <v-card-title>
       <span class="font-weight-bold">{{ title }}</span>
+      <v-btn v-if="edit" icon x-small absolute right center>
+        <v-icon>delete</v-icon>
+      </v-btn>
     </v-card-title>
     <v-card-text>
       <slot name="before"></slot>
@@ -35,6 +38,10 @@ export default defineComponent({
   },
   props: {
     title: String,
+    edit: {
+      type: Boolean,
+      default: false,
+    },
   },
 })
 </script>

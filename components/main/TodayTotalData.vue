@@ -2,6 +2,9 @@
   <v-card :class="$round" elevation="10">
     <v-card-title>
       <span class="font-weight-bold">오늘</span>
+      <v-btn v-if="edit" icon x-small absolute right center>
+        <v-icon>delete</v-icon>
+      </v-btn>
     </v-card-title>
     <v-card-text>
       <row class="mb-3" title="출근 시간">
@@ -42,6 +45,10 @@ export default defineComponent({
     item: {
       type: Object,
       default: () => ({}),
+    },
+    edit: {
+      type: Boolean,
+      default: false,
     },
   },
 })
