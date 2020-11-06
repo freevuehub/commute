@@ -1,6 +1,6 @@
 <template>
-  <v-container fluid class="container">
-    <lottie path="lottie/lock-action.json" />
+  <v-container fluid class="container d-flex flex-column justify-center pb-16">
+    <lottie :width="300" :height="300" path="lottie/user-testing.json" class="mb-5" />
     <git-btn />
   </v-container>
 </template>
