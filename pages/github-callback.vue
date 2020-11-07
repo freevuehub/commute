@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="d-flex container align-center">
-    <lottie :width="300" :height="300" path="lottie/rubiks-cube.json" @load="onLottieLoad" />
+    <lottie :width="300" :height="300" path="./lottie/rubiks-cube.json" />
   </v-container>
 </template>
 
@@ -15,10 +15,6 @@ export default defineComponent({
     lottie: LottieAni,
   },
   setup(_, context) {
-    const onLottieLoad = (lottie: any) => {
-      console.log(lottie)
-    }
-
     onMounted(async () => {
       try {
         const { code } = context.root.$route.query
@@ -38,10 +34,6 @@ export default defineComponent({
         context.root.$router.push('/signin')
       }
     })
-
-    return {
-      onLottieLoad,
-    }
   },
 })
 </script>

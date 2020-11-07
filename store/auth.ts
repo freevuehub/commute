@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { AuthConstant } from '~/constant'
 import { postGitHubSignIn, getUserProfile, putUserInfo } from '~/API'
 import { IUserInfo, IUserInfoPutPayload, IUserProfile } from '~/types'
@@ -59,7 +60,9 @@ export const actions = {
     try {
       const { result } = await postGitHubSignIn(payload)
 
-      document.cookie = `token=${result.token};`
+      const expiresDay = dayjs().add(1, 'month').toString()
+
+      document.cookie = `token=${result.token}; expires=${expiresDay}`
     } catch (err) {
       return Promise.reject(err)
     }

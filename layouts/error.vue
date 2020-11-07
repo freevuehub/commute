@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-    <lottie path="lottie/404-1.json" />
+    <lottie path="./lottie/rubiks-cube.json" />
     <h1 v-if="error.statusCode === 404">
       {{ pageNotFound }}
     </h1>

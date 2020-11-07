@@ -1,5 +1,5 @@
 <template>
-  <v-btn :href="state.authUrl" width="100%" class="text-left" :class="$round" outlined>
+  <v-btn :href="state.authUrl" width="100%" class="text-left" :class="$round" large>
     <v-icon class="mr-auto">mdi-github</v-icon>
     <span class="sns-btn-title text-center">Github 로그인</span>
   </v-btn>
