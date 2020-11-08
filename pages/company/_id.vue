@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    회사 상세..
+    {{ $route.query.id }}
   </v-container>
 </template>
 
