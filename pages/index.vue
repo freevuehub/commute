@@ -16,9 +16,9 @@
       <v-col cols="12">
         <today :item="state.mainData.todayData" />
       </v-col>
-      <v-col v-for="(item, index) in ['오늘', '이번주', '이번달']" :key="item" cols="6">
+      <!-- <v-col v-for="(item, index) in ['오늘', '이번주', '이번달']" :key="item" cols="6">
         <progress-card :title="item" :value="15 * (index + 1)" />
-      </v-col>
+      </v-col> -->
       <v-col cols="12">
         <stats title="이번 주">
           <spark-line
