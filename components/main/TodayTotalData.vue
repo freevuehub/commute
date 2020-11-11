@@ -24,10 +24,10 @@
       <v-spacer></v-spacer>
       <v-divider vertical></v-divider>
       <v-spacer></v-spacer>
-      <v-btn small>종일</v-btn>
-      <v-btn small>오전</v-btn>
-      <v-btn small>오후</v-btn>
-      <v-btn small>시간</v-btn>
+      <v-btn small @click="onVacationClick">종일</v-btn>
+      <v-btn small @click="onVacationClick">오전</v-btn>
+      <v-btn small @click="onVacationClick">오후</v-btn>
+      <v-btn small @click="onVacationClick">시간</v-btn>
       <v-spacer></v-spacer>
     </v-card-actions>
   </v-card>
@@ -50,6 +50,15 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+  },
+  setup() {
+    const onVacationClick = () => {
+      console.log('click')
+    }
+
+    return {
+      onVacationClick,
+    }
   },
 })
 </script>
