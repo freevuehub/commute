@@ -24,6 +24,12 @@ interface IConfig {
   company: {
     request: {
       list(): string
+      detail(id: string): string
+    }
+  }
+  vacation: {
+    request: {
+      list(): string
     }
   }
 }
@@ -51,6 +57,12 @@ const config: IConfig = {
   company: {
     request: {
       list: () => `${SERVER}/company`,
+      detail: (id: string) => `${SERVER}/company/${id}`,
+    },
+  },
+  vacation: {
+    request: {
+      list: () => `${SERVER}/vacation`,
     },
   },
 }
