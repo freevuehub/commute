@@ -3,6 +3,10 @@
     <v-app-bar-nav-icon @click.stop="$emit('click')" />
     <v-spacer />
     <v-toolbar-title v-text="state.titleStrList[number]" />
+    <v-spacer />
+    <v-btn icon>
+      <v-icon>setting</v-icon>
+    </v-btn>
   </v-app-bar>
 </template>
 
