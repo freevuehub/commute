@@ -30,6 +30,7 @@ interface IConfig {
   vacation: {
     request: {
       list(): string
+      detail(id: string): string
     }
   }
 }
@@ -63,6 +64,7 @@ const config: IConfig = {
   vacation: {
     request: {
       list: () => `${SERVER}/vacation`,
+      detail: (id: string) => `${SERVER}/vacation/${id}`,
     },
   },
 }
