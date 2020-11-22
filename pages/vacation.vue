@@ -1,6 +1,7 @@
 <template>
   <v-container fluid class="d-flex flex-column container">
     <v-calender />
+    <nuxt-child />
   </v-container>
 </template>
 
