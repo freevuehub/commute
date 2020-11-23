@@ -102,6 +102,7 @@ export default {
     '~/plugins/dayjs',
     '~/plugins/axios',
     '~/plugins/themeClass',
+    '~/plugins/main-component',
   ],
   /*
    ** Axios module configuration

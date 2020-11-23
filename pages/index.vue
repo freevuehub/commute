@@ -13,32 +13,8 @@
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12">
-        <keep-alive>
-          <component :is="today" :item="state.mainData.todayData" />
-        </keep-alive>
-      </v-col>
-      <!-- <v-col v-for="(item, index) in ['오늘', '이번주', '이번달']" :key="item" cols="6">
-        <progress-card :title="item" :value="15 * (index + 1)" />
-      </v-col> -->
-      <v-col cols="12">
-        <stats title="이번 주">
-          <spark-line
-            slot="before"
-            :values="computed.weekBarValue"
-            :labels="computed.weekBarLabels"
-          />
-          <span slot="sum">{{ state.mainData.weekTermSum }}</span>
-          <span slot="avg">{{ state.mainData.weekTermAvg }}</span>
-          <span slot="over">{{ state.mainData.weekOverTime }}</span>
-        </stats>
-      </v-col>
-      <v-col cols="12">
-        <stats title="이번 달" class="mb-3">
-          <span slot="sum">{{ state.mainData.monthTermSum }}</span>
-          <span slot="avg">{{ state.mainData.monthTermAvg }}</span>
-          <span slot="over">{{ state.mainData.monthOverTime }}</span>
-        </stats>
+      <v-col v-for="item in ['today', 'week', 'month']" :key="item" cols="12">
+        <component :is="item" :item="state.mainData" />
       </v-col>
     </v-row>
 
@@ -75,11 +51,7 @@ import {
   TimeSaveCard,
   FloatingButton,
   CommuteDetailRow,
-  TodayTotalData,
-  StatsData,
   CommutePostBottomSheet,
-  SparkLine,
-  ProgressCard,
 } from '~/components'
 
 export default defineComponent({
@@ -89,11 +61,7 @@ export default defineComponent({
     TimeSaveCard,
     FloatingButton,
     row: CommuteDetailRow,
-    today: TodayTotalData,
-    stats: StatsData,
     sheet: CommutePostBottomSheet,
-    SparkLine,
-    ProgressCard,
   },
   setup(_, context) {
     const state = useState(context)
