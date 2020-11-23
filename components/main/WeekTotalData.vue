@@ -1,35 +1,34 @@
 <template>
-  <v-card :class="$round" elevation="10">
-    <v-card-title>
-      <span class="font-weight-bold">오늘</span>
-    </v-card-title>
-    <v-card-text>
-      <row class="mb-3" title="출근 시간">
-        <span class="body-1 font-weight-bold">{{ item.startDate || 'N/A' }}</span>
-      </row>
-      <row class="mb-3" title="근무 시간">
-        <span class="body-1 font-weight-bold">{{ item.totalWorkTime || 'N/A' }}</span>
-      </row>
-      <row title="퇴근 시간">
-        <span class="body-1 font-weight-bold">{{ item.endDate || 'N/A' }}</span>
-      </row>
-    </v-card-text>
-  </v-card>
+  <stats title="이번 주">
+    <spark-line slot="before" :values="computed.weekBarValue" :labels="computed.weekBarLabels" />
+    <span slot="sum">{{ item.weekTermSum }}</span>
+    <span slot="avg">{{ item.weekTermAvg }}</span>
+    <span slot="over">{{ item.weekOverTime }}</span>
+  </stats>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { CommuteDetailRow } from '../'
+import { SparkLine, StatsData } from '../'
+import { useComputed } from './week-total-data.fn'
 
 export default defineComponent({
   components: {
-    row: CommuteDetailRow,
+    SparkLine,
+    stats: StatsData,
   },
   props: {
     item: {
       type: Object,
       default: () => ({}),
     },
+  },
+  setup(props) {
+    const computed = useComputed(props)
+
+    return {
+      computed,
+    }
   },
 })
 </script>
