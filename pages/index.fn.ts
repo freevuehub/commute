@@ -21,25 +21,11 @@ export const useState = ({ root }: SetupContext) =>
     bottomModalStataue: false,
     mainData: computed(() => {
       const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
-      const nowDiffStart = data.todayData.startDate
-        ? dayjs().diff(data.todayData.startDate, 'minute')
-        : 0
-      const breakTime = floor(Number(nowDiffStart) / 240) * 30
       const weekOverTime = data.weekTermSum - data.weekCount * 8 * 60
       const monthOverTime = data.monthTermSum - data.monthCount * 8 * 60
 
       return {
         ...data,
-        todayData: {
-          ...data.todayData,
-          totalWorkTime: data.todayData.totalWorkTime
-            ? `${floor(data.todayData.totalWorkTime / 60)}시간 ${
-                data.todayData.totalWorkTime % 60
-              }분`
-            : `${floor((nowDiffStart - breakTime) / 60)}시간 ${(nowDiffStart - breakTime) % 60}분`,
-          startDate: data.todayData.startDate && dayjs(data.todayData.startDate).format('HH:mm'),
-          endDate: data.todayData.endDate && dayjs(data.todayData.endDate).format('HH:mm'),
-        },
         weekTermAvg: `${floor(data.weekTermAvg / 60)}시간 ${data.weekTermAvg % 60}분`,
         weekTermSum: `${floor(data.weekTermSum / 60)}시간 ${data.weekTermSum % 60}분`,
         monthTermAvg: `${floor(data.monthTermAvg / 60)}시간 ${data.monthTermAvg % 60}분`,
