@@ -21,19 +21,12 @@ export const useState = ({ root }: SetupContext) =>
     bottomModalStataue: false,
     mainData: computed(() => {
       const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
-      const weekOverTime = data.weekTermSum - data.weekCount * 8 * 60
       const monthOverTime = data.monthTermSum - data.monthCount * 8 * 60
 
       return {
         ...data,
-        weekTermAvg: `${floor(data.weekTermAvg / 60)}시간 ${data.weekTermAvg % 60}분`,
-        weekTermSum: `${floor(data.weekTermSum / 60)}시간 ${data.weekTermSum % 60}분`,
         monthTermAvg: `${floor(data.monthTermAvg / 60)}시간 ${data.monthTermAvg % 60}분`,
         monthTermSum: `${floor(data.monthTermSum / 60)}시간 ${data.monthTermSum % 60}분`,
-        weekOverTime:
-          weekOverTime < 0
-            ? `-${floor(Math.abs(weekOverTime) / 60)}시간 ${Math.abs(weekOverTime) % 60}분`
-            : `${floor(weekOverTime / 60)}시간 ${weekOverTime % 60}분`,
         monthOverTime:
           monthOverTime < 0
             ? `-${floor(Math.abs(monthOverTime) / 60)}시간 ${Math.abs(monthOverTime) % 60}분`

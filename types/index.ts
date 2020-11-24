@@ -92,6 +92,7 @@ export interface ICommuteItem extends ICommuteItemOfAPI {
   totalWorkTime: number
 }
 
+// Main data Type
 export interface IMainData {
   weekTermAvg: number
   weekTermSum: number
@@ -100,7 +101,22 @@ export interface IMainData {
   weekCount: number
   monthCount: number
   weekList: ICommuteItem[]
-  todayData: ICommuteItem
+}
+
+export interface IMainWeekListItem {
+  id: string
+  companyName: string
+  totalWorkTime: number
+  startDate: string
+  endDate: string
+  tags: null
+}
+
+export interface IMainWeekData {
+  weekCount: number
+  weekList: IMainWeekListItem[] | null[]
+  weekTermAvg: number
+  weekTermSum: number
 }
 
 export interface IUserInfo {

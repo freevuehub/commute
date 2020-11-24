@@ -1,9 +1,9 @@
 <template>
   <stats title="이번 주">
-    <spark-line slot="before" :values="computed.weekBarValue" :labels="computed.weekBarLabels" />
-    <span slot="sum">{{ item.weekTermSum }}</span>
-    <span slot="avg">{{ item.weekTermAvg }}</span>
-    <span slot="over">{{ item.weekOverTime }}</span>
+    <spark-line slot="before" :values="week.weekList" :labels="weekBarLabels" />
+    <span slot="sum">{{ week.weekTermSum }}</span>
+    <span slot="avg">{{ week.weekTermAvg }}</span>
+    <span slot="over">{{ week.weekOverTime }}</span>
   </stats>
 </template>
 
@@ -17,17 +17,11 @@ export default defineComponent({
     SparkLine,
     stats: StatsData,
   },
-  props: {
-    item: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
-  setup(props) {
-    const computed = useComputed(props)
+  setup(_, context) {
+    const computed = useComputed(context)
 
     return {
-      computed,
+      ...computed,
     }
   },
 })
