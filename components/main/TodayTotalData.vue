@@ -8,13 +8,13 @@
     </v-card-title>
     <v-card-text>
       <row class="mb-3" title="출근 시간">
-        <span class="body-1 font-weight-bold">{{ item.todayData.startDate || 'N/A' }}</span>
+        <span class="body-1 font-weight-bold">{{ today.startDate || 'N/A' }}</span>
       </row>
       <row class="mb-3" title="근무 시간">
-        <span class="body-1 font-weight-bold">{{ item.todayData.totalWorkTime || 'N/A' }}</span>
+        <span class="body-1 font-weight-bold">{{ today.totalWorkTime || 'N/A' }}</span>
       </row>
       <row title="퇴근 시간">
-        <span class="body-1 font-weight-bold">{{ item.todayData.endDate || 'N/A' }}</span>
+        <span class="body-1 font-weight-bold">{{ today.endDate || 'N/A' }}</span>
       </row>
     </v-card-text>
     <v-divider></v-divider>
@@ -36,6 +36,7 @@
 <script>
 import { defineComponent } from '@vue/composition-api'
 import { CommuteDetailRow } from '../'
+import { useComputed } from './today-total-data.fn'
 
 export default defineComponent({
   name: 'today',
@@ -43,21 +44,19 @@ export default defineComponent({
     row: CommuteDetailRow,
   },
   props: {
-    item: {
-      type: Object,
-      default: () => ({}),
-    },
     edit: {
       type: Boolean,
       default: false,
     },
   },
-  setup() {
+  setup(_, context) {
+    const computed = useComputed(context)
     const onVacationClick = () => {
       console.log('click')
     }
 
     return {
+      ...computed,
       onVacationClick,
     }
   },

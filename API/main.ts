@@ -56,3 +56,17 @@ export const getMainData = async (token: string = '') => {
     return err
   }
 }
+
+export const getMainTodayData = async (token: string = '') => {
+  try {
+    const response: IResponseData<any> = await AxiosGet<any>(
+      endpoint.main.request.today(),
+      token,
+      {}
+    )
+
+    return response
+  } catch (err) {
+    return err
+  }
+}

@@ -13,6 +13,7 @@ interface IConfig {
   main: {
     request: {
       data(): string
+      today(): string
     }
   }
   commute: {
@@ -47,6 +48,7 @@ const config: IConfig = {
   main: {
     request: {
       data: () => `${SERVER}/main`,
+      today: () => `${SERVER}/main/today`,
     },
   },
   commute: {

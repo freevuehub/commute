@@ -18,12 +18,15 @@ export const AuthConstant = {
 export const MainConstant = {
   $Set: {
     MainData: 'SET/DATA',
+    TodayData: 'SET/TODAY/DATA',
   },
   $Call: {
     MainData: 'CALL/DATA',
+    TodayData: 'CALL/TODAY/DATA',
   },
   $Get: {
     MainData: 'GET/DATA',
+    TodayData: 'GET/TODAY/DATA',
   },
 }
 
