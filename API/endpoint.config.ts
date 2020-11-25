@@ -15,6 +15,7 @@ interface IConfig {
       data(): string
       today(): string
       week(): string
+      month(): string
     }
   }
   commute: {
@@ -51,6 +52,7 @@ const config: IConfig = {
       data: () => `${SERVER}/main`,
       today: () => `${SERVER}/main/today`,
       week: () => `${SERVER}/main/week`,
+      month: () => `${SERVER}/main/month`,
     },
   },
   commute: {
