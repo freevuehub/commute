@@ -10,7 +10,11 @@
     </v-row>
 
     <v-bottom-sheet v-model="state.bottomModalStataue">
+      <v-card v-if="state.edit" elevation="10">
+        <v-btn @click="onThemeSaveClick">save</v-btn>
+      </v-card>
       <sheet
+        v-else
         :commute-id="`${state.mainData.todayData.id}`"
         :disabled-start="!!state.mainData.todayData.startDate"
         :disabled-end="!!state.mainData.todayData.endDate || !state.mainData.todayData.startDate"
@@ -20,23 +24,31 @@
 
     <v-btn
       v-if="computed.userProfile.isWork"
-      color="primary"
+      :color="state.edit ? 'success' : 'primary'"
       elevation="10"
       dark
       fixed
       bottom
       right
       fab
-      @click="state.bottomModalStataue = true"
+      @click="onRemoteClick"
     >
-      <v-icon>keyboard_arrow_up</v-icon>
+      <v-icon v-if="state.edit">add</v-icon>
+      <v-icon v-else>keyboard_arrow_up</v-icon>
     </v-btn>
   </v-container>
 </template>
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { useState, useComputed, useSheetClose, useThemeEdit } from './index.fn'
+import {
+  useState,
+  useComputed,
+  useSheetClose,
+  useThemeEdit,
+  useRemoteClick,
+  useThemeSaveClick,
+} from './index.fn'
 import {
   DatePickerCard,
   TimeSaveCard,
@@ -61,12 +73,16 @@ export default defineComponent({
     const computed = useComputed(context)
     const onSheetClose = useSheetClose(state)
     const onThemeEdit = useThemeEdit(state)
+    const onRemoteClick = useRemoteClick(state)
+    const onThemeSaveClick = useThemeSaveClick(state)
 
     return {
       state,
       computed,
       onSheetClose,
       onThemeEdit,
+      onRemoteClick,
+      onThemeSaveClick,
     }
   },
 })

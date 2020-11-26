@@ -39,3 +39,12 @@ export const useSheetClose = (state: IState) => () => {
 export const useThemeEdit = (state: IState) => (payload: boolean) => {
   state.edit = payload
 }
+
+export const useRemoteClick = (state: IState) => () => {
+  state.bottomModalStataue = true
+}
+
+export const useThemeSaveClick = (state: IState) => () => {
+  state.bottomModalStataue = false
+  state.edit = false
+}
