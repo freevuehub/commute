@@ -1,11 +1,5 @@
 <template>
-  <v-card :class="$round" elevation="10">
-    <v-card-title>
-      <span class="font-weight-bold">오늘</span>
-      <v-btn v-if="edit" icon x-small absolute right center>
-        <v-icon>delete</v-icon>
-      </v-btn>
-    </v-card-title>
+  <dash-board-card :edit="edit" title="오늘" @editing="onEditing">
     <v-card-text>
       <row class="mb-3" title="출근 시간">
         <span class="body-1 font-weight-bold">{{ today.startDate || 'N/A' }}</span>
@@ -30,18 +24,20 @@
       <v-btn small @click="onVacationClick">시간</v-btn>
       <v-spacer></v-spacer>
     </v-card-actions>
-  </v-card>
+  </dash-board-card>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { CommuteDetailRow } from '../'
+import { CommuteDetailRow, DashBoardCard } from '../'
+import { useCardThemeEditing } from './index.fn'
 import { useComputed } from './today-total-data.fn'
 
 export default defineComponent({
   name: 'today',
   components: {
     row: CommuteDetailRow,
+    DashBoardCard,
   },
   props: {
     edit: {
@@ -54,10 +50,12 @@ export default defineComponent({
     const onVacationClick = () => {
       console.log('click')
     }
+    const onEditing = useCardThemeEditing(context)
 
     return {
       ...computed,
       onVacationClick,
+      onEditing,
     }
   },
 })
