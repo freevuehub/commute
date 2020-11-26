@@ -20,16 +20,19 @@ export const MainConstant = {
     MainData: 'SET/DATA',
     TodayData: 'SET/TODAY/DATA',
     WeekData: 'SET/WEEK/DATA',
+    MonthData: 'SET/MONTH/DATA',
   },
   $Call: {
     MainData: 'CALL/DATA',
     TodayData: 'CALL/TODAY/DATA',
     WeekData: 'CALL/WEEK/DATA',
+    MonthData: 'CALL/MONTH/DATA',
   },
   $Get: {
     MainData: 'GET/DATA',
     TodayData: 'GET/TODAY/DATA',
     WeekData: 'GET/WEEK/DATA',
+    MonthData: 'GET/MONTH/DATA',
   },
 }
 
