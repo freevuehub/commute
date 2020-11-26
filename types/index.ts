@@ -112,11 +112,25 @@ export interface IMainWeekListItem {
   tags: null
 }
 
+export interface IMainTodayData {
+  id: string
+  companyName: string
+  totalWorkTime: number
+  startDate: string
+  endDate: string | null
+}
+
 export interface IMainWeekData {
   weekCount: number
   weekList: IMainWeekListItem[] | null[]
   weekTermAvg: number
   weekTermSum: number
+}
+
+export interface IMainMonthData {
+  monthTermSum: number
+  monthTermAvg: number
+  monthCount: number
 }
 
 export interface IUserInfo {

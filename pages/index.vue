@@ -58,7 +58,7 @@ export default defineComponent({
   },
   setup(_, context) {
     const state = useState(context)
-    const computed = useComputed(context, state)
+    const computed = useComputed(context)
     const onSheetClose = useSheetClose(state)
 
     return {
