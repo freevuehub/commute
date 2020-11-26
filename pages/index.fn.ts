@@ -5,6 +5,7 @@ import { MainConstant, AuthConstant } from '~/constant'
 export interface IState {
   bottomModalStataue: boolean
   mainData: any
+  edit: boolean
 }
 
 export interface IComputed {
@@ -14,6 +15,7 @@ export interface IComputed {
 export const useState = ({ root }: SetupContext) =>
   reactive<IState>({
     bottomModalStataue: false,
+    edit: false,
     mainData: computed(() => {
       const data = root.$store.getters[`main/${MainConstant.$Get.MainData}`]
 
@@ -32,4 +34,8 @@ export const useComputed = (context: SetupContext) =>
 
 export const useSheetClose = (state: IState) => () => {
   state.bottomModalStataue = false
+}
+
+export const useThemeEdit = (state: IState) => (payload: boolean) => {
+  state.edit = payload
 }

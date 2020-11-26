@@ -4,8 +4,8 @@
       <v-col cols="12">
         <month-report :name="computed.userProfile.name" />
       </v-col>
-      <v-col v-for="item in ['today', 'week', 'month']" :key="item" cols="12">
-        <component :is="item" />
+      <v-col v-for="item in computed.userProfile.theme.dashboard" :key="item" cols="12">
+        <component :is="item" :edit="state.edit" @editing="onThemeEdit" />
       </v-col>
     </v-row>
 
@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { useState, useComputed, useSheetClose } from './index.fn'
+import { useState, useComputed, useSheetClose, useThemeEdit } from './index.fn'
 import {
   DatePickerCard,
   TimeSaveCard,
@@ -60,11 +60,13 @@ export default defineComponent({
     const state = useState(context)
     const computed = useComputed(context)
     const onSheetClose = useSheetClose(state)
+    const onThemeEdit = useThemeEdit(state)
 
     return {
       state,
       computed,
       onSheetClose,
+      onThemeEdit,
     }
   },
 })

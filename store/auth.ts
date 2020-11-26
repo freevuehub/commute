@@ -21,6 +21,9 @@ export const state = (): IState => ({
     workEndTime: '',
     workStartTime: '',
     workTerm: 0,
+    theme: {
+      dashboard: [],
+    },
   },
   userInfo: {
     companyAddress: '',
@@ -39,11 +42,11 @@ export const state = (): IState => ({
 })
 
 export const mutations = {
-  [AuthConstant.$Set.Profile](state: IState, payload: IUserProfile) {
-    state.profile = payload
+  [AuthConstant.$Set.Profile](store: IState, payload: IUserProfile) {
+    store.profile = payload
   },
-  [AuthConstant.$Set.Info](state: IState, payload: IUserInfo) {
-    state.userInfo = payload
+  [AuthConstant.$Set.Info](store: IState, payload: IUserInfo) {
+    store.userInfo = payload
   },
 }
 
@@ -79,10 +82,10 @@ export const actions = {
 }
 
 export const getters = {
-  [AuthConstant.$Get.Profile](state: IState) {
-    return state.profile
+  [AuthConstant.$Get.Profile](store: IState) {
+    return store.profile
   },
-  [AuthConstant.$Get.Info](state: IState) {
-    return state.userInfo
+  [AuthConstant.$Get.Info](store: IState) {
+    return store.userInfo
   },
 }

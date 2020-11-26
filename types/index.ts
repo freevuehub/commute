@@ -17,6 +17,9 @@ export interface IUserProfile {
   workEndTime: string
   workStartTime: string
   workTerm: number
+  theme: {
+    dashboard: string[]
+  }
 }
 
 // Company에 대한 Type
