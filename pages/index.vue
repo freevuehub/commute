@@ -2,19 +2,10 @@
   <v-container fluid>
     <v-row>
       <v-col cols="12">
-        <v-card color="primary" :class="$round" elevation="0" dark>
-          <v-card-text>
-            <span class="font-weight-light text--primary">
-              {{ computed.userProfile.name }}님의 이번달 근무시간입니다.
-            </span>
-            <h3 class="mt-2 font-weight-black text--primary">
-              평균: {{ state.mainData.monthTermAvg }} / 초과: {{ state.mainData.monthOverTime }}
-            </h3>
-          </v-card-text>
-        </v-card>
+        <month-report :name="computed.userProfile.name" />
       </v-col>
       <v-col v-for="item in ['today', 'week', 'month']" :key="item" cols="12">
-        <component :is="item" :item="state.mainData" />
+        <component :is="item" />
       </v-col>
     </v-row>
 
@@ -52,6 +43,7 @@ import {
   FloatingButton,
   CommuteDetailRow,
   CommutePostBottomSheet,
+  MonthReport,
 } from '~/components'
 
 export default defineComponent({
@@ -60,6 +52,7 @@ export default defineComponent({
     DatePickerCard,
     TimeSaveCard,
     FloatingButton,
+    MonthReport,
     row: CommuteDetailRow,
     sheet: CommutePostBottomSheet,
   },
