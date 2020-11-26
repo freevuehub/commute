@@ -52,10 +52,24 @@ export const getMainTodayData = async (token: string = '') => {
   }
 }
 
-export const getWeekTodayData = async (token: string = '') => {
+export const getMainWeekData = async (token: string = '') => {
   try {
     const response: IResponseData<IMainWeekData> = await AxiosGet<IMainWeekData>(
       endpoint.main.request.week(),
+      token,
+      {}
+    )
+
+    return response
+  } catch (err) {
+    return err
+  }
+}
+
+export const getMainMonthData = async (token: string = '') => {
+  try {
+    const response: IResponseData<any> = await AxiosGet<any>(
+      endpoint.main.request.month(),
       token,
       {}
     )
