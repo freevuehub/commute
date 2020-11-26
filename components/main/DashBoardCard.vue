@@ -3,6 +3,7 @@
     :class="[$round, { edit }]"
     elevation="10"
     :ripple="!edit"
+    :draggable="true"
     @touchstart="onCardTouchStart"
     @touchend="onCardTouchEnd"
   >
@@ -19,10 +20,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from '@vue/composition-api'
+import { defineComponent } from '@vue/composition-api'
+import { useState, useCardTouchStart, useCardTouchEnd } from './dash-board-card.fn'
 
 export default defineComponent({
-  name: 'DashCard',
+  name: 'DashBoardCard',
   props: {
     title: {
       type: String,
@@ -34,21 +36,9 @@ export default defineComponent({
     },
   },
   setup(_, context) {
-    const state = reactive<{ timeout: ReturnType<typeof setTimeout> | null }>({
-      timeout: null,
-    })
-    const onCardTouchStart = () => {
-      const useTimeOut = () => {
-        context.emit('editing', true)
-      }
-
-      state.timeout = setTimeout(useTimeOut, 2000)
-    }
-    const onCardTouchEnd = () => {
-      if (state.timeout !== null) {
-        clearTimeout(state.timeout)
-      }
-    }
+    const state = useState()
+    const onCardTouchStart = useCardTouchStart(context, state)
+    const onCardTouchEnd = useCardTouchEnd(state)
 
     return {
       state,

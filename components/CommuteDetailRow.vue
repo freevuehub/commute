@@ -3,20 +3,20 @@
     <span class="body-1 font-weight-light">{{ title }}</span>
     <v-spacer></v-spacer>
     <button
-      v-if="state.isClick"
+      v-if="isClick"
       :disabled="disabled"
       class="pa-0"
       :class="disabled && 'text-decoration-line-through'"
       @click.prevent="$emit('click')"
     >
-      <slot></slot>
+      <slot />
     </button>
-    <slot v-else></slot>
+    <slot v-else />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, SetupContext, reactive, computed } from '@vue/composition-api'
+import { defineComponent, computed } from '@vue/composition-api'
 
 export default defineComponent({
   props: {
@@ -26,15 +26,13 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(_: {}, { listeners }: SetupContext) {
-    const state = reactive({
-      isClick: computed(() => {
-        return !!listeners.click
-      }),
+  setup(_, { listeners }) {
+    const isClick = computed(() => {
+      return !!listeners.click
     })
 
     return {
-      state,
+      ...isClick,
     }
   },
 })

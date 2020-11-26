@@ -29,9 +29,10 @@
 
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api'
-import { CommuteDetailRow, DashBoardCard } from '../'
+import { CommuteDetailRow } from '../'
 import { useCardThemeEditing } from './index.fn'
 import { useComputed } from './today-total-data.fn'
+import DashBoardCard from './DashBoardCard.vue'
 
 export default defineComponent({
   name: 'today',
