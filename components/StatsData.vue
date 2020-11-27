@@ -1,6 +1,6 @@
 <template>
   <v-card-text>
-    <slot name="before"></slot>
+    <slot name="before" />
     <row class="mb-3" title="총 근무시간">
       <span class="body-1 font-weight-bold">
         <slot name="sum">N/A</slot>
