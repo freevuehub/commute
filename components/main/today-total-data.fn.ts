@@ -11,7 +11,6 @@ export const useComputed = (context: SetupContext) => ({
     const breakTime = floor(Number(nowDiffStart) / 240) * 30
 
     return {
-      ...today,
       totalWorkTime: today.totalWorkTime
         ? `${floor(today.totalWorkTime / 60)}시간 ${today.totalWorkTime % 60}분`
         : `${floor((nowDiffStart - breakTime) / 60)}시간 ${(nowDiffStart - breakTime) % 60}분`,
