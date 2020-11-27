@@ -40,14 +40,14 @@ export const state = (): IState => ({
 })
 
 export const mutations = {
-  [CommuteConstant.$Set.CommuteList]: (state: IState, payload: ICommuteListItem[]) => {
-    state.commuteList = payload
+  [CommuteConstant.$Set.CommuteList]: (store: IState, payload: ICommuteListItem[]) => {
+    store.commuteList = payload
   },
-  [CommuteConstant.$Set.CommuteItem]: (state: IState, payload: ICommuteDetailResponse) => {
-    state.commuteItem = payload
+  [CommuteConstant.$Set.CommuteItem]: (store: IState, payload: ICommuteDetailResponse) => {
+    store.commuteItem = payload
   },
-  [CommuteConstant.$Set.CommuteListTotal]: (state: IState, payload: number) => {
-    state.listTotal = payload
+  [CommuteConstant.$Set.CommuteListTotal]: (store: IState, payload: number) => {
+    store.listTotal = payload
   },
 }
 
@@ -80,13 +80,13 @@ export const actions = {
 }
 
 export const getters = {
-  [CommuteConstant.$Get.CommuteItem](state: IState) {
-    return state.commuteItem
+  [CommuteConstant.$Get.CommuteItem](store: IState) {
+    return store.commuteItem
   },
-  [CommuteConstant.$Get.CommuteList](state: IState) {
-    return state.commuteList
+  [CommuteConstant.$Get.CommuteList](store: IState) {
+    return store.commuteList
   },
-  [CommuteConstant.$Get.CommuteListTotal](state: IState) {
-    return state.listTotal
+  [CommuteConstant.$Get.CommuteListTotal](store: IState) {
+    return store.listTotal
   },
 }
