@@ -3,7 +3,7 @@
     <span class="body-1 font-weight-light">{{ title }}</span>
     <v-spacer></v-spacer>
     <button
-      v-if="isClick"
+      v-if="state.isClick"
       :disabled="disabled"
       class="pa-0"
       :class="disabled && 'text-decoration-line-through'"
@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from '@vue/composition-api'
+import { defineComponent, computed, reactive } from '@vue/composition-api'
 
 export default defineComponent({
   props: {
@@ -27,12 +27,14 @@ export default defineComponent({
     },
   },
   setup(_, { listeners }) {
-    const isClick = computed(() => {
-      return !!listeners.click
+    const state = reactive({
+      isClick: computed(() => {
+        return !!listeners.click
+      }),
     })
 
     return {
-      ...isClick,
+      state,
     }
   },
 })
