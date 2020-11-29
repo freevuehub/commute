@@ -55,13 +55,19 @@ export const mutations = {
     store.data = { ...store.data, ...payload }
   },
   [MainConstant.$Set.TodayData](store: IState, payload: IMainTodayData) {
-    store.today = payload
+    if (payload) {
+      store.today = payload
+    }
   },
   [MainConstant.$Set.WeekData](store: IState, payload: IMainWeekData) {
-    store.week = payload
+    if (payload) {
+      store.week = payload
+    }
   },
   [MainConstant.$Set.MonthData](store: IState, payload: IMainMonthData) {
-    store.month = payload
+    if (payload) {
+      store.month = payload
+    }
   },
 }
 
