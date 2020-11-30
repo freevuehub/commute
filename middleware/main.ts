@@ -8,6 +8,13 @@ export default async (context: Context) => {
   try {
     const token = $cookies.get('token')
 
+    // const [result, today, week, month] = await Promise.all([
+    //   getMainData(token),
+    //   getMainTodayData(token),
+    //   getMainWeekData(token),
+    //   getMainMonthData(token),
+    // ])
+
     const { result } = await getMainData(token)
     const { result: today } = await getMainTodayData(token)
     const { result: week } = await getMainWeekData(token)
