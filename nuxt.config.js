@@ -119,9 +119,9 @@ export default {
       dark: true,
       themes: {
         dark: {
-          // primary: '#71abbd',
+          primary: '#71abbd',
           // primary: '#939599',
-          primary: '#f7e10e',
+          // primary: '#f7e10e',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
