@@ -27,7 +27,7 @@ export default {
         name: 'description',
         content: process.env.npm_package_description || '',
       },
-      { name: 'theme-color', content: '#71abbd' },
+      { name: 'theme-color', content: '#6bb3b8' },
       {
         name: 'google-signin-client_id',
         content: `${process.env.GOOGLE_SIGNIN_CLIENT_ID}.apps.googleusercontent.com`,
@@ -80,8 +80,8 @@ export default {
     short_name: '출!사표',
     start_url: '/?utm_source=homescreen',
     display: 'standalone',
-    background_color: '#71abbd',
-    theme_color: '#71abbd',
+    background_color: '#6bb3b8',
+    theme_color: '#6bb3b8',
     orientation: 'portrait',
     scope: '/',
     splash_pages: null,
@@ -119,7 +119,7 @@ export default {
       dark: true,
       themes: {
         dark: {
-          primary: '#71abbd',
+          primary: '#6bb3b8',
           // primary: '#939599',
           // primary: '#f7e10e',
           accent: colors.grey.darken3,
@@ -130,7 +130,7 @@ export default {
           success: colors.green.accent3,
         },
         light: {
-          primary: '#71abbd',
+          primary: '#6bb3b8',
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
           info: colors.teal.lighten1,
