@@ -2,12 +2,14 @@ export const AuthConstant = {
   $Set: {
     Info: 'SET/USER/INFO',
     Profile: 'SET/PROFILE',
+    DashBoardEdit: 'SET/DASHBOARD/EDIT',
   },
   $Call: {
     Info: 'CALL/USER/INFO',
     InfoPut: 'CALL/USER/INFO/PUT',
     Profile: 'CALL/USER/PROFILE',
     GitHubSignin: 'CALL/GITHUB/SIGNIN',
+    DashBoardEdit: 'CALL/DASHBOARD/EDIT',
   },
   $Get: {
     Info: 'GET/USER/INFO',

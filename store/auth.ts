@@ -48,6 +48,9 @@ export const mutations = {
   [AuthConstant.$Set.Info](store: IState, payload: IUserInfo) {
     store.userInfo = payload
   },
+  [AuthConstant.$Set.DashBoardEdit](store: IState, payload: string) {
+    console.log(payload)
+  },
 }
 
 export const actions = {
@@ -78,6 +81,9 @@ export const actions = {
     } catch (err) {
       return Promise.reject(err)
     }
+  },
+  [AuthConstant.$Call.DashBoardEdit](store: any, payload: string) {
+    store.commit(AuthConstant.$Set.DashBoardEdit, payload)
   },
 }
 
