@@ -60,8 +60,8 @@ export default defineComponent({
     const onCardTouchStart = useCardTouchStart(context, state)
     const onCardTouchEnd = useCardTouchEnd(state)
     const onCardMoveStart = useCardMoveStart(state)
-    const onCardMove = useCardMove(state)
-    const onCardMoveEnd = useCardMoveEnd(context, state)
+    const onCardMove = useCardMove(context, state)
+    const onCardMoveEnd = useCardMoveEnd(state)
 
     return {
       state,
