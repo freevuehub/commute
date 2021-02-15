@@ -5,7 +5,13 @@
         <month-report :name="computed.userProfile.name" />
       </v-col>
       <v-col v-for="(item, index) in computed.userProfile.theme.dashboard" :key="item" cols="12">
-        <component :is="item" :index="index" :edit="state.edit" @editing="onThemeEdit" />
+        <component
+          :is="item"
+          :class="{ 'mb-3': index + 1 === computed.userProfile.theme.dashboard.length }"
+          :index="index"
+          :edit="state.edit"
+          @editing="onThemeEdit"
+        />
       </v-col>
     </v-row>
 
