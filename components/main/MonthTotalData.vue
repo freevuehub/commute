@@ -1,5 +1,5 @@
 <template>
-  <dash-board-card class="mb-3" :edit="edit" title="이번 달" @editing="onEditing">
+  <dash-board-card :edit="edit" :index="index" title="이번 달" @editing="onEditing">
     <stats>
       <span slot="sum">{{ month.monthTermSum }}</span>
       <span slot="avg">{{ month.monthTermAvg }}</span>
@@ -23,6 +23,10 @@ export default defineComponent({
     edit: {
       type: Boolean,
       default: false,
+    },
+    index: {
+      type: Number,
+      default: 0,
     },
   },
   setup(_, context) {

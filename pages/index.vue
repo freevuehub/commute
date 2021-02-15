@@ -4,8 +4,8 @@
       <v-col cols="12">
         <month-report :name="computed.userProfile.name" />
       </v-col>
-      <v-col v-for="item in computed.userProfile.theme.dashboard" :key="item" cols="12">
-        <component :is="item" :edit="state.edit" @editing="onThemeEdit" />
+      <v-col v-for="(item, index) in computed.userProfile.theme.dashboard" :key="item" cols="12">
+        <component :is="item" :index="index" :edit="state.edit" @editing="onThemeEdit" />
       </v-col>
     </v-row>
 

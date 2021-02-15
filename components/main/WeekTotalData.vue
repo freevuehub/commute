@@ -1,5 +1,5 @@
 <template>
-  <dash-board-card :edit="edit" title="이번 주" @editing="onEditing">
+  <dash-board-card :edit="edit" :index="index" title="이번 주" @editing="onEditing">
     <stats>
       <spark-line slot="before" :values="week.weekList" :labels="weekBarLabels" />
       <span slot="sum">{{ week.weekTermSum }}</span>
@@ -25,6 +25,10 @@ export default defineComponent({
     edit: {
       type: Boolean,
       default: false,
+    },
+    index: {
+      type: Number,
+      default: 0,
     },
   },
   setup(_, context) {

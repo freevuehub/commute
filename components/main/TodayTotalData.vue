@@ -1,5 +1,5 @@
 <template>
-  <dash-board-card :edit="edit" title="오늘" @editing="onEditing">
+  <dash-board-card :edit="edit" title="오늘" :index="index" @editing="onEditing">
     <v-card-text>
       <row class="mb-3" title="출근 시간">
         <span class="body-1 font-weight-bold">{{ today.startDate || 'N/A' }}</span>
@@ -44,6 +44,10 @@ export default defineComponent({
     edit: {
       type: Boolean,
       default: false,
+    },
+    index: {
+      type: Number,
+      default: 0,
     },
   },
   setup(_, context) {
