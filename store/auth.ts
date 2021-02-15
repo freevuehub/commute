@@ -59,7 +59,7 @@ export const actions = {
 
     store.commit(AuthConstant.$Set.Profile, result.profile)
   },
-  async [AuthConstant.$Call.GitHubSigin](_: any, payload: string) {
+  async [AuthConstant.$Call.GitHubSignin](_: any, payload: string) {
     try {
       const { result } = await postGitHubSignIn(payload)
 

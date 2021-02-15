@@ -23,7 +23,7 @@ export default defineComponent({
           context.root.$router.push('/')
         }
 
-        await context.root.$store.dispatch(`auth/${AuthConstant.$Call.GitHubSigin}`, code)
+        await context.root.$store.dispatch(`auth/${AuthConstant.$Call.GitHubSignin}`, code)
 
         setTimeout(timeOut, 3000)
       } catch {

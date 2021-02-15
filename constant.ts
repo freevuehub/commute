@@ -7,7 +7,7 @@ export const AuthConstant = {
     Info: 'CALL/USER/INFO',
     InfoPut: 'CALL/USER/INFO/PUT',
     Profile: 'CALL/USER/PROFILE',
-    GitHubSigin: 'CALL/GITHUB/SIGNIN',
+    GitHubSignin: 'CALL/GITHUB/SIGNIN',
   },
   $Get: {
     Info: 'GET/USER/INFO',
