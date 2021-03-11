@@ -7,6 +7,15 @@ const floor = (value: number): number => Math.floor(value)
 export const useComputed = (context: SetupContext) => ({
   today: computed(() => {
     const today = context.root.$store.getters[`main/${MainConstant.$Get.TodayData}`]
+
+    if (today.id) {
+      return {
+        totalWorkTime: 'N/A',
+        startDate: 'N/A',
+        endDate: 'N/A',
+      }
+    }
+
     const nowDiffStart = today.startDate ? dayjs().diff(today.startDate, 'minute') : 0
     const breakTime = floor(Number(nowDiffStart) / 240) * 30
 
