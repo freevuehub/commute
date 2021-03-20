@@ -53,14 +53,18 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    index: {
+      type: Number,
+      default: 0,
+    },
   },
-  setup(_, context) {
+  setup(props, context) {
     const state = useState()
     const computed = useComputed(state)
     const onCardTouchStart = useCardTouchStart(context, state)
     const onCardTouchEnd = useCardTouchEnd(state)
     const onCardMoveStart = useCardMoveStart(state)
-    const onCardMove = useCardMove(context, state)
+    const onCardMove = useCardMove(context, props, state)
     const onCardMoveEnd = useCardMoveEnd(state)
 
     return {

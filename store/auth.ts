@@ -8,6 +8,11 @@ interface IState {
   userInfo: IUserInfo
 }
 
+interface IDashBoardPayload {
+  command: string
+  index: number
+}
+
 export const state = (): IState => ({
   profile: {
     email: '',
@@ -48,8 +53,18 @@ export const mutations = {
   [AuthConstant.$Set.Info](store: IState, payload: IUserInfo) {
     store.userInfo = payload
   },
-  [AuthConstant.$Set.DashBoardEdit](store: IState, payload: string) {
-    console.log(payload)
+  [AuthConstant.$Set.DashBoardEdit](store: IState, payload: IDashBoardPayload) {
+    const currentItem = store.profile.theme.dashboard[payload.index]
+
+    if (payload.command === 'up') {
+      store.profile.theme.dashboard.sort((item: string) => {
+        return item === currentItem ? 1 : 0
+      })
+    } else if (payload.command === 'down') {
+      store.profile.theme.dashboard.sort((item: string) => {
+        return item === currentItem ? 1 : 0
+      })
+    }
   },
 }
 
@@ -82,7 +97,7 @@ export const actions = {
       return Promise.reject(err)
     }
   },
-  [AuthConstant.$Call.DashBoardEdit](store: any, payload: string) {
+  [AuthConstant.$Call.DashBoardEdit](store: any, payload: IDashBoardPayload) {
     store.commit(AuthConstant.$Set.DashBoardEdit, payload)
   },
 }

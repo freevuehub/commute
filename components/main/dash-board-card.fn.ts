@@ -1,4 +1,11 @@
 import { reactive, SetupContext, computed } from '@vue/composition-api'
+import { AuthConstant } from '~/constant'
+
+interface IProps {
+  edit: boolean
+  title: string
+  index: number
+}
 
 interface IState {
   timeout: ReturnType<typeof setTimeout> | null
@@ -73,7 +80,9 @@ export const useCardMoveStart = (state: IState) => (event: TouchEvent) => {
   window.addEventListener('scroll', noScroll)
 }
 
-export const useCardMove = (context: SetupContext, state: IState) => (event: TouchEvent) => {
+export const useCardMove = (context: SetupContext, props: IProps, state: IState) => (
+  event: TouchEvent
+) => {
   event.stopPropagation()
 
   const { refs }: any = context
@@ -86,9 +95,15 @@ export const useCardMove = (context: SetupContext, state: IState) => (event: Tou
   state.moveY = clientY - state.startY
 
   if (state.moveY < sense * -1) {
-    context.emit('up')
+    context.root.$store.dispatch(`auth/${AuthConstant.$Call.DashBoardEdit}`, {
+      command: 'up',
+      index: props.index,
+    })
   } else if (state.moveY > sense) {
-    context.emit('down')
+    context.root.$store.dispatch(`auth/${AuthConstant.$Call.DashBoardEdit}`, {
+      command: 'down',
+      index: props.index,
+    })
   }
 }
 
