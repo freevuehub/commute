@@ -2,13 +2,13 @@
   <dash-board-card :edit="edit" title="오늘" :index="index" @editing="onEditing">
     <v-card-text>
       <row class="mb-3" title="출근 시간">
-        <span class="body-1 font-weight-bold">{{ today.startDate || 'N/A' }}</span>
+        <span class="body-1 font-weight-bold">{{ today.startDate }}</span>
       </row>
       <row class="mb-3" title="근무 시간">
-        <span class="body-1 font-weight-bold">{{ today.totalWorkTime || 'N/A' }}</span>
+        <span class="body-1 font-weight-bold">{{ today.totalWorkTime }}</span>
       </row>
       <row title="퇴근 시간">
-        <span class="body-1 font-weight-bold">{{ today.endDate || 'N/A' }}</span>
+        <span class="body-1 font-weight-bold">{{ today.endDate }}</span>
       </row>
     </v-card-text>
     <v-divider></v-divider>
