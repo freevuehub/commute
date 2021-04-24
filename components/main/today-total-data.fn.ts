@@ -20,11 +20,13 @@ export const useComputed = (context: SetupContext) => ({
     const breakTime = floor(Number(nowDiffStart) / 240) * 30
 
     return {
-      totalWorkTime: today.totalWorkTime
-        ? `${floor(today.totalWorkTime / 60)}시간 ${today.totalWorkTime % 60}분`
-        : `${floor((nowDiffStart - breakTime) / 60)}시간 ${(nowDiffStart - breakTime) % 60}분`,
-      startDate: today.startDate && dayjs(today.startDate).format('HH:mm'),
-      endDate: today.endDate && dayjs(today.endDate).format('HH:mm'),
+      totalWorkTime: today.startDate
+        ? today.totalWorkTime
+          ? `${floor(today.totalWorkTime / 60)}시간 ${today.totalWorkTime % 60}분`
+          : `${floor((nowDiffStart - breakTime) / 60)}시간 ${(nowDiffStart - breakTime) % 60}분`
+        : 'N/A',
+      startDate: today.startDate ? dayjs(today.startDate).format('HH:mm') : 'N/A',
+      endDate: today.endDate ? dayjs(today.endDate).format('HH:mm') : 'N/A',
     }
   }),
 })
