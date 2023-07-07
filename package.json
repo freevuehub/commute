@@ -55,7 +55,7 @@
     "lint-staged": "^10.2.11",
     "material-design-icons-iconfont": "^5.0.1",
     "prettier": "^2.0.5",
-    "stylelint": "^13.6.1",
+    "stylelint": "^15.10.1",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^20.0.0",
     "ts-jest": "^26.1.3",
